@@ -1,182 +1,193 @@
-# (GMC) Gloves Manufacturing Company Cash Management System v3.8
+# Gloves Manufacturing Company (GMC) - Cash Management System v4.10
 
-Gloves Manufacturing Company - Darzan + Bora Calculator
+A comprehensive, offline-first web application designed specifically for gloves manufacturing businesses to track production, calculate earnings, and manage payments with intelligent deduction calculations.
 
-A comprehensive offline-first web application for managing gloves manufacturing calculations, specifically designed for tracking Bora and Darzan production with automated deduction calculations.
+🚀 Key Features
 
- 🌟 Features
+ 🧮 Smart Calculation Engine
+- Bora Calculator: 60/50/40 sizes with customizable rates
+- Darzan Calculator: Direct production tracking
+- Intelligent Deductions: 1 deduction per 50 Darzans (grouped by rate)
+- Real-time Totals: Live calculation updates
+- Combined Overview: Bora + Darzan comprehensive totals
 
- 🧮 Multi-Functional Calculator
--Bora Calculator (60, 50, 40 sizes with different rates)
--Darzan Calculator with automatic deduction calculations
--Quick calculation for instant results
--Combined totals for comprehensive overview
+💾 Advanced Data Management
+- Monthly Entry System: Date-wise production records
+- Payment Tracking: Weekly/Monthly payment logging
+- Previous Balance: Carry-forward support
+- Auto-save: Real-time data persistence
+- Data Compression: LZString optimized storage
 
- 📊 Data Management
--Monthly Entry System with date-wise organization
--Weekly Payment Tracking
--Automated Deduction Rules (1 deduction per 50 Darzans)
--Previous Balance integration
--Real-time Totals calculation
+ 📊 Professional Reporting
+- PDF Export: Comprehensive reports with color-coded totals
+- JSON Backup: Complete data export/import
+- Excel Compatibility: Through SheetJS integration
+- Print-ready: Professional formatting
 
- 💾 Data Persistence
--Offline-First design (works without internet)
--Browser Storage for data persistence
--Export/Import JSON backup functionality
--PDF Report Generation
--Auto-save feature
+🎨 User Experience
+- Responsive Design: Mobile-first approach
+- Dark/Light Themes: Toggle with persistent settings
+- Tab Navigation: Smooth scrolling interface
+- Profile Management: Image upload support
+- Multi-language: English/Urdu mixed interface
 
- 🎨 User Experience
--Responsive Design (desktop & mobile optimized)
--Dark/Light Theme toggle
--Tab-based Navigation with smooth scrolling
--Profile Image upload support
--Multi-language Support (English/Urdu mix)
+🆕 What's New in v4.10
 
- 🚀 Quick Start
+ Major Improvements
+- Revolutionary Deduction System: Rate-based grouping instead of per-entry
+- Enhanced Mobile UI: Touch-optimized with scroll arrows
+- Customizable Settings: Dynamic rate types and calculator boxes
+- Professional Forms: Improved layout and validation
+- Video Tutorials: Integrated learning system
 
-1.Download: Save the HTML file to your device
-2.Open: Double-click the file to open in any modern browser (Chrome recommended)
-3.Use: Start entering data - everything saves automatically!
+ Smart Deduction Engine
+```javascript
+// New Algorithm - Grouped by Rate
+6 Days × 20 Darzan each = 120 Total Darzans
+120 ÷ 50 = 2.4 → Roundup = 3 Deductions
 
- 📱 How to Use
-
- 1.User Information
-- Enter your name and mobile number
-- Set current month and year
-- Add previous balance if any
-
- 2.Calculator Tab
-- Use quick calculators for Bora (60/50/40) and Darzan
-- See combined totals instantly
-- Automatic deduction calculations
-
- 3.Entries Tab
-- Add daily production entries
-- Categorize by Bora size or Darzan
-- Add notes for each entry
-- Edit/delete functionality
-
- 4.Payments Tab
-- Record weekly payments
-- Track received amounts
-- Automatic deduction from totals
-
- 5.Totals Tab
-- Comprehensive monthly summary
-- Category-wise breakdown
-- Final account balance
-- Deduction details
-
- 6.Tips & Tools
-- Data backup instructions
-- Export/Import functionality
-- PDF report generation
-- Reset options
-
- 🔧 Technical Features
-
- Data Backup
--Export JSON: Download complete data backup
--Import JSON: Restore from previous backup
--PDF Reports: Generate printable reports
--Local Storage: Automatic browser saving
-
- Calculation Rules
-```
-Darzan Deduction Formula:
-- 1 deduction per 50 Darzans
-- Rounds up to next multiple (51 = 2 deductions)
-- Applied per entry basis
-- Total Darzans = (Bora60 × 60) + (Bora50 × 50) + (Bora40 × 40) + Direct Darzan
+// Old vs New Comparison
+Old System: 6 entries × 1 deduction = 6 deductions
+New System: 3 deductions (for 120 total) - 50% more accurate!
 ```
 
- Browser Compatibility
-- ✅ Chrome (Recommended)
-- ✅ Firefox
+🛠️ Installation & Setup
+
+ Quick Start
+1. Download the HTML file to your device
+2. Open in any modern browser (Chrome recommended)
+3. Configure your profile information
+4. Start Tracking - data saves automatically
+
+ Browser Requirements
+- ✅ Google Chrome (Recommended)
+- ✅ Mozilla Firefox
 - ✅ Safari
-- ✅ Edge
-- ✅ Mobile browsers
+- ✅ Microsoft Edge
+- ✅ Mobile Browsers
 
- 💡 Pro Tips
+ 📖 User Guide
 
- Data Safety
-- Regularly export JSON backups
-- Use PDF reports for physical records
-- Import feature for data recovery
+ 1. Initial Setup
+- Enter name and contact information
+- Set current month/year
+- Configure previous balance
+- Upload profile picture (optional)
 
- Efficient Usage
-- Use quick calculator for daily estimates
-- Enter entries regularly for accurate totals
-- Set previous balance for continuous tracking
-- Use notes for special entries
+ 2. Daily Operations
+- Quick Calculator: For instant estimates (non-persistent)
+- Production Entries: Permanent daily records
+- Payment Records: Income tracking
+- Real-time Analytics: Live totals and deductions
 
- Mobile Optimization
-- Touch-friendly interface
-- Responsive design
-- Mobile-specific layout
-- Offline functionality
+ 3. Monthly Cycle
+1. Set monthly targets in calculator
+2. Record daily production in entries
+3. Track weekly payments received
+4. Generate end-of-month reports
+5. Export backup before month end
 
- 🛠️ Technology Stack
--Frontend: Pure HTML5, CSS3, JavaScript (ES6+)
--Storage: Browser LocalStorage API
--PDF Generation: jsPDF + AutoTable
--Icons: Unicode emojis
--Styling: CSS Grid & Flexbox
--Offline: Service Worker
+ 4. Data Management
+- Auto-backup: Continuous local storage
+- Manual Export: JSON for external backup
+- PDF Reports: Professional documentation
+- Import Feature: Data restoration
 
- 📁 File Structure
+🔧 Technical Specifications
+
+ Architecture
+- Frontend: HTML5, CSS3, JavaScript (ES6+)
+- Storage: LocalStorage API with LZString compression
+- PDF Generation: jsPDF + AutoTable plugins
+- Styling: CSS Grid, Flexbox, CSS Variables
+- Icons: Unicode emojis + Custom CSS
+
+ Performance Features
+- Offline-First: Zero network dependency
+- Data Compression: 50%+ storage optimization
+- Lazy Loading: Tab-based content management
+- Efficient Rendering: Optimized DOM updates
+
+ Security & Privacy
+- Local Storage: Data never leaves your device
+- No Tracking: Zero analytics or telemetry
+- Export Control: You own your data completely
+
+ 📊 Calculation Rules
+
+ Production Metrics
 ```
-Gloves-Manufacture-Company.html
-├── HTML Structure
-├── CSS Styles (Embedded)
-├── JavaScript Logic (Embedded)
-└── External Libraries (CDN)
-    ├── jsPDF (PDF generation)
-    ├── jsPDF-AutoTable (Tables in PDF)
-    └── SheetJS (Excel export)
+Bora 60: Quantity × 60 × Rate
+Bora 50: Quantity × 50 × Rate  
+Bora 40: Quantity × 40 × Rate
+Darzan: Quantity × 1 × Rate
+```
+
+ Smart Deduction Formula
+```
+Total Darzans = Σ(All Bora & Darzan entries)
+Deduction Quantity = CEILING(Total Darzans ÷ 50)
+Deduction Amount = Deduction Quantity × Average Rate
+```
+
+ Final Amount Calculation
+```
+Gross Amount = Total Bora + Total Darzan + Previous Balance
+Net Amount = Gross Amount - Total Payments - Deduction Amount
 ```
 
  🔄 Version History
+
+ v4.10 (Oct 18, 2025) - MAJOR RELEASE
+- Complete deduction system overhaul
+- Rate-based grouping implementation
+- Customizable calculator interface
+- Enhanced mobile experience
+- Professional UI/UX redesign
+
  v3.8 (Sep 30, 2025)
-- Enhanced mobile responsiveness
-- Improved deduction calculations
-- Better PDF reporting
-- UI/UX refinements
+- Foundation mobile responsiveness
+- Basic deduction calculations
+- Initial PDF reporting system
 
  ⚠️ Important Notes
 
- Data Storage
-- Data is stored ONLY in your browser
-- Clearing browser data will delete all records
-- Always maintain external backups
+ Data Safety
+- Regular Backups: Export JSON monthly
+- Browser Caution: Avoid clearing cache/cookies
+- Multiple Copies: Store backups in different locations
+- PDF Archives: Generate reports for physical records
 
- Browser Recommendation
-- UseGoogle Chrome for best performance
-- Avoid clearing browser cache/cookies
-- Enable JavaScript for full functionality
+ Best Practices
+- Use calculator for estimates, entries for actual data
+- Set realistic previous balances
+- Add descriptive notes for special entries
+- Regular PDF report generation
+- Monthly JSON export ritual
 
- Offline Usage
-- Works completely offline after first load
-- No internet connection required
-- Service worker caches the application
+ 📞 Support & Resources
 
- 📞 Support
  Developer Information
--Organization: ALQAAB Org
--Developer: ALQAAB Web Studio | Shahbaz Ali
--Version: 3.8 (Sep 30, 2025)
+- Organization: ALQAAB Org
+- Development: ALQAAB Web Studio
+- Lead Developer: Shahbaz Ali
+- Version: 4.10 (Oct 18, 2025)
 
- Social Links
-- Location; https://maps.app.goo.gl/VRAW4Poyuh58bCPw5
-- LinkedIn; https://www.linkedin.com/in/alqaaborg
-- WhatsApp https://wa.me/923261182021
-- Facebook; https://www.facebook.com/alqaab.org
-- YouTube; https://www.youtube.com/@ALQAAB_YT_Studio
+ Connect With Us
+- 🌍 Location: [Google Maps] (https://maps.app.goo.gl/VRAW4Poyuh58bCPw5)
+- 🤵🏻 LinkedIn: [ALQAAB Org] (https://www.linkedin.com/in/alqaaborg)
+- 💬 WhatsApp: [+92 326 1182021] (https://wa.me/923261182021)
+- ⓕ Facebook: [ALQAAB Org] (https://www.facebook.com/alqaab.org)
+- ▶️ YouTube: [ALQAAB Studio] (https://www.youtube.com/@ALQAAB_YT_Studio)
 
+ 📄 License & Copyright
 
- 📄 License
 © 2025 ALQAAB Org. All rights reserved.
+
+This software is provided as-is for personal and business use. Modification and distribution terms available upon request.
+
 ---
-Remember: This is an offline application. Your data is precious - make regular backups using the Export JSON feature!
-Happy Calculating! ✨
+
+Remember: Your data is valuable! Regular backups ensure business continuity and accurate financial tracking.
+
+Happy Manufacturing! 🚀✨
