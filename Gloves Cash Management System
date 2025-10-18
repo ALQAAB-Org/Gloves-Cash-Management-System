@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gloves Manufacture Company</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Gloves Manufacture Company</title>
+<style>
     /* VARIABLES */
     :root{
       --bg:#f0f8ff; --card:#ffffff; --text:#1e3a8a; --muted:#4b5563; --accent:#3b82f6; --border:#bfdbfe; --ok:#10b981;
@@ -231,7 +232,7 @@
     /* NEW: Calculator section mobile improvements */
     .calculator-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
     }
     
@@ -654,7 +655,7 @@
     /* NEW: Line-wise design for calculator and totals tabs */
     .calculator-grid-new {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 15px;
     }
@@ -787,6 +788,169 @@
       color: var(--accent);
     }
     
+    /* NEW: Settings tab styles */
+    .settings-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+    }
+    
+    .settings-section h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    
+    .rate-type-list, .calculator-box-list {
+      margin-bottom: 15px;
+    }
+    
+    .rate-type-item, .calculator-box-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .rate-type-value, .calculator-box-details {
+      flex: 1;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .rate-type-value input, .calculator-box-details input, .calculator-box-details select {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+    
+    .rate-type-value input {
+      width: 80px;
+    }
+    
+    .calculator-box-details input {
+      width: 100px;
+    }
+    
+    .calculator-box-details select {
+      width: 120px;
+    }
+    
+    .rate-type-actions, .calculator-box-actions {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .add-rate-type, .add-calculator-box {
+      margin-top: 10px;
+    }
+    
+    .dynamic-totals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+    
+    .dynamic-total-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .dynamic-total-box .card-title {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* NEW: Application Preferences Styles */
+    .app-preferences {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .preference-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .preference-group label {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0;
+    }
+    
+    .save-all-settings-btn {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .save-confirmation {
+      background: rgba(16, 185, 129, 0.1);
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 10px;
+      border-left: 3px solid var(--ok);
+      color: var(--ok);
+      font-weight: 600;
+      display: none;
+    }
+    
+    /* NEW: Beautiful Total Box Styles */
+    .bora-total-box {
+      border-left: 4px solid var(--accent) !important;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02)) !important;
+    }
+    
+    .darzan-total-box {
+      border-left: 4px solid var(--accent3) !important;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02)) !important;
+    }
+    
+    .bora-total-box .card-title {
+      color: var(--accent);
+    }
+    
+    .darzan-total-box .card-title {
+      color: var(--accent3);
+    }
+    
+    .total-section-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 15px 0 10px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    /* NEW: Summary Section Grid for Desktop */
+    .summary-section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    
     /* Mobile specific styles */
     @media (max-width: 1280px) {
       .grid{grid-template-columns:repeat(2,1fr)}
@@ -794,6 +958,7 @@
       .calculator-grid {grid-template-columns: repeat(2, 1fr);}
       .calculator-grid-new {grid-template-columns: repeat(2, 1fr);}
       .totals-grid-new {grid-template-columns: repeat(2, 1fr);}
+      .summary-section-grid {grid-template-columns: repeat(2, 1fr);}
     }
     
     @media (max-width: 1024px) {
@@ -814,6 +979,7 @@
       .totals-grid {grid-template-columns: 1fr;}
       .calculator-grid-new {grid-template-columns: 1fr;}
       .totals-grid-new {grid-template-columns: 1fr;}
+      .summary-section-grid {grid-template-columns: 1fr;}
       header .wrap{gap:6px;}
       .right{gap:4px;}
       .btn{padding:6px 8px;font-size:12px;}
@@ -1163,6 +1329,31 @@
       .how-to-use-section {
         padding: 12px;
       }
+      
+      /* NEW: Settings tab mobile styling */
+      .rate-type-item, .calculator-box-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .rate-type-value, .calculator-box-details {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .rate-type-value input, .calculator-box-details input, .calculator-box-details select {
+        width: 100%;
+      }
+      
+      .rate-type-actions, .calculator-box-actions {
+        justify-content: center;
+        margin-top: 8px;
+      }
+      
+      /* NEW: Application Preferences mobile styling */
+      .app-preferences {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 600px) {
@@ -1456,606 +1647,529 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
-      <h1>Gloves Manufacture Company</h1>
-      <div class="header-buttons-container desktop-only">
-        <button id="exportBtn" class="btn-new header-btn">Export JSON</button>
-        <div class="import-btn-container">
-          <label class="import-btn-label header-btn" title="Import JSON">Import JSON</label>
-          <input id="importFile" type="file" accept="application/json" class="import-btn-input"/>
-        </div>
-        <button id="downloadPdfBtn" class="btn-new header-btn">Download PDF</button>
-        <button id="resetBtn" class="btn-new warn header-btn">Reset Month</button>
-        <button id="themeToggle" class="btn-new header-btn" title="Light/Dark">🌙 / ☀️</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap" id="mainContent">
-    <!-- User Form Section - Desktop Version -->
-    <div class="user-form-container desktop-only">
-      <div class="profile-img-container">
-        <img id="profileImageDesktop" src="https://via.placeholder.com/80" class="profile-img" alt="Profile Image">
-        <label for="profileUploadDesktop" class="profile-upload-btn">+</label>
-        <input type="file" id="profileUploadDesktop" accept="image/*" style="display: none;">
-      </div>
-      <div class="user-form">
-        <div class="form-group">
-          <label for="userName">Name:</label>
-          <input type="text" id="userName" placeholder="Enter your name" />
-        </div>
-        <div class="form-group">
-          <label for="mobileNumber">Mobile No:</label>
-          <input type="tel" id="mobileNumber" placeholder="Enter your mobile no" />
-        </div>
-        <div class="form-group form-group-full">
-          <label>Month & Year:</label>
-          <div class="date-inputs">
-            <select id="monthSelect">
-                <option value="0">January</option>
-                <option value="1">February</option>
-                <option value="2">March</option>
-                <option value="3">April</option>
-                <option value="4">May</option>
-                <option value="5">June</option>
-                <option value="6">July</option>
-                <option value="7">August</option>
-                <option value="8">September</option>
-                <option value="9">October</option>
-                <option value="10">November</option>
-                <option value="11">December</option>
-            </select>
-            <input type="number" id="yearInput" min="2020" max="2100" value="2025" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="previousBalance">Previous Balance:</label>
-          <input type="number" id="previousBalance" min="0" step="0.01" placeholder="0.00" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Combined User Info Section - Mobile Version -->
-    <div class="combined-user-info mobile-only">
-      <div class="profile-toggle-container">
-        <div class="profile-img-container">
-          <img id="profileImage" src="https://via.placeholder.com/80" class="profile-img" alt="Profile Image">
-          <label for="profileUpload" class="profile-upload-btn">+</label>
-          <input type="file" id="profileUpload" accept="image/*" style="display: none;">
-        </div>
-        <button id="mobileThemeToggle" class="mobile-toggle-btn">🌙 / ☀️</button>
-      </div>
-      
-      <div class="user-info-fields-mobile">
-        <div class="user-info-item-mobile">
-          <label for="userNameMobile">Name</label>
-          <input type="text" id="userNameMobile" placeholder="Enter your name" />
-        </div>
-        <div class="user-info-item-mobile">
-          <label for="mobileNumberMobile">Mobile No</label>
-          <input type="tel" id="mobileNumberMobile" placeholder="Enter your mobile no" />
-        </div>
-        <div class="user-info-item-mobile">
-          <label>Month & Year</label>
-          <div class="date-container">
-            <select id="monthSelectMobile" style="flex:1;">
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
-            </select>
-            <input type="number" id="yearInputMobile" min="2020" max="2100" value="2025" style="flex:1;" />
-          </div>
-        </div>
-        <div class="user-info-item-mobile">
-          <label for="previousBalanceMobile">Previous Balance</label>
-          <input type="number" id="previousBalanceMobile" min="0" step="0.01" placeholder="0.00" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabs with scroll arrows -->
+<header>
+<div class="wrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
+<h1>Gloves Manufacture Company (GMC)</h1>
+<div class="header-buttons-container desktop-only">
+<button class="btn-new header-btn" id="exportBtn">Export JSON</button>
+<div class="import-btn-container">
+<label class="import-btn-label header-btn" title="Import JSON">Import JSON</label>
+<input accept="application/json" class="import-btn-input" id="importFile" type="file"/>
+</div>
+<button class="btn-new header-btn" id="downloadPdfBtn">Download PDF</button>
+<button class="btn-new warn header-btn" id="resetBtn">Reset Month</button>
+<button class="btn-new header-btn" id="themeToggle" title="Light/Dark">🌙 / ☀️</button>
+</div>
+</div>
+</header>
+<main class="wrap" id="mainContent">
+<!-- User Form Section - Desktop Version -->
+<div class="user-form-container desktop-only">
+<div class="profile-img-container">
+<img alt="Profile Image" class="profile-img" id="profileImageDesktop" src="https://via.placeholder.com/80"/>
+<label class="profile-upload-btn" for="profileUploadDesktop">+</label>
+<input accept="image/*" id="profileUploadDesktop" style="display: none;" type="file"/>
+</div>
+<div class="user-form">
+<div class="form-group">
+<label for="userName">Name:</label>
+<input id="userName" placeholder="Enter your name" type="text">
+</input></div>
+<div class="form-group">
+<label for="mobileNumber">Mobile No:</label>
+<input id="mobileNumber" placeholder="Enter your mobile no" type="tel"/>
+</div>
+<div class="form-group form-group-full">
+<label>Month &amp; Year:</label>
+<div class="date-inputs">
+<select id="monthSelect">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+<input id="yearInput" max="2100" min="2020" type="number" value="2025"/>
+</div>
+</div>
+<div class="form-group">
+<label for="previousBalance">Previous Balance:</label>
+<input id="previousBalance" min="0" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+</div>
+<!-- Combined User Info Section - Mobile Version -->
+<div class="combined-user-info mobile-only">
+<div class="profile-toggle-container">
+<div class="profile-img-container">
+<img alt="Profile Image" class="profile-img" id="profileImage" src="https://via.placeholder.com/80"/>
+<label class="profile-upload-btn" for="profileUpload">+</label>
+<input accept="image/*" id="profileUpload" style="display: none;" type="file"/>
+</div>
+<button class="mobile-toggle-btn" id="mobileThemeToggle">🌙 / ☀️</button>
+</div>
+<div class="user-info-fields-mobile">
+<div class="user-info-item-mobile">
+<label for="userNameMobile">Name</label>
+<input id="userNameMobile" placeholder="Enter your name" type="text">
+</input></div>
+<div class="user-info-item-mobile">
+<label for="mobileNumberMobile">Mobile No</label>
+<input id="mobileNumberMobile" placeholder="Enter your mobile no" type="tel"/>
+</div>
+<div class="user-info-item-mobile">
+<label>Month &amp; Year</label>
+<div class="date-container">
+<select id="monthSelectMobile" style="flex:1;">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+<input id="yearInputMobile" max="2100" min="2020" style="flex:1;" type="number" value="2025"/>
+</div>
+</div>
+<div class="user-info-item-mobile">
+<label for="previousBalanceMobile">Previous Balance</label>
+<input id="previousBalanceMobile" min="0" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+</div>
+<!-- Tabs with scroll arrows -->
 <div class="tabs-wrapper">
-  <button class="scroll-btn left">←</button>
-  <div class="tabs">
-    <div class="tab active" data-tab="calculator">Calculator</div>
-    <div class="tab" data-tab="entries">Entries</div>
-    <div class="tab" data-tab="payments">Payments</div>
-    <div class="tab" data-tab="totals">Totals</div>
-    <div class="tab" data-tab="tips">Tips & Tools</div>
-  </div>
-  <button class="scroll-btn right">→</button>
+<button class="scroll-btn left">←</button>
+<div class="tabs">
+<div class="tab active" data-tab="calculator">Calculator</div>
+<div class="tab" data-tab="entries">Entries</div>
+<div class="tab" data-tab="payments">Payments</div>
+<div class="tab" data-tab="totals">Totals</div>
+<div class="tab" data-tab="settings">Settings</div>
+<div class="tab" data-tab="tips">Tips &amp; Tools</div>
 </div>
-
-
-    <!-- Calculator Tab -->
-    <div class="tab-content active" id="calculator-tab">
-      <div class="panel">
-        <h2>Rates & Quick Calculator</h2>
-        
-        <div class="calculator-section">
-          <h3>Bora Calculator</h3>
-          <div class="calculator-grid-new">
-            <!-- Line 1 -->
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.25</strong> <span class="pill">× 60</span></div>
-              <label>Quantity (Bora 60)</label>
-              <input id="q425Quick" type="number" min="0" step="1" placeholder="e.g., 2" />
-              <label>Amount</label>
-              <input id="a425Quick" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.50</strong> <span class="pill">× 60</span></div>
-              <label>Quantity (Bora 60)</label>
-              <input id="q450Quick60" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a450Quick60" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.75</strong> <span class="pill orange">× 60</span></div>
-              <label>Quantity (Bora 60)</label>
-              <input id="q475Quick" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a475Quick" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            
-            <!-- Line 2 -->
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 6</strong> <span class="pill red">× 60</span></div>
-              <label>Quantity (Bora 60)</label>
-              <input id="q600Quick" type="number" min="0" step="1" placeholder="e.g., 1" />
-              <label>Amount</label>
-              <input id="a600Quick" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.50</strong> <span class="pill" style="background:rgba(16,185,129,.1);color:var(--ok)">× 40</span></div>
-              <label>Quantity (Bora 40)</label>
-              <input id="q450Quick40" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a450Quick40" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.50</strong> <span class="pill" style="background:rgba(16,185,129,.1);color:var(--ok)">× 50</span></div>
-              <label>Quantity (Bora 50)</label>
-              <input id="q450Quick50" type="number" min="0" step="1" placeholder="e.g., 2" />
-              <label>Amount</label>
-              <input id="a450Quick50" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            
-            <!-- Line 3 -->
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.75</strong> <span class="pill orange">× 40</span></div>
-              <label>Quantity (Bora 40)</label>
-              <input id="q475Quick40" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a475Quick40" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.75</strong> <span class="pill orange">× 50</span></div>
-              <label>Quantity (Bora 50)</label>
-              <input id="q475Quick50" type="number" min="0" step="1" placeholder="e.g., 2" />
-              <label>Amount</label>
-              <input id="a475Quick50" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-          </div>
-        </div>
-        
-        <div class="calculator-section">
-          <h3>Darzan Calculator</h3>
-          <div class="calculator-grid-new">
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.25</strong></div>
-              <label>Quantity (Darzan)</label>
-              <input id="q425QuickDz" type="number" min="0" step="1" placeholder="e.g., 2" />
-              <label>Amount</label>
-              <input id="a425QuickDz" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.50</strong></div>
-              <label>Quantity (Darzan)</label>
-              <input id="q450QuickDz" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a450QuickDz" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 4.75</strong></div>
-              <label>Quantity (Darzan)</label>
-              <input id="q475QuickDz" type="number" min="0" step="1" placeholder="e.g., 3" />
-              <label>Amount</label>
-              <input id="a475QuickDz" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-            <div class="panel col">
-              <div class="card-title"><strong>Rate: 6</strong></div>
-              <label>Quantity (Darzan)</label>
-              <input id="q600QuickDz" type="number" min="0" step="1" placeholder="e.g., 1" />
-              <label>Amount</label>
-              <input id="a600QuickDz" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-          </div>
-        </div>
-        
-        <!-- Combined Total Section -->
-        <div class="calculator-section">
-          <h3>Combined Total (Bora + Darzan)</h3>
-          <div class="grid">
-            <div class="panel col combined-total-panel">
-              <div class="card-title"><strong>Total Bora + Darzan</strong> <span class="pill" style="background:rgba(16,185,129,.3);color:var(--ok)">All Items</span></div>
-              <label>Total Amount (Bora)</label>
-              <input id="combinedBoraAmount" type="text" readonly class="mono" placeholder="0.00" />
-              <label>Total Amount (Darzan)</label>
-              <input id="combinedDarzanAmount" type="text" readonly class="mono" placeholder="0.00" />
-              <label>Combined Total Amount</label>
-              <input id="combinedTotalAmount" type="text" readonly class="mono" placeholder="0.00" />
-            </div>
-          </div>
-        </div>
-        
-        <!-- NEW: Calculator Darzan Deduction Section - Updated for Desktop -->
-        <div class="calculator-section">
-          <h3>Calculator Darzan Deduction</h3>
-          <div class="grid">
-            <div class="panel col darzan-deduction-panel">
-              <div class="card-title"><strong>Darzan Deduction</strong> <span class="pill red">Kharab Maal</span></div>
-              <label>Total Darzans (Calculator)</label>
-              <input id="calcTotalDarzans" type="text" readonly class="mono" placeholder="0" />
-              <label>Deduction Quantity</label>
-              <input id="calcDeductionQty" type="text" readonly class="mono" placeholder="0" />
-              <label>Deduction Amount</label>
-              <input id="calcDeductionAmount" type="text" readonly class="mono deduction-amount" placeholder="0.00" />
-              <label>Final Amount After Deduction</label>
-              <input id="calcFinalAmount" type="text" readonly class="mono" placeholder="0.00" />
-              <div class="darzan-deduction">
-                <small>Har 50 Darzan par 1 deduction hoga, aur agar total 50 ka multiple na ho to upar round karke agla deduction count hoga<br>(e.g. 50=1, 51=2, 100=2).</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="calculator-clear-btn">
-            <button id="clearCalculatorBtn" class="btn-new warn">Clear All Calculator</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Entries Tab -->
-    <div class="tab-content" id="entries-tab">
-      <div class="panel">
-        <h2>Monthly Entry Sheet</h2>
-        
-        <div class="manual-entry-form">
-          <div>
-            <label for="entryDate">Date</label>
-            <input type="date" id="entryDate" />
-          </div>
-          <div>
-            <label for="entryType">Category</label>
-            <select id="entryType">
-              <option value="bora60">Bora 60</option>
-              <option value="bora50">Bora 50</option>
-              <option value="bora40">Bora 40</option>
-              <option value="darzan">Darzan</option>
-            </select>
-          </div>
-          <div>
-            <label for="entryRate">Rate Type</label>
-            <select id="entryRate">
-              <option value="4.25">4.25</option>
-              <option value="4.50">4.50</option>
-              <option value="4.75">4.75</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div>
-            <label for="entryQuantity">Quantity</label>
-            <input type="number" id="entryQuantity" min="0" step="1" placeholder="Quantity" />
-          </div>
-          <div>
-            <label for="entryNote">Note</label>
-            <input type="text" id="entryNote" placeholder="Note" />
-          </div>
-          <div style="display: flex; align-items: flex-end;">
-            <button id="addEntryBtn" class="btn-new primary">Add Entry</button>
-          </div>
-        </div>
-        
-        <div class="manual-entry-table">
-          <table id="entriesTable">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Rate</th>
-                <th>Quantity</th>
-                <th>Total Darzans</th>
-                <th>Deducts</th>
-                <th>Amount</th>
-                <th>Note</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="entriesTableBody"></tbody>
-          </table>
-        </div>
-        
-        <div class="pagination">
-          <button id="prevPageBtn" class="btn-new" disabled>Previous</button>
-          <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
-          <button id="nextPageBtn" class="btn-new" disabled>Next</button>
-        </div>
-        
-        <div class="restore-section">
-          <button id="restoreBtn" class="btn-new" disabled>Restore Last Deleted Item</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Payments Tab -->
-    <div class="tab-content" id="payments-tab">
-      <div class="panel">
-        <h2>Weekly Payments</h2>
-        <p class="note">Yahan weekly payments add karein jo monthly total se minus ho jayen gi.</p>
-        <div id="paymentsContainer">
-          <!-- Payments will be added here dynamically -->
-        </div>
-        <div class="payment-row">
-          <input type="date" id="newPaymentDate" />
-          <input type="number" id="newPaymentAmount" placeholder="Add amount" step="0.01" min="0" />
-          <input type="text" id="newPaymentNote" placeholder="Note Week 1" />
-          <button id="addPaymentBtn" class="btn-new primary">Add Payment</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Totals Tab -->
-    <div class="tab-content" id="totals-tab">
-      <div class="panel">
-        <h2>Monthly Totals</h2>
-        <div class="totals-grid-new">
-          <!-- Bora 60 Section -->
-          <div class="section-divider" data-label="Bora 60 Totals"></div>
-          
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 60 $ 4.25</strong></div>
-            <input id="totalQ425" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA425" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 60 $ 4.50</strong></div>
-            <input id="totalQ450" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA450" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 60 $ 4.75</strong></div>
-            <input id="totalQ475" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA475" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 60 $ 6</strong></div>
-            <input id="totalQ600" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA600" type="text" readonly class="mono" />
-          </div>
-          
-          <!-- Bora 50 and 40 Section -->
-          <div class="section-divider" data-label="Bora 50 & 40 Totals"></div>
-
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 40 $ 4.50</strong></div>
-            <input id="totalQ45040" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA45040" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 40 $ 4.75</strong></div>
-            <input id="totalQ47540" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA47540" type="text" readonly class="mono" />
-          </div>
-          
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 50 $ 4.50</strong></div>
-            <input id="totalQ45050" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA45050" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Bora 50 $ 4.75</strong></div>
-            <input id="totalQ47550" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalA47550" type="text" readonly class="mono" />
-          </div>
-          
-          
-          <!-- Darzan Section -->
-          <div class="section-divider" data-label="Darzan Totals"></div>
-          
-          <div class="panel">
-            <div class="card-title"><strong>Total Darzan $ 4.25</strong></div>
-            <input id="totalDz425" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalDzA425" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Darzan $ 4.50</strong></div>
-            <input id="totalDz450" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalDzA450" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Darzan $ 4.75</strong></div>
-            <input id="totalDz475" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalDzA475" type="text" readonly class="mono" />
-          </div>
-          <div class="panel">
-            <div class="card-title"><strong>Total Darzan $ 6</strong></div>
-            <input id="totalDz600" type="text" readonly class="mono" />
-            <label>Total Amount</label>
-            <input id="totalDzA600" type="text" readonly class="mono" />
-          </div>
-          
-          <!-- Summary Section -->
-          <div class="section-divider" data-label="Summary"></div>
-          
-          <!-- Deduction Section - MOVED BEFORE GRAND TOTAL -->
-          <div class="panel deduction-panel">
-            <div class="card-title"><strong>Deduction (Kharab Maal)</strong></div>
-            <label>Total Darzans</label>
-            <input id="totalDarzans" type="text" readonly class="mono" />
-            <label>Deduction Quantity</label>
-            <input id="deductionQty" type="text" readonly class="mono" />
-            <label>Deduction Amount</label>
-            <input id="deductionAmount" type="text" readonly class="mono deduction-amount" />
-            <div class="darzan-deduction">
-          <small>Har 50 Darzan par 1 deduction hoga, aur agar total 50 ka multiple na ho to upar round karke agla deduction count hoga,<br>(e.g. 50=1, 51=2, 100=2,).<br>Per Entry Deduction hogi<br>Total Darzans = (Bora60 × 60) + (Bora50 × 50) + (Bora40 × 40) + Direct Darzan</small>
-          </div>
-          </div>
-          
-          <!-- Grand Total Section - UPDATED -->
-          <div class="panel grand-total-panel">
-            <div class="card-title"><strong>Grand Total</strong></div>
-            <label>Total Bora Amount</label>
-            <input id="totalBoraAmount" type="text" readonly class="mono" />
-            <label>Total Darzan Amount</label>
-            <input id="totalDarzanAmount" type="text" readonly class="mono" />
-            <label>Previous Balance</label>
-            <input id="prevBalanceDisplay" type="text" readonly class="mono" />
-            <label>Combined Grand Total</label>
-            <input id="grandTotal" type="text" readonly class="mono" />
-          </div>
-          
-          <!-- Payment Summary Section - UPDATED -->
-<!-- Payment Summary Section - UPDATED -->
+<button class="scroll-btn right">→</button>
+</div>
+<!-- Calculator Tab -->
+<div class="tab-content active" id="calculator-tab">
+<div class="panel">
+<h2>Rates &amp; Quick Calculator</h2>
+<div class="calculator-section">
+<h3>Bora Calculator</h3>
+<div class="calculator-grid-new" id="boraCalculatorGrid">
+<!-- Bora calculator boxes will be added here dynamically -->
+</div>
+</div>
+<div class="calculator-section">
+<h3>Darzan Calculator</h3>
+<div class="calculator-grid-new" id="darzanCalculatorGrid">
+<!-- Darzan calculator boxes will be added here dynamically -->
+</div>
+</div>
+<!-- Combined Total Section -->
+<div class="calculator-section">
+<h3>Combined Total (Bora + Darzan)</h3>
+<div class="grid">
+<div class="panel col combined-total-panel">
+<div class="card-title"><strong>Total Bora + Darzan</strong> <span class="pill" style="background:rgba(16,185,129,.3);color:var(--ok)">All Items</span></div>
+<label>Total Amount (Bora)</label>
+<input class="mono" id="combinedBoraAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Total Amount (Darzan)</label>
+<input class="mono" id="combinedDarzanAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Combined Total Amount</label>
+<input class="mono" id="combinedTotalAmount" placeholder="0.00" readonly="" type="text"/>
+</div>
+</div>
+</div>
+<!-- Calculator Darzan Deduction Section -->
+<div class="calculator-section">
+<h3>Calculator Darzan Deduction</h3>
+<div class="grid">
+<div class="panel col darzan-deduction-panel">
+<div class="card-title"><strong>Darzan Deduction</strong> <span class="pill red">Kharab Maal</span></div>
+<label>Total Darzans (Calculator)</label>
+<input class="mono" id="calcTotalDarzans" placeholder="0" readonly="" type="text"/>
+<label>Deduction Quantity</label>
+<input class="mono" id="calcDeductionQty" placeholder="0" readonly="" type="text"/>
+<label>Deduction Amount</label>
+<input class="mono deduction-amount" id="calcDeductionAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Final Amount After Deduction</label>
+<input class="mono" id="calcFinalAmount" placeholder="0.00" readonly="" type="text"/>
+<div class="darzan-deduction">
+<small>Har 50 Darzan par 1 deduction hoga, aur agar total 50 ka multiple na ho to upar round karke agla deduction count hoga<br/>(e.g. 50=1, 51=2, 100=2).</small>
+</div>
+</div>
+</div>
+</div>
+<div class="calculator-clear-btn">
+<button class="btn-new warn" id="clearCalculatorBtn">Clear All Calculator</button>
+</div>
+</div>
+</div>
+<!-- Entries Tab -->
+<div class="tab-content" id="entries-tab">
+<div class="panel">
+<h2>Monthly Entry Sheet</h2>
+<div class="manual-entry-form">
+<div>
+<label for="entryDate">Date</label>
+<input id="entryDate" type="date"/>
+</div>
+<div>
+<label for="entryType">Category</label>
+<select id="entryType">
+<option value="bora60">Bora 60</option>
+<option value="bora50">Bora 50</option>
+<option value="bora40">Bora 40</option>
+<option value="darzan">Darzan</option>
+</select>
+</div>
+<div>
+<label for="entryRate">Rate Type</label>
+<select id="entryRate">
+<!-- Rate options will be populated dynamically from settings -->
+</select>
+</div>
+<div>
+<label for="entryQuantity">Quantity</label>
+<input id="entryQuantity" min="0" placeholder="Quantity" step="1" type="number"/>
+</div>
+<div>
+<label for="entryNote">Note</label>
+<input id="entryNote" placeholder="Note" type="text"/>
+</div>
+<div style="display: flex; align-items: flex-end;">
+<button class="btn-new primary" id="addEntryBtn">Add Entry</button>
+</div>
+</div>
+<div class="manual-entry-table">
+<table id="entriesTable">
+<thead>
+<tr>
+<th>Date</th>
+<th>Category</th>
+<th>Rate</th>
+<th>Quantity</th>
+<th>Total Darzans</th>
+<th>Deducts</th>
+<th>Amount</th>
+<th>Note</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="entriesTableBody"></tbody>
+</table>
+</div>
+<div class="pagination">
+<button class="btn-new" disabled="" id="prevPageBtn">Previous</button>
+<span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+<button class="btn-new" disabled="" id="nextPageBtn">Next</button>
+</div>
+<div class="restore-section">
+<button class="btn-new" disabled="" id="restoreBtn">Restore Last Deleted Item</button>
+</div>
+</div>
+</div>
+<!-- Payments Tab -->
+<div class="tab-content" id="payments-tab">
+<div class="panel">
+<h2>Weekly Payments</h2>
+<p class="note">Yahan weekly payments add karein jo monthly total se minus ho jayen gi.</p>
+<div id="paymentsContainer">
+<!-- Payments will be added here dynamically -->
+</div>
+<div class="payment-row">
+<input id="newPaymentDate" type="date"/>
+<input id="newPaymentAmount" min="0" placeholder="Add amount" step="0.01" type="number"/>
+<input id="newPaymentNote" placeholder="Note Week 1" type="text"/>
+<button class="btn-new primary" id="addPaymentBtn">Add Payment</button>
+</div>
+</div>
+</div>
+<!-- Totals Tab -->
+<div class="tab-content" id="totals-tab">
+<div class="panel">
+<h2>Monthly Totals</h2>
+<!-- Bora Totals Section -->
+<div class="total-section-header">Bora Totals</div>
+<div class="dynamic-totals-grid" id="boraTotalsGrid">
+<!-- Bora total boxes will be added here automatically -->
+</div>
+<!-- Darzan Totals Section -->
+<div class="total-section-header">Darzan Totals</div>
+<div class="dynamic-totals-grid" id="darzanTotalsGrid">
+<!-- Darzan total boxes will be added here automatically -->
+</div>
+<!-- Summary Section -->
+<div class="section-divider" data-label="Summary"></div>
+<!-- Summary Section Grid for Desktop -->
+<div class="summary-section-grid">
+<!-- Deduction Section -->
+<div class="panel deduction-panel">
+<div class="card-title"><strong>Deduction (Kharab Maal)</strong></div>
+<label>Total Darzans</label>
+<input class="mono" id="totalDarzans" readonly="" type="text"/>
+<label>Deduction Quantity</label>
+<input class="mono" id="deductionQty" readonly="" type="text"/>
+<label>Deduction Amount</label>
+<input class="mono deduction-amount" id="deductionAmount" readonly="" type="text"/>
+<div class="darzan-deduction">
+<small>
+    <strong>🚀 IMPROVED DEDUCTION RULE:</strong><br/>
+    • Ab daily basis pe har entry ka alag deduction nahi hoga<br/>
+    • Same rate ki saari entries ka total darzan calculate hoga<br/>
+    • Us total par 50 ke hisaab se roundup hoga<br/>
+    <br/>
+    <strong>Example:</strong><br/>
+    6 Din: Har Din 20 Darzan = 120 Total Darzan → 120 ÷ 50 = 2.4 → Roundup = 3 Deductions<br/>
+    <em>Purana rule: 6 din (20) × 1 deduction = 6 deductions | Naya rule: 3 (Q-120) deductions</em>
+  </small>
+</div>
+</div>
+<!-- Grand Total Section -->
+<div class="panel grand-total-panel">
+<div class="card-title"><strong>Grand Total</strong></div>
+<label>Total Bora Amount</label>
+<input class="mono" id="totalBoraAmount" readonly="" type="text"/>
+<label>Total Darzan Amount</label>
+<input class="mono" id="totalDarzanAmount" readonly="" type="text"/>
+<label>Previous Balance</label>
+<input class="mono" id="prevBalanceDisplay" readonly="" type="text"/>
+<label>Combined Grand Total</label>
+<input class="mono" id="grandTotal" readonly="" type="text"/>
+</div>
+<!-- Payment Summary Section -->
 <div class="panel payment-summary-panel">
-  <div class="card-title"><strong>Payment Summary</strong></div>
-  <label>Grand Total</label>
-  <input id="paymentGrandTotal" type="text" readonly class="mono" />
-  <label class="deducting-payments">Received Weekly Payments</label>
-  <input id="totalPayments" type="text" readonly class="mono" />
-  <label class="deducting-payments" style="color: var(--accent2);">Deducting Darzan Payments</label>
-  <input id="deductingDarzanPayments" type="text" readonly class="mono deduction-amount" />
+<div class="card-title"><strong>Payment Summary</strong></div>
+<label>Grand Total</label>
+<input class="mono" id="paymentGrandTotal" readonly="" type="text"/>
+<label class="deducting-payments">Received Weekly Payments</label>
+<input class="mono" id="totalPayments" readonly="" type="text"/>
+<label class="deducting-payments" style="color: var(--accent2);">Deducting Darzan Payments</label>
+<input class="mono deduction-amount" id="deductingDarzanPayments" readonly="" type="text"/>
 </div>
-          
-          <!-- NEW: Net Final Amount Highlight Box -->
-          <div class="panel net-final-amount-panel">
-            <div class="card-title"><strong>Account Balance</strong></div>
-            <input id="netFinalAmount" type="text" readonly class="net-final-amount" />
-            <div class="net-final-amount-label">Payable amount after all deductions</div>
+</div>
+<!-- Net Final Amount Highlight Box -->
+<div class="panel net-final-amount-panel">
+<div class="card-title"><strong>Account Balance</strong></div>
+<input class="net-final-amount" id="netFinalAmount" readonly="" type="text"/>
+<div class="net-final-amount-label">Payable amount after all deductions</div>
+</div>
+<div class="panel total-info-box">
+<div class="card-title"><strong>Last Saved</strong></div>
+<input class="mono" id="lastSaved" readonly="" type="text"/>
+<label>Status</label>
+<input id="statusIndicator" readonly="" type="text" value="All changes saved"/>
+</div>
+</div>
+</div>
+<!-- Settings Tab -->
+<div class="tab-content" id="settings-tab">
+<div class="panel">
+<h2>Application Settings</h2>
+<!-- Rate Types Settings -->
+<div class="settings-section">
+<h3>Rate Types Management</h3>
+<p class="note">Yahan ap custom rate types add, edit ya remove kar sakte hain. Yeh rates entries aur calculator mein use honge.</p>
+<div class="rate-type-list" id="rateTypeList">
+<!-- Rate types will be added here dynamically -->
+</div>
+<div class="add-rate-type">
+<button class="btn-new primary" id="addRateTypeBtn">Add New Rate Type</button>
+</div>
+</div>
+<!-- Calculator Boxes Settings -->
+<div class="settings-section">
+<h3>Calculator Boxes Management</h3>
+<p class="note">Yahan ap calculator ke boxes customize kar sakte hain - add, edit, ya remove.</p>
+<div class="calculator-box-list" id="calculatorBoxList">
+<!-- Calculator boxes will be added here dynamically -->
+</div>
+<div class="add-calculator-box">
+<button class="btn-new primary" id="addCalculatorBoxBtn">Add New Calculator Box</button>
+</div>
+</div>
+<!-- Application Preferences Section -->
+<div class="settings-section">
+<h3>Application Preferences</h3>
+<p class="note">Yahan ap application ke preferences set kar sakte hain.</p>
+<div class="app-preferences">
+<div class="preference-group">
+<label for="decimalPlaces">Decimal Places</label>
+<select id="decimalPlaces">
+<option selected="" value="2">00 (Two decimals)</option>
+<option value="none">No formatting</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="autoSave">Auto Save</label>
+<select id="autoSave">
+<option selected="" value="enable">Enable</option>
+<option value="disable">Disable</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="defaultCategory">Default Category</label>
+<select id="defaultCategory">
+<option value="bora60">Bora 60</option>
+<option value="bora50">Bora 50</option>
+<option value="bora40">Bora 40</option>
+<option selected="" value="darzan">Darzan</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="defaultRate">Default Rate</label>
+<select id="defaultRate">
+<!-- Options will be populated dynamically from rate types -->
+</select>
+</div>
+</div>
+<div class="save-all-settings-btn">
+<button class="btn-new success" id="saveAllSettingsBtn">Save All Settings</button>
+</div>
+<div class="save-confirmation" id="saveConfirmation">
+            All settings have been saved successfully!
           </div>
-          
-          <div class="panel total-info-box">
-            <div class="card-title"><strong>Last Saved</strong></div>
-            <input id="lastSaved" type="text" readonly class="mono" />
-            <label>Status</label>
-            <input id="statusIndicator" type="text" readonly value="All changes saved" />
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Tips Tab -->
-    <div class="tab-content" id="tips-tab">
-      <div class="panel">
-          <!-- NEW: How to Use Section -->
-          <div class="how-to-use-section">
-            <h3>How to Use This Calculator</h3>
-            <ul>
-              <li><strong>Browser</strong> Select Chrome browser for better use.</li>
-              <li><strong>Calculators:</strong> Sirf jaldi hisaab keliye, (data save nahi hota).</li>
-              <li><strong>Entries:</strong> Rozana/hafta war data yahan save karo.</li>
-              <li><strong>Payments:</strong> Haftawar adaigi alag se likho.</li>
-              <li><strong>Totals:</strong> Mahana summary aur final hisaab yahan milega.</li>
-              <li><strong>Backup:</strong> Data save/export (JSON/PDF) aur import se restore karo.</li>
-            </ul>
-          </div>
-          
-          
-          <h2>Tips: Data Backup</h2>
-          <p>Apka data sirf browser me save hota hai. Browser ka data clear karne se apka sara record khatam ho jayga.
-  <br>
+</div>
+<!-- Reset Settings -->
+<div class="settings-section">
+<h3>Reset Settings</h3>
+<p class="note">Yahan ap default settings par wapas ja sakte hain.</p>
+<button class="btn-new warn" id="resetSettingsBtn">Reset to Default Settings</button>
+</div>
+</div>
+</div>
+<!-- Tips Tab -->
+<div class="tab-content" id="tips-tab">
+<div class="panel">
+<!-- NEW: How to Use Section -->
+<div class="how-to-use-section">
+<h3>How to Use This Calculator</h3>
+<ul>
+<li><strong>Browser</strong> Select Chrome browser for better use.</li>
+<li><strong>Calculators:</strong> Sirf jaldi hisaab keliye, (data save nahi hota).</li>
+<li><strong>Entries:</strong> Rozana/hafta war data yahan save karo.</li>
+<li><strong>Payments:</strong> Haftawar adaigi alag se likho.</li>
+<li><strong>Totals:</strong> Mahana summary aur final hisaab yahan milega.</li>
+<li><strong>Settings:</strong> Rate types aur calculator boxes customize karo.</li>
+<li><strong>Backup:</strong> Data save/export (JSON/PDF) aur import se restore karo.</li>
+</ul>
+</div>
+<h2>Tips: Data Backup</h2>
+<p>Apka data sirf browser me save hota hai. Browser ka data clear karne se apka sara record khatam ho jayga.
+  <br/>
   Is masle se bachne ke liye, in buttons ka istemal karen:</p>
-          
-          <ol>
-              <li>
-                  <strong>Export JSON File:</strong><br>
+<ol>
+<li>
+<strong>Export JSON File:</strong><br/>
                   Apne data ki file download kar ke Google Drive ya USB me save kar len.
               </li>
-              <li>
-                  <strong>Import JSON File:</strong><br>
+<li>
+<strong>Import JSON File:</strong><br/>
                   Zarurat parne par, isi file ko dobara upload kar ke apna data wapis hasil kar len.
               </li>
-              <li>
-                  <strong>Download PDF:</strong><br>
+<li>
+<strong>Download PDF:</strong><br/>
                   Poore page ka PDF download kar ke apna record save kar len.
               </li>
-          </ol>
-          
-          <!-- Updated text with new styling -->
-          <div class="inspirational-text">
-            <p>🌿 Halal Rizq kamana bhi ek Ibadat hai.</p>
-            <p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
-          </div>
-                  
-          <!-- Buttons moved to Tips tab for mobile -->
-          <div class="tips-buttons-container mobile-only">
-            <button id="exportBtnTips" class="btn-new">Export JSON</button>
-            <div class="import-btn-container">
-              <label class="import-btn-label" title="Import JSON">Import JSON</label>
-              <input id="importFileTips" type="file" accept="application/json" class="import-btn-input"/>
-            </div>
-            <button id="downloadPdfBtnTips" class="btn-new">Download PDF</button>
-            <button id="resetBtnTips" class="btn-new warn">Reset Month</button>
-          </div>
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="wrap footer">
-    <div class="footer-content">
-      <div class="footer-title">Cash Management System v3.8 (Sep 30, 2025)</div>
-      <div class="footer-subtitle">Works offline – Data saved in your browser</div>
-      <div>© 2025 ALQAAB Org. Developed by ALQAAB Web Studio | Shahbaz Ali</div>
-      <div class="social-icons">
-        <a href="https://maps.app.goo.gl/VRAW4Poyuh58bCPw5" class="social-icon maps" title="Location" target="_blank">🌍</a>
-        <a href="https://www.linkedin.com/in/alqaaborg" class="social-icon linkedin" title="LinkedIn" target="_blank">🤵🏻</a>
-        <a href="https://wa.me/923261182021" class="social-icon whatsapp" title="WhatsApp" target="_blank">💬</a>
-        <a href="https://www.facebook.com/alqaab.org" class="social-icon facebook" title="Facebook" target="_blank">ⓕ</a>
-        <a href="https://www.youtube.com/@ALQAAB_YT_Studio" class="social-icon youtube" title="YouTube" target="_blank">▶︎</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- jsPDF library for PDF generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-  <!-- SheetJS library for Excel export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  
-  <script>
+</ol>
+<!-- Updated text with new styling -->
+<div class="inspirational-text">
+<p>🌿 Halal Rizq kamana bhi ek Ibadat hai.</p>
+<p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
+</div>
+<!-- Buttons moved to Tips tab for mobile -->
+<div class="tips-buttons-container mobile-only">
+<button class="btn-new" id="exportBtnTips">Export JSON</button>
+<div class="import-btn-container">
+<label class="import-btn-label" title="Import JSON">Import JSON</label>
+<input accept="application/json" class="import-btn-input" id="importFileTips" type="file"/>
+</div>
+<button class="btn-new" id="downloadPdfBtnTips">Download PDF</button>
+<button class="btn-new warn" id="resetBtnTips">Reset Month</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="wrap footer">
+<div class="footer-content">
+<div class="footer-title">Cash Management System v4.10 (Oct 18, 2025)</div>
+<div class="footer-subtitle">Works offline – Data saved in your browser</div>
+<div>© 2025 ALQAAB Org. Developed by ALQAAB Web Studio | Shahbaz Ali</div>
+<div class="social-icons">
+<a class="social-icon maps" href="https://maps.app.goo.gl/VRAW4Poyuh58bCPw5" target="_blank" title="Location">🌍</a>
+<a class="social-icon linkedin" href="https://www.linkedin.com/in/alqaaborg" target="_blank" title="LinkedIn">🤵🏻</a>
+<a class="social-icon whatsapp" href="https://wa.me/923261182021" target="_blank" title="WhatsApp">💬</a>
+<a class="social-icon facebook" href="https://www.facebook.com/alqaab.org" target="_blank" title="Facebook">ⓕ</a>
+<a class="social-icon youtube" href="https://www.youtube.com/@ALQAAB_YT_Studio" target="_blank" title="YouTube">▶︎</a>
+</div>
+</div>
+</footer>
+<!-- jsPDF library for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<!-- SheetJS library for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
     // --- Constants ---
-    const RATES = { r425: 4.25, r475: 4.75, r450: 4.50, r600: 6.0 };
     const PER_BORA_60 = 60;
     const PER_BORA_50 = 50;
     const PER_BORA_40 = 40;
     const PER_DARZAN = 1;
-    const STORAGE_KEY = 'gloves-manufacture-month-v14'; // Updated to v14 for new features
+    const STORAGE_KEY = 'gloves-manufacture-month-v16'; // Updated to v16 for new features
+    const SETTINGS_KEY = 'gloves-settings-v2';
+    const PREFERENCES_KEY = 'gloves-preferences-v1';
     const THEME_KEY = 'gloves-theme';
     const PROFILE_IMAGE_KEY = 'gloves-profile-image';
     const ENTRIES_PER_PAGE = 20;
     const CALCULATOR_DATA_KEY = 'gloves-calculator-data';
+
+    // Default settings
+    const DEFAULT_SETTINGS = {
+      rateTypes: [
+        { id: '1', value: 4.25, label: '4.25' },
+        { id: '2', value: 4.50, label: '4.50' },
+        { id: '3', value: 4.75, label: '4.75' },
+        { id: '4', value: 6.00, label: '6.00' }
+      ],
+      calculatorBoxes: [
+        // Bora boxes
+        { id: '1', type: 'bora', category: 'bora60', rateId: '1', multiplier: 60, label: 'Rate: 4.25 × 60' },
+        { id: '2', type: 'bora', category: 'bora60', rateId: '2', multiplier: 60, label: 'Rate: 4.50 × 60' },
+        { id: '3', type: 'bora', category: 'bora60', rateId: '3', multiplier: 60, label: 'Rate: 4.75 × 60' },
+        { id: '4', type: 'bora', category: 'bora60', rateId: '4', multiplier: 60, label: 'Rate: 6.00 × 60' },
+        { id: '5', type: 'bora', category: 'bora50', rateId: '2', multiplier: 50, label: 'Rate: 4.50 × 50' },
+        { id: '6', type: 'bora', category: 'bora50', rateId: '3', multiplier: 50, label: 'Rate: 4.75 × 50' },
+        { id: '7', type: 'bora', category: 'bora40', rateId: '2', multiplier: 40, label: 'Rate: 4.50 × 40' },
+        { id: '8', type: 'bora', category: 'bora40', rateId: '3', multiplier: 40, label: 'Rate: 4.75 × 40' },
+        // Darzan boxes
+        { id: '9', type: 'darzan', category: 'darzan', rateId: '1', multiplier: 1, label: 'Rate: 4.25' },
+        { id: '10', type: 'darzan', category: 'darzan', rateId: '2', multiplier: 1, label: 'Rate: 4.50' },
+        { id: '11', type: 'darzan', category: 'darzan', rateId: '3', multiplier: 1, label: 'Rate: 4.75' },
+        { id: '12', type: 'darzan', category: 'darzan', rateId: '4', multiplier: 1, label: 'Rate: 6.00' }
+      ]
+    };
+
+    // Default preferences
+    const DEFAULT_PREFERENCES = {
+      decimalPlaces: '2',
+      autoSave: 'enable',
+      defaultCategory: 'darzan',
+      defaultRate: '4.50'
+    };
 
     // --- Theme ---
     function applyTheme(){
@@ -2087,7 +2201,14 @@
     });
 
     // --- Helpers ---
-    const fmt = n => (Number(n)||0).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
+    let decimalPlaces = 2;
+    
+    function fmt(n) {
+      const num = Number(n) || 0;
+      if (decimalPlaces === '0') return Math.round(num).toString();
+      return num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    
     const sum = arr => arr.reduce((a,b)=>a+(Number(b)||0),0);
     
     // Format date as DD-MM-YYYY
@@ -2103,34 +2224,112 @@
       return `${day}-${month}-${year}`;
     }
 
-    // Calculate deductions based on darzan count - UPDATED AS REQUESTED
-    function calculateDeductions(totalDarzans) {
-      if (totalDarzans <= 0) return 0;
-      return Math.ceil(totalDarzans / 50);
+    // Generate unique ID
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
-    // NEW: Calculate average rate for calculator deduction
+    // Calculate deductions based on darzan count
+function calculateDeductions(totalDarzans) {
+  if (totalDarzans <= 0) return 0;
+  return Math.ceil(totalDarzans / 50);
+}
+
+// NEW FUNCTION: Calculate deductions by rate groups
+function calculateDeductionsByRate(entries) {
+  const rateGroups = {};
+  
+  // Group entries by rate
+  entries.forEach(entry => {
+    const rate = entry.rate;
+    if (!rateGroups[rate]) {
+      rateGroups[rate] = 0;
+    }
+    
+    let multiplier;
+    if (entry.type === 'bora60') multiplier = PER_BORA_60;
+    else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+    else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+    else multiplier = PER_DARZAN;
+    
+    rateGroups[rate] += (Number(entry.quantity) || 0) * multiplier;
+  });
+  
+  // Calculate deductions for each rate group
+  let totalDeductionQty = 0;
+  let totalDeductionAmount = 0;
+  
+  Object.keys(rateGroups).forEach(rate => {
+    const groupTotalDarzans = rateGroups[rate];
+    const groupDeductionQty = Math.ceil(groupTotalDarzans / 50);
+    totalDeductionQty += groupDeductionQty;
+    totalDeductionAmount += groupDeductionQty * Number(rate);
+  });
+  
+  return { totalDeductionQty, totalDeductionAmount };
+}
+
+    // Calculate average rate for calculator deduction
     function calculateAverageRate(totalAmount, totalDarzans) {
       if (totalDarzans <= 0) return 0;
       return totalAmount / totalDarzans;
     }
 
-    function emptyMonth(){
-      return {
-        meta:{ 
-          createdAt: new Date().toISOString(),
-          userName: '',
-          mobileNumber: '',
-          month: new Date().getMonth(),
-          year: new Date().getFullYear(),
-          previousBalance: 0,
-          profileImage: localStorage.getItem(PROFILE_IMAGE_KEY) || ''
-        },
-        entries: [],
-        payments: [],
-        currentPage: 1,
-        deletedItems: [] // For restore functionality
-      };
+    // --- Settings Management ---
+    let settings = loadSettings();
+    let preferences = loadPreferences();
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(SETTINGS_KEY);
+        if (!raw) return DEFAULT_SETTINGS;
+        return JSON.parse(raw);
+      } catch (e) {
+        return DEFAULT_SETTINGS;
+      }
+    }
+
+    function saveSettings() {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    }
+
+    function loadPreferences() {
+      try {
+        const raw = localStorage.getItem(PREFERENCES_KEY);
+        if (!raw) return DEFAULT_PREFERENCES;
+        return JSON.parse(raw);
+      } catch (e) {
+        return DEFAULT_PREFERENCES;
+      }
+    }
+
+    function savePreferences() {
+      localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
+      applyPreferences();
+    }
+
+    function applyPreferences() {
+      decimalPlaces = preferences.decimalPlaces;
+      
+      // Update decimal places in UI
+      document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
+      document.getElementById('autoSave').value = preferences.autoSave;
+      document.getElementById('defaultCategory').value = preferences.defaultCategory;
+      document.getElementById('defaultRate').value = preferences.defaultRate;
+      
+      // Recalculate and update all displayed values
+      totals();
+      updateDynamicTotals();
+      updateCombinedQuickTotal();
+      updateCalculatorDeduction();
+    }
+
+    function resetSettings() {
+      settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+      saveSettings();
+      renderSettings();
+      updateCalculatorBoxes();
+      updateRateTypeDropdown();
     }
 
     // --- State ---
@@ -2162,7 +2361,30 @@
       }
     }
 
+    function emptyMonth(){
+      return {
+        meta:{ 
+          createdAt: new Date().toISOString(),
+          userName: '',
+          mobileNumber: '',
+          month: new Date().getMonth(),
+          year: new Date().getFullYear(),
+          previousBalance: 0,
+          profileImage: localStorage.getItem(PROFILE_IMAGE_KEY) || ''
+        },
+        entries: [],
+        payments: [],
+        currentPage: 1,
+        deletedItems: [] // For restore functionality
+      };
+    }
+
     function save(){
+      if (preferences.autoSave === 'disable') {
+        document.getElementById('statusIndicator').value = "Auto Save Disabled";
+        return;
+      }
+      
       state.meta.lastSaved = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
@@ -2176,47 +2398,32 @@
       
       // Save calculator data
       saveCalculatorData();
+      
+      // Update dynamic totals
+      updateDynamicTotals();
     }
 
-    // NEW: Save calculator inputs to localStorage
+    // Save calculator inputs to localStorage
     function saveCalculatorData() {
-      const calculatorData = {
-        q425Quick: document.getElementById('q425Quick').value || '',
-        q450Quick60: document.getElementById('q450Quick60').value || '',
-        q475Quick: document.getElementById('q475Quick').value || '',
-        q600Quick: document.getElementById('q600Quick').value || '',
-        q450Quick40: document.getElementById('q450Quick40').value || '',
-        q450Quick50: document.getElementById('q450Quick50').value || '',
-        q475Quick40: document.getElementById('q475Quick40').value || '',
-        q475Quick50: document.getElementById('q475Quick50').value || '',
-        q425QuickDz: document.getElementById('q425QuickDz').value || '',
-        q450QuickDz: document.getElementById('q450QuickDz').value || '',
-        q475QuickDz: document.getElementById('q475QuickDz').value || '',
-        q600QuickDz: document.getElementById('q600QuickDz').value || ''
-      };
+      const calculatorData = {};
+      document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
+        calculatorData[input.id] = input.value || '';
+      });
       localStorage.setItem(CALCULATOR_DATA_KEY, JSON.stringify(calculatorData));
     }
 
-    // NEW: Load calculator inputs from localStorage
+    // Load calculator inputs from localStorage
     function loadCalculatorData() {
       try {
         const calculatorData = JSON.parse(localStorage.getItem(CALCULATOR_DATA_KEY) || '{}');
         
-        document.getElementById('q425Quick').value = calculatorData.q425Quick || '';
-        document.getElementById('q450Quick60').value = calculatorData.q450Quick60 || '';
-        document.getElementById('q475Quick').value = calculatorData.q475Quick || '';
-        document.getElementById('q600Quick').value = calculatorData.q600Quick || '';
-        document.getElementById('q450Quick40').value = calculatorData.q450Quick40 || '';
-        document.getElementById('q450Quick50').value = calculatorData.q450Quick50 || '';
-        document.getElementById('q475Quick40').value = calculatorData.q475Quick40 || '';
-        document.getElementById('q475Quick50').value = calculatorData.q475Quick50 || '';
-        document.getElementById('q425QuickDz').value = calculatorData.q425QuickDz || '';
-        document.getElementById('q450QuickDz').value = calculatorData.q450QuickDz || '';
-        document.getElementById('q475QuickDz').value = calculatorData.q475QuickDz || '';
-        document.getElementById('q600QuickDz').value = calculatorData.q600QuickDz || '';
-        
-        // Trigger calculation to update all fields
-        document.getElementById('q425Quick').dispatchEvent(new Event('input'));
+        Object.keys(calculatorData).forEach(id => {
+          const input = document.getElementById(id);
+          if (input) {
+            input.value = calculatorData[id];
+            input.dispatchEvent(new Event('input'));
+          }
+        });
       } catch (e) {
         console.error('Error loading calculator data:', e);
       }
@@ -2239,6 +2446,403 @@
         document.getElementById('profileImage').src = profileImage;
         document.getElementById('profileImageDesktop').src = profileImage;
       }
+    }
+
+    // --- Settings Rendering ---
+    function renderSettings() {
+      renderRateTypes();
+      renderCalculatorBoxes();
+      renderPreferences();
+    }
+
+    function renderRateTypes() {
+      const container = document.getElementById('rateTypeList');
+      container.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const item = document.createElement('div');
+        item.className = 'rate-type-item';
+        item.innerHTML = `
+          <div class="rate-type-value">
+            <input type="number" value="${rateType.value}" step="0.01" min="0" class="rate-value" data-id="${rateType.id}" />
+            <input type="text" value="${rateType.label}" placeholder="Label" class="rate-label" data-id="${rateType.id}" />
+          </div>
+          <div class="rate-type-actions">
+            <button class="btn-new save-rate" data-id="${rateType.id}">Save</button>
+            <button class="btn-new warn delete-rate" data-id="${rateType.id}">Delete</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.save-rate').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const valueInput = document.querySelector(`.rate-value[data-id="${id}"]`);
+          const labelInput = document.querySelector(`.rate-label[data-id="${id}"]`);
+          
+          const rateType = settings.rateTypes.find(rt => rt.id === id);
+          if (rateType) {
+            rateType.value = parseFloat(valueInput.value) || 0;
+            rateType.label = labelInput.value || rateType.value.toString();
+            saveSettings();
+            updateRateTypeDropdown();
+            updateCalculatorBoxes();
+            updatePreferencesDefaultRate();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.delete-rate').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          if (settings.rateTypes.length <= 1) {
+            alert('At least one rate type is required');
+            return;
+          }
+          
+          settings.rateTypes = settings.rateTypes.filter(rt => rt.id !== id);
+          saveSettings();
+          renderSettings();
+          updateRateTypeDropdown();
+          updateCalculatorBoxes();
+          updatePreferencesDefaultRate();
+        });
+      });
+    }
+
+    function renderCalculatorBoxes() {
+      const container = document.getElementById('calculatorBoxList');
+      container.innerHTML = '';
+      
+      settings.calculatorBoxes.forEach(box => {
+        const item = document.createElement('div');
+        item.className = 'calculator-box-item';
+        item.innerHTML = `
+          <div class="calculator-box-details">
+            <select class="box-type" data-id="${box.id}">
+              <option value="bora" ${box.type === 'bora' ? 'selected' : ''}>Bora</option>
+              <option value="darzan" ${box.type === 'darzan' ? 'selected' : ''}>Darzan</option>
+            </select>
+            <select class="box-category" data-id="${box.id}">
+              <option value="bora60" ${box.category === 'bora60' ? 'selected' : ''}>Bora 60</option>
+              <option value="bora50" ${box.category === 'bora50' ? 'selected' : ''}>Bora 50</option>
+              <option value="bora40" ${box.category === 'bora40' ? 'selected' : ''}>Bora 40</option>
+              <option value="darzan" ${box.category === 'darzan' ? 'selected' : ''}>Darzan</option>
+            </select>
+            <select class="box-rate" data-id="${box.id}">
+              ${settings.rateTypes.map(rt => 
+                `<option value="${rt.id}" ${box.rateId === rt.id ? 'selected' : ''}>${rt.label}</option>`
+              ).join('')}
+            </select>
+            <input type="number" value="${box.multiplier}" min="1" step="1" class="box-multiplier" data-id="${box.id}" />
+            <input type="text" value="${box.label}" placeholder="Label" class="box-label" data-id="${box.id}" />
+          </div>
+          <div class="calculator-box-actions">
+            <button class="btn-new save-box" data-id="${box.id}">Save</button>
+            <button class="btn-new warn delete-box" data-id="${box.id}">Delete</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.save-box').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const typeSelect = document.querySelector(`.box-type[data-id="${id}"]`);
+          const categorySelect = document.querySelector(`.box-category[data-id="${id}"]`);
+          const rateSelect = document.querySelector(`.box-rate[data-id="${id}"]`);
+          const multiplierInput = document.querySelector(`.box-multiplier[data-id="${id}"]`);
+          const labelInput = document.querySelector(`.box-label[data-id="${id}"]`);
+          
+          const box = settings.calculatorBoxes.find(b => b.id === id);
+          if (box) {
+            box.type = typeSelect.value;
+            box.category = categorySelect.value;
+            box.rateId = rateSelect.value;
+            box.multiplier = parseInt(multiplierInput.value) || 1;
+            box.label = labelInput.value || `${getRateLabel(box.rateId)} × ${box.multiplier}`;
+            saveSettings();
+            updateCalculatorBoxes();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.delete-box').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          settings.calculatorBoxes = settings.calculatorBoxes.filter(b => b.id !== id);
+          saveSettings();
+          renderSettings();
+          updateCalculatorBoxes();
+        });
+      });
+    }
+
+    function renderPreferences() {
+      document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
+      document.getElementById('autoSave').value = preferences.autoSave;
+      document.getElementById('defaultCategory').value = preferences.defaultCategory;
+      
+      // Update default rate dropdown
+      updatePreferencesDefaultRate();
+    }
+
+    function updatePreferencesDefaultRate() {
+      const defaultRateSelect = document.getElementById('defaultRate');
+      defaultRateSelect.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const option = document.createElement('option');
+        option.value = rateType.value;
+        option.textContent = rateType.label;
+        if (rateType.value == preferences.defaultRate) {
+          option.selected = true;
+        }
+        defaultRateSelect.appendChild(option);
+      });
+    }
+
+    // Get rate label by ID
+    function getRateLabel(rateId) {
+      const rateType = settings.rateTypes.find(rt => rt.id === rateId);
+      return rateType ? rateType.label : 'N/A';
+    }
+
+    // Get rate value by ID
+    function getRateValue(rateId) {
+      const rateType = settings.rateTypes.find(rt => rt.id === rateId);
+      return rateType ? rateType.value : 0;
+    }
+
+    // Update rate type dropdown in entries form
+    function updateRateTypeDropdown() {
+      const dropdown = document.getElementById('entryRate');
+      dropdown.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const option = document.createElement('option');
+        option.value = rateType.value;
+        option.textContent = rateType.label;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Update calculator boxes
+    function updateCalculatorBoxes() {
+      const boraGrid = document.getElementById('boraCalculatorGrid');
+      const darzanGrid = document.getElementById('darzanCalculatorGrid');
+      
+      boraGrid.innerHTML = '';
+      darzanGrid.innerHTML = '';
+      
+      settings.calculatorBoxes.forEach(box => {
+        const boxId = `calc_${box.id}`;
+        const qId = `q${boxId}`;
+        const aId = `a${boxId}`;
+        
+        const boxElement = document.createElement('div');
+        boxElement.className = 'panel col';
+        
+        // Determine pill color based on multiplier
+        let pillClass = 'pill';
+        if (box.multiplier === 60) pillClass = 'pill';
+        else if (box.multiplier === 50) pillClass = 'pill orange';
+        else if (box.multiplier === 40) pillClass = 'pill red';
+        else pillClass = 'pill';
+        
+        boxElement.innerHTML = `
+          <div class="card-title"><strong>${box.label}</strong> <span class="${pillClass}">× ${box.multiplier}</span></div>
+          <label>Quantity</label>
+          <input id="${qId}" type="number" min="0" step="1" placeholder="e.g., 2" />
+          <label>Amount</label>
+          <input id="${aId}" type="text" readonly class="mono" placeholder="0.00" />
+        `;
+        
+        if (box.type === 'bora') {
+          boraGrid.appendChild(boxElement);
+        } else {
+          darzanGrid.appendChild(boxElement);
+        }
+        
+        // Setup calculator functionality
+        setupQuickCalculator(qId, aId, getRateValue(box.rateId), box.multiplier);
+      });
+      
+      // Load saved calculator data
+      loadCalculatorData();
+    }
+
+    // Setup quick calculator for a box
+    function setupQuickCalculator(qId, aId, rate, multiplier) {
+      const q = document.getElementById(qId);
+      const a = document.getElementById(aId);
+      
+      function calc() { 
+        a.value = fmt((Number(q.value)||0) * rate * multiplier);
+        updateCombinedQuickTotal();
+        updateCalculatorDeduction();
+        saveCalculatorData();
+      }
+      
+      q.addEventListener('input', calc);
+      
+      // Add Enter key functionality
+      q.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          calc();
+          // Move focus to next input for quick data entry
+          const inputs = Array.from(document.querySelectorAll('input[type="number"]'));
+          const currentIndex = inputs.indexOf(q);
+          if (currentIndex < inputs.length - 1) {
+            inputs[currentIndex + 1].focus();
+          }
+        }
+      });
+      
+      calc();
+    }
+
+    // Add new rate type
+    document.getElementById('addRateTypeBtn').addEventListener('click', () => {
+      const newId = generateId();
+      settings.rateTypes.push({
+        id: newId,
+        value: 0,
+        label: 'New Rate'
+      });
+      saveSettings();
+      renderSettings();
+    });
+
+    // Add new calculator box
+    document.getElementById('addCalculatorBoxBtn').addEventListener('click', () => {
+      const newId = generateId();
+      const firstRateId = settings.rateTypes[0]?.id || '1';
+      
+      settings.calculatorBoxes.push({
+        id: newId,
+        type: 'bora',
+        category: 'bora60',
+        rateId: firstRateId,
+        multiplier: 60,
+        label: 'New Box'
+      });
+      saveSettings();
+      renderSettings();
+    });
+
+    // Reset settings
+    document.getElementById('resetSettingsBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset all settings to default?')) {
+        resetSettings();
+      }
+    });
+
+    // Save all settings
+    document.getElementById('saveAllSettingsBtn').addEventListener('click', () => {
+      // Update preferences from UI
+      preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
+      preferences.autoSave = document.getElementById('autoSave').value;
+      preferences.defaultCategory = document.getElementById('defaultCategory').value;
+      preferences.defaultRate = document.getElementById('defaultRate').value;
+      
+      savePreferences();
+      
+      // Show confirmation
+      const confirmation = document.getElementById('saveConfirmation');
+      confirmation.style.display = 'block';
+      setTimeout(() => {
+        confirmation.style.display = 'none';
+      }, 3000);
+    });
+
+    // --- Dynamic Totals ---
+    function updateDynamicTotals() {
+      const boraContainer = document.getElementById('boraTotalsGrid');
+      const darzanContainer = document.getElementById('darzanTotalsGrid');
+      
+      boraContainer.innerHTML = '';
+      darzanContainer.innerHTML = '';
+      
+      // Group entries by category and rate
+      const boraEntries = {};
+      const darzanEntries = {};
+      
+      state.entries.forEach(entry => {
+        const key = `${entry.type}_${entry.rate}`;
+        
+        let multiplier;
+        if (entry.type === 'bora60') multiplier = PER_BORA_60;
+        else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+        else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+        else multiplier = PER_DARZAN;
+        
+        const entryAmount = (Number(entry.quantity) || 0) * Number(entry.rate) * multiplier;
+        
+        if (entry.type.startsWith('bora')) {
+          if (!boraEntries[key]) {
+            boraEntries[key] = {
+              type: entry.type,
+              rate: entry.rate,
+              quantity: 0,
+              amount: 0
+            };
+          }
+          boraEntries[key].quantity += Number(entry.quantity) || 0;
+          boraEntries[key].amount += entryAmount;
+        } else {
+          if (!darzanEntries[key]) {
+            darzanEntries[key] = {
+              type: entry.type,
+              rate: entry.rate,
+              quantity: 0,
+              amount: 0
+            };
+          }
+          darzanEntries[key].quantity += Number(entry.quantity) || 0;
+          darzanEntries[key].amount += entryAmount;
+        }
+      });
+      
+      // Create boxes for each bora group
+      Object.values(boraEntries).forEach(group => {
+        let categoryName = '';
+        if (group.type === 'bora60') categoryName = 'Bora 60';
+        else if (group.type === 'bora50') categoryName = 'Bora 50';
+        else if (group.type === 'bora40') categoryName = 'Bora 40';
+        
+        const box = document.createElement('div');
+        box.className = 'dynamic-total-box bora-total-box';
+        box.innerHTML = `
+          <div class="card-title">
+            <span>${categoryName} $ ${group.rate}</span>
+          </div>
+          <label>Total Quantity</label>
+          <input type="text" value="${group.quantity}" readonly class="mono" />
+          <label>Total Amount</label>
+          <input type="text" value="${fmt(group.amount)}" readonly class="mono" />
+        `;
+        boraContainer.appendChild(box);
+      });
+      
+      // Create boxes for each darzan group
+      Object.values(darzanEntries).forEach(group => {
+        const box = document.createElement('div');
+        box.className = 'dynamic-total-box darzan-total-box';
+        box.innerHTML = `
+          <div class="card-title">
+            <span>Darzan $ ${group.rate}</span>
+          </div>
+          <label>Total Quantity</label>
+          <input type="text" value="${group.quantity}" readonly class="mono" />
+          <label>Total Amount</label>
+          <input type="text" value="${fmt(group.amount)}" readonly class="mono" />
+        `;
+        darzanContainer.appendChild(box);
+      });
     }
 
     // --- Build Entries Table ---
@@ -2317,7 +2921,8 @@
           state.entries.splice(index, 1);
           renderEntriesTable();
           totals();
-          updateCombinedQuickTotal(); // Update combined total
+          updateCombinedQuickTotal();
+          updateDynamicTotals();
           document.getElementById('statusIndicator').value = "Saving...";
           save();
         });
@@ -2363,10 +2968,9 @@
             <div class="form-group">
               <label for="editRate">Rate Type</label>
               <select id="editRate">
-                <option value="4.25" ${entry.rate == 4.25 ? 'selected' : ''}>4.25</option>
-                <option value="4.50" ${entry.rate == 4.50 ? 'selected' : ''}>4.50</option>
-                <option value="4.75" ${entry.rate == 4.75 ? 'selected' : ''}>4.75</option>
-                <option value="6" ${entry.rate == 6 ? 'selected' : ''}>6</option>
+                ${settings.rateTypes.map(rt => 
+                  `<option value="${rt.value}" ${entry.rate == rt.value ? 'selected' : ''}>${rt.label}</option>`
+                ).join('')}
               </select>
             </div>
             <div class="form-group">
@@ -2434,6 +3038,7 @@
         
         renderEntriesTable();
         totals();
+        updateDynamicTotals();
         document.getElementById('statusIndicator').value = "Saving...";
         save();
       }
@@ -2493,6 +3098,18 @@
       document.getElementById('entryDate').value = today;
       document.getElementById('newPaymentDate').value = today;
       
+      // Apply preferences
+      applyPreferences();
+      
+      // Render settings
+      renderSettings();
+      
+      // Update rate type dropdown
+      updateRateTypeDropdown();
+      
+      // Update calculator boxes
+      updateCalculatorBoxes();
+      
       // Render entries table
       renderEntriesTable();
       
@@ -2505,13 +3122,13 @@
       // Calculate totals
       totals();
       
-      // Load calculator data
-      loadCalculatorData();
+      // Update dynamic totals
+      updateDynamicTotals();
       
       // Update combined quick total
       updateCombinedQuickTotal();
       
-      // NEW: Update calculator deduction
+      // Update calculator deduction
       updateCalculatorDeduction();
       
       if(state.meta.lastSaved){
@@ -2520,8 +3137,6 @@
       
       // Update restore button state
       document.getElementById('restoreBtn').disabled = state.deletedItems.length === 0;
-      
-      // Update net final amount
     }
 
     // --- Totals Calculation Functions ---
@@ -2544,10 +3159,10 @@
         .filter(e => e.type === 'bora60' && e.rate == 6)
         .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
       
-      const bora60Amount425 = bora60425 * RATES.r425 * PER_BORA_60;
-      const bora60Amount450 = bora60450 * RATES.r450 * PER_BORA_60;
-      const bora60Amount475 = bora60475 * RATES.r475 * PER_BORA_60;
-      const bora60Amount600 = bora60600 * RATES.r600 * PER_BORA_60;
+      const bora60Amount425 = bora60425 * 4.25 * PER_BORA_60;
+      const bora60Amount450 = bora60450 * 4.50 * PER_BORA_60;
+      const bora60Amount475 = bora60475 * 4.75 * PER_BORA_60;
+      const bora60Amount600 = bora60600 * 6.00 * PER_BORA_60;
       
       return {
         bora60425, bora60450, bora60475, bora60600,
@@ -2565,8 +3180,8 @@
         .filter(e => e.type === 'bora50' && e.rate == 4.50)
         .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
       
-      const bora50Amount475 = bora50475 * RATES.r475 * PER_BORA_50;
-      const bora50Amount450 = bora50450 * RATES.r450 * PER_BORA_50;
+      const bora50Amount475 = bora50475 * 4.75 * PER_BORA_50;
+      const bora50Amount450 = bora50450 * 4.50 * PER_BORA_50;
       
       return {
         bora50475, bora50450,
@@ -2584,8 +3199,8 @@
         .filter(e => e.type === 'bora40' && e.rate == 4.50)
         .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
       
-      const bora40Amount475 = bora40475 * RATES.r475 * PER_BORA_40;
-      const bora40Amount450 = bora40450 * RATES.r450 * PER_BORA_40;
+      const bora40Amount475 = bora40475 * 4.75 * PER_BORA_40;
+      const bora40Amount450 = bora40450 * 4.50 * PER_BORA_40;
       
       return {
         bora40475, bora40450,
@@ -2611,10 +3226,10 @@
         .filter(e => e.type === 'darzan' && e.rate == 6)
         .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
       
-      const darzanAmount425 = darzan425 * RATES.r425 * PER_DARZAN;
-      const darzanAmount475 = darzan475 * RATES.r475 * PER_DARZAN;
-      const darzanAmount450 = darzan450 * RATES.r450 * PER_DARZAN;
-      const darzanAmount600 = darzan600 * RATES.r600 * PER_DARZAN;
+      const darzanAmount425 = darzan425 * 4.25 * PER_DARZAN;
+      const darzanAmount475 = darzan475 * 4.75 * PER_DARZAN;
+      const darzanAmount450 = darzan450 * 4.50 * PER_DARZAN;
+      const darzanAmount600 = darzan600 * 6.00 * PER_DARZAN;
       
       return {
         darzan425, darzan475, darzan450, darzan600,
@@ -2622,29 +3237,26 @@
       };
     }
     
-    // Calculate deduction totals
-    function calculateDeductionTotals() {
-      let totalDarzans = 0;
-      let totalDeductionQty = 0;
-      let totalDeductionAmount = 0;
-      
-      state.entries.forEach(entry => {
-        let multiplier;
-        if (entry.type === 'bora60') multiplier = PER_BORA_60;
-        else if (entry.type === 'bora50') multiplier = PER_BORA_50;
-        else if (entry.type === 'bora40') multiplier = PER_BORA_40;
-        else multiplier = PER_DARZAN;
-        
-        const entryDarzans = (Number(entry.quantity) || 0) * multiplier;
-        totalDarzans += entryDarzans;
-        
-        const deductionQty = calculateDeductions(entryDarzans);
-        totalDeductionQty += deductionQty;
-        totalDeductionAmount += deductionQty * Number(entry.rate);
-      });
-      
-      return { totalDarzans, totalDeductionQty, totalDeductionAmount };
-    }
+    // Calculate deduction totals - UPDATED VERSION
+function calculateDeductionTotals() {
+  let totalDarzans = 0;
+  
+  state.entries.forEach(entry => {
+    let multiplier;
+    if (entry.type === 'bora60') multiplier = PER_BORA_60;
+    else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+    else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+    else multiplier = PER_DARZAN;
+    
+    const entryDarzans = (Number(entry.quantity) || 0) * multiplier;
+    totalDarzans += entryDarzans;
+  });
+  
+  // Use new function for deductions by rate groups
+  const { totalDeductionQty, totalDeductionAmount } = calculateDeductionsByRate(state.entries);
+  
+  return { totalDarzans, totalDeductionQty, totalDeductionAmount };
+}
 
     function totals(){
       // Calculate totals using helper functions
@@ -2678,38 +3290,6 @@
       const totalDarzanAmount = darzanTotals.darzanAmount425 + darzanTotals.darzanAmount475 + 
                                darzanTotals.darzanAmount450 + darzanTotals.darzanAmount600;
 
-      // Update Bora 60 totals
-      document.getElementById('totalQ425').value = bora60Totals.bora60425;
-      document.getElementById('totalA425').value = fmt(bora60Totals.bora60Amount425);
-      document.getElementById('totalQ450').value = bora60Totals.bora60450;
-      document.getElementById('totalA450').value = fmt(bora60Totals.bora60Amount450);
-      document.getElementById('totalQ475').value = bora60Totals.bora60475;
-      document.getElementById('totalA475').value = fmt(bora60Totals.bora60Amount475);
-      document.getElementById('totalQ600').value = bora60Totals.bora60600;
-      document.getElementById('totalA600').value = fmt(bora60Totals.bora60Amount600);
-      
-      // Update Bora 50 totals
-      document.getElementById('totalQ47550').value = bora50Totals.bora50475;
-      document.getElementById('totalA47550').value = fmt(bora50Totals.bora50Amount475);
-      document.getElementById('totalQ45050').value = bora50Totals.bora50450;
-      document.getElementById('totalA45050').value = fmt(bora50Totals.bora50Amount450);
-      
-      // Update Bora 40 totals
-      document.getElementById('totalQ47540').value = bora40Totals.bora40475;
-      document.getElementById('totalA47540').value = fmt(bora40Totals.bora40Amount475);
-      document.getElementById('totalQ45040').value = bora40Totals.bora40450;
-      document.getElementById('totalA45040').value = fmt(bora40Totals.bora40Amount450);
-      
-      // Update Darzan totals
-      document.getElementById('totalDz425').value = darzanTotals.darzan425;
-      document.getElementById('totalDzA425').value = fmt(darzanTotals.darzanAmount425);
-      document.getElementById('totalDz475').value = darzanTotals.darzan475;
-      document.getElementById('totalDzA475').value = fmt(darzanTotals.darzanAmount475);
-      document.getElementById('totalDz450').value = darzanTotals.darzan450;
-      document.getElementById('totalDzA450').value = fmt(darzanTotals.darzanAmount450);
-      document.getElementById('totalDz600').value = darzanTotals.darzan600;
-      document.getElementById('totalDzA600').value = fmt(darzanTotals.darzanAmount600);
-      
       // Update deduction totals
       document.getElementById('totalDarzans').value = deductionTotals.totalDarzans;
       document.getElementById('deductionQty').value = deductionTotals.totalDeductionQty;
@@ -2730,172 +3310,95 @@
 
     // Update combined quick total
     function updateCombinedQuickTotal() {
-      // Calculate bora amount from all bora inputs
-      const q425 = Number(document.getElementById('q425Quick').value) || 0;
-      const q45060 = Number(document.getElementById('q450Quick60').value) || 0;
-      const q475 = Number(document.getElementById('q475Quick').value) || 0;
-      const q600 = Number(document.getElementById('q600Quick').value) || 0;
-      const q45040 = Number(document.getElementById('q450Quick40').value) || 0;
-      const q45050 = Number(document.getElementById('q450Quick50').value) || 0;
-      const q47540 = Number(document.getElementById('q475Quick40').value) || 0;
-      const q47550 = Number(document.getElementById('q475Quick50').value) || 0;
+      let boraAmount = 0;
+      let darzanAmount = 0;
       
-      const boraAmount = (q425 * RATES.r425 * PER_BORA_60) + 
-                         (q45060 * RATES.r450 * PER_BORA_60) + 
-                         (q475 * RATES.r475 * PER_BORA_60) +
-                         (q600 * RATES.r600 * PER_BORA_60) +
-                         (q45040 * RATES.r450 * PER_BORA_40) +
-                         (q45050 * RATES.r450 * PER_BORA_50) +
-                         (q47540 * RATES.r475 * PER_BORA_40) +
-                         (q47550 * RATES.r475 * PER_BORA_50);
-      
-      // Calculate darzan amount from all darzan inputs
-      const q425Dz = Number(document.getElementById('q425QuickDz').value) || 0;
-      const q475Dz = Number(document.getElementById('q475QuickDz').value) || 0;
-      const q450Dz = Number(document.getElementById('q450QuickDz').value) || 0;
-      const q600Dz = Number(document.getElementById('q600QuickDz').value) || 0;
-      
-      const darzanAmount = (q425Dz * RATES.r425 * PER_DARZAN) + 
-                           (q475Dz * RATES.r475 * PER_DARZAN) + 
-                           (q450Dz * RATES.r450 * PER_DARZAN) +
-                           (q600Dz * RATES.r600 * PER_DARZAN);
+      // Calculate amounts from all calculator boxes
+      settings.calculatorBoxes.forEach(box => {
+        const qId = `qcalc_${box.id}`;
+        const aId = `acalc_${box.id}`;
+        
+        const qInput = document.getElementById(qId);
+        const aInput = document.getElementById(aId);
+        
+        if (qInput && aInput) {
+          const amount = Number(aInput.value.replace(/,/g, '')) || 0;
+          
+          if (box.type === 'bora') {
+            boraAmount += amount;
+          } else {
+            darzanAmount += amount;
+          }
+        }
+      });
       
       document.getElementById('combinedBoraAmount').value = fmt(boraAmount);
       document.getElementById('combinedDarzanAmount').value = fmt(darzanAmount);
       document.getElementById('combinedTotalAmount').value = fmt(boraAmount + darzanAmount);
       
-      // NEW: Also update calculator deduction when combined total changes
+      // Also update calculator deduction when combined total changes
       updateCalculatorDeduction();
     }
 
-    // NEW: Update calculator deduction
-    function updateCalculatorDeduction() {
-      // Get total darzans from calculator
-      const q425 = Number(document.getElementById('q425Quick').value) || 0;
-      const q45060 = Number(document.getElementById('q450Quick60').value) || 0;
-      const q475 = Number(document.getElementById('q475Quick').value) || 0;
-      const q600 = Number(document.getElementById('q600Quick').value) || 0;
-      const q45040 = Number(document.getElementById('q450Quick40').value) || 0;
-      const q45050 = Number(document.getElementById('q450Quick50').value) || 0;
-      const q47540 = Number(document.getElementById('q475Quick40').value) || 0;
-      const q47550 = Number(document.getElementById('q475Quick50').value) || 0;
-      const q425Dz = Number(document.getElementById('q425QuickDz').value) || 0;
-      const q475Dz = Number(document.getElementById('q475QuickDz').value) || 0;
-      const q450Dz = Number(document.getElementById('q450QuickDz').value) || 0;
-      const q600Dz = Number(document.getElementById('q600QuickDz').value) || 0;
-      
-      // Calculate total darzans from calculator
-      const totalDarzans = (q425 * PER_BORA_60) + 
-                           (q45060 * PER_BORA_60) + 
-                           (q475 * PER_BORA_60) +
-                           (q600 * PER_BORA_60) +
-                           (q45040 * PER_BORA_40) +
-                           (q45050 * PER_BORA_50) +
-                           (q47540 * PER_BORA_40) +
-                           (q47550 * PER_BORA_50) +
-                           (q425Dz * PER_DARZAN) +
-                           (q475Dz * PER_DARZAN) +
-                           (q450Dz * PER_DARZAN) +
-                           (q600Dz * PER_DARZAN);
-      
-      // Calculate total amount from calculator for average rate calculation
-      const totalAmount = (q425 * RATES.r425 * PER_BORA_60) + 
-                          (q45060 * RATES.r450 * PER_BORA_60) + 
-                          (q475 * RATES.r475 * PER_BORA_60) +
-                          (q600 * RATES.r600 * PER_BORA_60) +
-                          (q45040 * RATES.r450 * PER_BORA_40) +
-                          (q45050 * RATES.r450 * PER_BORA_50) +
-                          (q47540 * RATES.r475 * PER_BORA_40) +
-                          (q47550 * RATES.r475 * PER_BORA_50) +
-                          (q425Dz * RATES.r425 * PER_DARZAN) +
-                          (q475Dz * RATES.r475 * PER_DARZAN) +
-                          (q450Dz * RATES.r450 * PER_DARZAN) +
-                          (q600Dz * RATES.r600 * PER_DARZAN);
-      
-      // Calculate deduction quantity
-      const deductionQty = calculateDeductions(totalDarzans);
-      
-      // Calculate average rate for deduction
-      const averageRate = calculateAverageRate(totalAmount, totalDarzans);
-      
-      // Calculate deduction amount
-      const deductionAmount = deductionQty * averageRate;
-      
-      // Calculate final amount after deduction
-      const finalAmount = totalAmount - deductionAmount;
-      
-      // Update calculator deduction display
-      document.getElementById('calcTotalDarzans').value = totalDarzans;
-      document.getElementById('calcDeductionQty').value = deductionQty;
-      document.getElementById('calcDeductionAmount').value = fmt(deductionAmount);
-      document.getElementById('calcFinalAmount').value = fmt(finalAmount);
+    // Update calculator deduction - UPDATED VERSION
+function updateCalculatorDeduction() {
+  let totalDarzans = 0;
+  const calculatorEntries = [];
+  
+  // Create virtual entries from calculator data
+  settings.calculatorBoxes.forEach(box => {
+    const qId = `qcalc_${box.id}`;
+    const qInput = document.getElementById(qId);
+    
+    if (qInput && qInput.value) {
+      const quantity = Number(qInput.value) || 0;
+      if (quantity > 0) {
+        calculatorEntries.push({
+          type: box.category,
+          rate: getRateValue(box.rateId),
+          quantity: quantity
+        });
+        
+        totalDarzans += quantity * box.multiplier;
+      }
     }
+  });
+  
+  // Use new function for deductions by rate groups
+  const { totalDeductionQty, totalDeductionAmount } = calculateDeductionsByRate(calculatorEntries);
+  
+  // Calculate total amount
+  let totalAmount = 0;
+  settings.calculatorBoxes.forEach(box => {
+    const qId = `qcalc_${box.id}`;
+    const qInput = document.getElementById(qId);
+    
+    if (qInput) {
+      const quantity = Number(qInput.value) || 0;
+      const rate = getRateValue(box.rateId);
+      totalAmount += quantity * rate * box.multiplier;
+    }
+  });
+  
+  const finalAmount = totalAmount - totalDeductionAmount;
+  
+  // Update calculator deduction display
+  document.getElementById('calcTotalDarzans').value = totalDarzans;
+  document.getElementById('calcDeductionQty').value = totalDeductionQty;
+  document.getElementById('calcDeductionAmount').value = fmt(totalDeductionAmount);
+  document.getElementById('calcFinalAmount').value = fmt(finalAmount);
+}
 
     build();
     save();
 
-    // --- Quick Calculator ---
-    function setupQuick(qId, aId, rate, multiplier){
-      const q = document.getElementById(qId);
-      const a = document.getElementById(aId);
-      function calc(){ 
-        a.value = fmt((Number(q.value)||0) * rate * multiplier);
-        updateCombinedQuickTotal(); // Update combined total
-        updateCalculatorDeduction(); // NEW: Update calculator deduction
-        saveCalculatorData(); // NEW: Save calculator data on change
-      }
-      q.addEventListener('input', calc); 
-      
-      // Add Enter key functionality
-      q.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          calc();
-          // Move focus to next input for quick data entry
-          const inputs = Array.from(document.querySelectorAll('input[type="number"]'));
-          const currentIndex = inputs.indexOf(q);
-          if (currentIndex < inputs.length - 1) {
-            inputs[currentIndex + 1].focus();
-          }
-        }
-      });
-      
-      calc();
-    }
-    
-    // Setup Bora calculators
-    setupQuick('q425Quick', 'a425Quick', RATES.r425, PER_BORA_60);
-    setupQuick('q450Quick60', 'a450Quick60', RATES.r450, PER_BORA_60);
-    setupQuick('q475Quick', 'a475Quick', RATES.r475, PER_BORA_60);
-    setupQuick('q600Quick', 'a600Quick', RATES.r600, PER_BORA_60);
-    setupQuick('q450Quick40', 'a450Quick40', RATES.r450, PER_BORA_40);
-    setupQuick('q450Quick50', 'a450Quick50', RATES.r450, PER_BORA_50);
-    setupQuick('q475Quick40', 'a475Quick40', RATES.r475, PER_BORA_40);
-    setupQuick('q475Quick50', 'a475Quick50', RATES.r475, PER_BORA_50);
-    
-    // Setup Darzan calculators
-    setupQuick('q425QuickDz', 'a425QuickDz', RATES.r425, PER_DARZAN);
-    setupQuick('q450QuickDz', 'a450QuickDz', RATES.r450, PER_DARZAN);
-    setupQuick('q475QuickDz', 'a475QuickDz', RATES.r475, PER_DARZAN);
-    setupQuick('q600QuickDz', 'a600QuickDz', RATES.r600, PER_DARZAN);
-
     // Clear calculator function
     function clearCalculator() {
-      document.getElementById('q425Quick').value = '';
-      document.getElementById('q450Quick60').value = '';
-      document.getElementById('q475Quick').value = '';
-      document.getElementById('q600Quick').value = '';
-      document.getElementById('q450Quick40').value = '';
-      document.getElementById('q450Quick50').value = '';
-      document.getElementById('q475Quick40').value = '';
-      document.getElementById('q475Quick50').value = '';
-      document.getElementById('q425QuickDz').value = '';
-      document.getElementById('q450QuickDz').value = '';
-      document.getElementById('q475QuickDz').value = '';
-      document.getElementById('q600QuickDz').value = '';
-      
-      // Trigger calculation to update all fields
-      document.getElementById('q425Quick').dispatchEvent(new Event('input'));
-      saveCalculatorData(); // NEW: Save cleared calculator data
+      document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
+        input.value = '';
+        input.dispatchEvent(new Event('input'));
+      });
+      saveCalculatorData();
     }
     
     // Add event listener for clear calculator button
@@ -2922,6 +3425,7 @@
       document.getElementById('previousBalanceMobile').value = state.meta.previousBalance;
       
       totals();
+      updateDynamicTotals();
       document.getElementById('statusIndicator').value = "Saving...";
       save();
     }
@@ -2999,6 +3503,7 @@
         
         renderEntriesTable();
         totals();
+        updateDynamicTotals();
         document.getElementById('statusIndicator').value = "Saving...";
         save();
         
@@ -3053,7 +3558,8 @@
         state.entries.push(restoredItem);
         renderEntriesTable();
         totals();
-        updateCombinedQuickTotal(); // Update combined total
+        updateDynamicTotals();
+        updateCombinedQuickTotal();
         document.getElementById('statusIndicator').value = "Saving...";
         save();
       }
@@ -3077,170 +3583,46 @@
     
     document.getElementById('exportBtn').addEventListener('click', exportData);
     
-    // --- File Validation Helper Function ---
-function validateImportedData(data) {
-  const errors = [];
-  
-  // Check basic structure
-  if (!data) {
-    errors.push('File empty hai');
-    return errors;
-  }
-  
-  if (!data.meta) errors.push('Meta information missing');
-  if (!Array.isArray(data.entries)) errors.push('Entries array missing');
-  if (!Array.isArray(data.payments)) errors.push('Payments array missing');
-  
-  // Check meta fields
-  if (data.meta) {
-    if (typeof data.meta.month === 'undefined') errors.push('Month information missing');
-    if (typeof data.meta.year === 'undefined') errors.push('Year information missing');
-    if (data.meta.month < 0 || data.meta.month > 11) errors.push('Invalid month value');
-    if (data.meta.year < 2020 || data.meta.year > 2100) errors.push('Invalid year value');
-  }
-  
-  // Validate entries structure
-  if (Array.isArray(data.entries)) {
-    data.entries.forEach((entry, index) => {
-      if (!entry.date) errors.push(`Entry ${index + 1}: Date missing`);
-      if (!entry.type) errors.push(`Entry ${index + 1}: Type missing`);
-      if (!entry.rate) errors.push(`Entry ${index + 1}: Rate missing`);
-      if (typeof entry.quantity === 'undefined') errors.push(`Entry ${index + 1}: Quantity missing`);
-    });
-  }
-  
-  return errors;
-}
-
-// Helper functions for error/success messages
-function showError(message) {
-  const statusEl = document.getElementById('statusIndicator');
-  const originalValue = statusEl.value;
-  statusEl.value = message;
-  statusEl.style.color = 'var(--accent2)';
-  setTimeout(() => { 
-    statusEl.value = originalValue; 
-    statusEl.style.color = '';
-  }, 7000);
-}
-
-function showSuccess(message) {
-  const statusEl = document.getElementById('statusIndicator');
-  const originalValue = statusEl.value;
-  statusEl.value = message;
-  statusEl.style.color = 'var(--ok)';
-  setTimeout(() => { 
-    statusEl.value = originalValue; 
-    statusEl.style.color = '';
-  }, 5000);
-}
-
-function handleImportError(err) {
-  let userMessage = '❌ Import failed: ';
-  
-  if (err.name === 'SyntaxError') {
-    userMessage = '❌ File corrupt hai - Yeh valid JSON file nahi hai\n\n' +
-                 'Tips:\n' +
-                 '• Darzan Calculator se hi exported file use karein\n' +
-                 '• File manually edit nahi ki honi chahiye\n' +
-                 '• File ka size normal hona chahiye';
-  } else if (err.message.includes('validation failed')) {
-    userMessage = '❌ File format theek nahi hai\n\n' +
-                 'Ye file Darzan Calculator ki backup file nahi lagti\n\n' +
-                 'Errors:\n' + err.message.split('\n').slice(1).join('\n');
-  } else if (err.message.includes('Import canceled')) {
-    userMessage = '⚠️ Import cancel kar diya gaya';
-  } else {
-    userMessage = '❌ Import nahi ho saka\n\n' +
-                 'Please:\n' +
-                 '• Darzan Calculator ki original backup file use karein\n' +
-                 '• File corrupt nahi honi chahiye\n' +
-                 '• Dobara try karein';
-  }
-  
-  showError(userMessage);
-  console.error('Import Error Details:', err);
-}
-
-// --- Improved Import Function ---
-function handleImport(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  
-  // File size check (max 5MB)
-  if (file.size > 5 * 1024 * 1024) {
-    showError('File bahut badi hai - 5MB se chhoti file use karein');
-    e.target.value = '';
-    return;
-  }
-  
-  // File type check
-  if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
-    showError('Sirf JSON files import kar sakte hain (.json extension)');
-    e.target.value = '';
-    return;
-  }
-  
-  const reader = new FileReader();
-  
-  reader.onloadstart = () => {
-    document.getElementById('statusIndicator').value = '📁 File read ho rahi hai...';
-  };
-  
-  reader.onload = () => {
-    try {
-      const data = JSON.parse(reader.result);
+    // Import function
+    function handleImport(e) {
+      const file = e.target.files[0];
+      if(!file) return;
       
-      // Validate file structure
-      const validationErrors = validateImportedData(data);
-      if (validationErrors.length > 0) {
-        throw new Error(`File validation failed:\n${validationErrors.slice(0, 3).join('\n')}${validationErrors.length > 3 ? '\n...' : ''}`);
-      }
-      
-      // Additional checks
-      if (data.entries && data.entries.length > 10000) {
-        if (!confirm(`Ye file ${data.entries.length} entries k sath bahut bari hai. Import karna hai?`)) {
-          throw new Error('Import canceled by user');
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          
+          // Handle migration from previous versions
+          if(!data.payments) data.payments = [];
+          if(!data.meta.previousBalance) data.meta.previousBalance = 0;
+          if(!data.entries) data.entries = [];
+          if(!data.currentPage) data.currentPage = 1;
+          if(!data.deletedItems) data.deletedItems = [];
+          if(!data.meta.profileImage) data.meta.profileImage = '';
+          
+          // Ensure each payment has a date
+          data.payments.forEach(payment => {
+            if (!payment.date) payment.date = new Date().toISOString().split('T')[0];
+          });
+          
+          state = data;
+          
+          // Save profile image if included in import
+          if (data.meta.profileImage) {
+            localStorage.setItem(PROFILE_IMAGE_KEY, data.meta.profileImage);
+          }
+          
+          build();
+          save();
+          
+        } catch(err) {
+          alert('Error importing file: ' + err.message);
         }
-      }
-      
-      // Handle migration from previous versions
-      if(!data.payments) data.payments = [];
-      if(!data.meta.previousBalance) data.meta.previousBalance = 0;
-      if(!data.entries) data.entries = [];
-      if(!data.currentPage) data.currentPage = 1;
-      if(!data.deletedItems) data.deletedItems = [];
-      if(!data.meta.profileImage) data.meta.profileImage = '';
-      
-      // Ensure each payment has a date
-      data.payments.forEach(payment => {
-        if (!payment.date) payment.date = new Date().toISOString().split('T')[0];
-      });
-      
-      state = data;
-      
-      // Save profile image if included in import
-      if (data.meta.profileImage) {
-        localStorage.setItem(PROFILE_IMAGE_KEY, data.meta.profileImage);
-      }
-      
-      build();
-      save();
-      
-      showSuccess(`✅ Import successful! ${data.entries.length} entries aur ${data.payments.length} payments load hue hain`);
-      
-    } catch(err) {
-      handleImportError(err);
+      };
+      reader.readAsText(file);
+      e.target.value = '';
     }
-  };
-  
-  reader.onerror = () => {
-    showError('❌ File read nahi ho saki - Dobara try karein');
-  };
-  
-  reader.readAsText(file);
-  e.target.value = '';
-}
     
     document.getElementById('importFile').addEventListener('change', handleImport);
     
@@ -3256,8 +3638,7 @@ function handleImport(e) {
     
     document.getElementById('resetBtn').addEventListener('click', resetData);
 
-
-    // --- PDF Download Function ---
+        // --- PDF Download Function ---
 function downloadPDF() {
   // PDF library ko load karo
   const { jsPDF } = window.jspdf;
@@ -3265,7 +3646,7 @@ function downloadPDF() {
   
   // Heading add karo
   doc.setFontSize(20);
-  doc.text("Gloves Manufacture Company", 14, 22);
+  doc.text("Report G_M_C", 14, 22);
   
   // User ki information add karo
   doc.setFontSize(12);
@@ -3313,26 +3694,56 @@ function downloadPDF() {
   });
   
   // Totals section shuru karo
-  let finalY = doc.lastAutoTable.finalY + 10;
-  doc.setFontSize(14);
-  doc.text("Totals", 14, finalY);
-  
-  // Har total value ko PDF mein add karo
-  finalY += 10;
-  doc.setFontSize(12);
-  doc.text(`Previous Balance: ${document.getElementById('prevBalanceDisplay').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Total Bora Amount: ${document.getElementById('totalBoraAmount').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Total Darzan Amount: ${document.getElementById('totalDarzanAmount').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Grand Total: ${document.getElementById('grandTotal').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Received Weekly Payments: ${document.getElementById('totalPayments').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Deducting Darzan Payments: ${document.getElementById('deductingDarzanPayments').value}`, 14, finalY);
-  finalY += 7;
-  doc.text(`Final Amount in your hand: ${document.getElementById('netFinalAmount').value}`, 14, finalY);
+let finalY = doc.lastAutoTable.finalY + 10;
+doc.setFontSize(14);
+doc.text("Totals", 14, finalY);
+
+// Har total value ko PDF mein add karo with colors
+finalY += 10;
+doc.setFontSize(12);
+
+// Previous Balance - Gray color
+doc.setTextColor(128, 128, 128);
+doc.text(`Previous Balance: ${document.getElementById('prevBalanceDisplay').value}`, 14, finalY);
+finalY += 7;
+
+// Total Bora Amount - Blue color  
+doc.setTextColor(0, 0, 255);
+doc.text(`Total Bora Amount: ${document.getElementById('totalBoraAmount').value}`, 14, finalY);
+finalY += 7;
+
+// Total Darzan Amount - Blue color
+doc.setTextColor(0, 0, 255);
+doc.text(`Total Darzan Amount: ${document.getElementById('totalDarzanAmount').value}`, 14, finalY);
+finalY += 7;
+
+// Grand Total - Dark Blue/Bold color
+doc.setTextColor(0, 0, 139);
+doc.setFont(undefined, 'bold');
+doc.text(`Grand Total: ${document.getElementById('grandTotal').value}`, 14, finalY);
+doc.setFont(undefined, 'normal');
+finalY += 7;
+
+// Received Payments - Green color
+doc.setTextColor(0, 128, 0);
+doc.text(`Received Weekly Payments: ${document.getElementById('totalPayments').value}`, 14, finalY);
+finalY += 7;
+
+// Deducting Darzan Payments - Red color
+doc.setTextColor(255, 0, 0);
+doc.text(`Deducting Darzan Payments: ${document.getElementById('deductingDarzanPayments').value}`, 14, finalY);
+finalY += 7;
+
+// Final Amount - Extra Large and Highlighted
+doc.setTextColor(0, 100, 0);
+doc.setFontSize(16); // ← Aur bada size
+doc.setFont(undefined, 'bold');
+doc.text(`Final Amount in your hand: ${document.getElementById('netFinalAmount').value}`, 14, finalY);
+doc.setFont(undefined, 'normal');
+doc.setFontSize(12); // ← Reset to normal size
+
+// Reset to black color for remaining text
+doc.setTextColor(0, 0, 0);
 
   // Yahan par line add karo (full width)
     finalY += 6; // thoda gap line se pehle
@@ -3343,11 +3754,11 @@ function downloadPDF() {
     // Darzan deduction rules likho
   finalY += 8;
   doc.setFontSize(9);
-  doc.text('Note Darzan Deduction:', 14, finalY);
+  doc.text('Darzan Deduction RULE: Ab deduction total darzan par hoga, rozana nahi.', 14, finalY);
   finalY += 4;
-  doc.text('Har 50 Darzan par 1 deduction hoga, aur agar total 50 ka multiple na ho to upar', 14, finalY);  
+  doc.text('Misal: 6 din × 20 Darzan = 120 Total , 3 Deductions', 14, finalY);  
   finalY += 4;    
-  doc.text('round karke agla deduction count hoga (e.g. 50=1, 51=2, 100=2).', 14, finalY);
+  doc.text('Purana: 6 deductions | Naya: 3 deductions', 14, finalY);
 
   // Yahan par line add karo (full width)
     finalY += 6; // thoda gap line se pehle
@@ -3365,7 +3776,7 @@ function downloadPDF() {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const seconds = now.getSeconds().toString().padStart(2, '0');
   const formattedDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}, ${hours12}:${minutes}:${seconds} ${ampm}`;
-  doc.text(`Report generated by Cash Management System v3.8 (Sep 30, 2025) ${formattedDate}`, 14, finalY);
+  doc.text(`Report generated by Cash Management System v4.10 (Oct 18, 2025) ${formattedDate}`, 14, finalY);
   finalY += 6;
   doc.text('© 2025 ALQAAB Org. Developed by ALQAAB Web Studio | Shahbaz Ali', 14, finalY);
 
@@ -3377,55 +3788,128 @@ function downloadPDF() {
     
     document.getElementById('downloadPdfBtn').addEventListener('click', downloadPDF);
 
-    // --- Offline (Service Worker in single file via Blob) ---
-    if('serviceWorker' in navigator){
-      const swCode = `
-        const CACHE = 'gloves-cache-v1';
-        self.addEventListener('install', e=>{
-          e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));
-          self.skipWaiting();
-        });
-        self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
-        self.addEventListener('fetch', e=>{
-          const req = e.request;
-          e.respondWith(
-            caches.match(req).then(res=> res || fetch(req).then(r=>{
-              const copy = r.clone();
-              caches.open(CACHE).then(c=>c.put(req, copy)).catch(()=>{});
-              return r;
-            }).catch(()=>caches.match('./')))
-          );
-        });
-      `;
-      const blob = new Blob([swCode], {type:'text/javascript'});
-      const swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl).catch(()=>{});
-    }
-    
-    // --- Show/Hide Desktop and Mobile Elements ---
-    function checkScreenSize() {
-      const isMobile = window.innerWidth <= 768;
-      document.querySelectorAll('.desktop-only').forEach(el => {
-        el.style.display = isMobile ? 'none' : 'flex';
-      });
-      document.querySelectorAll('.mobile-only').forEach(el => {
-        el.style.display = isMobile ? 'block' : 'none';
-      });
-    }
-    
-    // Initial check
-    checkScreenSize();
-    
-    // Add event listener for window resize
-    window.addEventListener('resize', checkScreenSize);
+    // --- Mobile buttons for Tips tab ---
+    document.getElementById('exportBtnTips').addEventListener('click', exportData);
+    document.getElementById('importFileTips').addEventListener('change', handleImport);
+    document.getElementById('downloadPdfBtnTips').addEventListener('click', downloadPDF);
+    document.getElementById('resetBtnTips').addEventListener('click', resetData);
 
-    document.querySelector(".scroll-btn.left").onclick = () => {
-    document.querySelector(".tabs").scrollBy({ left: -100, behavior: "smooth" });
-  };
-  document.querySelector(".scroll-btn.right").onclick = () => {
-    document.querySelector(".tabs").scrollBy({ left: 100, behavior: "smooth" });
-  };
+    // --- Scroll buttons for tabs ---
+    document.querySelector('.scroll-btn.left').addEventListener('click', () => {
+      document.querySelector('.tabs').scrollBy({ left: -100, behavior: 'smooth' });
+    });
+    
+    document.querySelector('.scroll-btn.right').addEventListener('click', () => {
+      document.querySelector('.tabs').scrollBy({ left: 100, behavior: 'smooth' });
+    });
+
+    // --- Auto-save timer ---
+    setInterval(() => {
+      if (document.getElementById('statusIndicator').value !== "All changes saved" && 
+          preferences.autoSave === 'enable') {
+        save();
+      }
+    }, 5000);
+
+    // --- Responsive detection ---
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+    
+    // Add mobile/desktop classes to body
+    function updateResponsiveClasses() {
+      if (isMobile()) {
+        document.body.classList.add('mobile');
+        document.body.classList.remove('desktop');
+      } else {
+        document.body.classList.add('desktop');
+        document.body.classList.remove('mobile');
+      }
+    }
+    
+    // Initial call
+    updateResponsiveClasses();
+    
+    // Update on resize
+    window.addEventListener('resize', updateResponsiveClasses);
+    
+    // Mobile-only and desktop-only elements
+    document.querySelectorAll('.desktop-only').forEach(el => {
+      if (isMobile()) el.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.mobile-only').forEach(el => {
+      if (!isMobile()) el.style.display = 'none';
+    });
+
+    // Video Popup Functions
+const VIDEO_POPUP_KEY = 'gloves-video-popup-shown';
+
+function showVideoPopup() {
+  const hasSeenPopup = localStorage.getItem(VIDEO_POPUP_KEY);
+  if (!hasSeenPopup) {
+    setTimeout(() => {
+      document.getElementById('videoPopup').style.display = 'flex';
+    }, 1000);
+  }
+}
+
+function closeVideoPopup() {
+  const dontShowAgain = document.getElementById('dontShowAgain').checked;
+  if (dontShowAgain) {
+    localStorage.setItem(VIDEO_POPUP_KEY, 'true');
+  }
+  document.getElementById('videoPopup').style.display = 'none';
+}
+
+// Call this function when page loads
+showVideoPopup();
+
+
 
   </script>
+<!-- Video Tutorial Popup -->
+<div class="modal-overlay" id="videoPopup" style="display: none;">
+<div class="modal-content" style="max-width: 800px;">
+<div class="modal-header">
+<h2>Welcome to GMC</h2>
+<button class="modal-close" onclick="closeVideoPopup()">×</button>
+</div>
+<div class="modal-body">
+<div style="text-align: center; margin-bottom: 15px;">
+<p><strong>Watch this tutorial to learn how to use the Gloves Manufacturing Calculator:</strong></p>
+</div>
+<!-- Video Frame -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 15px;">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="100%" id="tutorialVideo" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;" width="100%"></iframe>
+</div>
+<!-- Alternative: Direct Video Link -->
+<div style="text-align: center; padding: 10px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; margin-bottom: 15px;">
+<p style="margin: 0; font-size: 14px;">
+<strong>Can't see the video?</strong><br/>
+<a href="https://youtu.be/YOUR_VIDEO_ID_HERE" style="color: var(--accent); text-decoration: underline;" target="_blank">
+            Go live - watch on YouTube
+          </a>
+</p>
+</div>
+<div class="preference-group">
+<label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+<input id="dontShowAgain" type="checkbox"/>
+<span>Don't show this again</span>
+</label>
+</div>
+<div style="text-align: center; margin-top: 15px;">
+<button class="btn-new primary" onclick="closeVideoPopup()">Get Started</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Offline embedded LZString (minified) v1.5.0
+var LZString=function(){function o(o,r){if(!t[o]){t[o]={};for(var n=0;n<o.length;n++)t[o][o.charAt(n)]=n}return t[o][r]}var r=String.fromCharCode,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",t={},i={compressToUTF16:function(o){if(o==null)return"";var e,i,t={},a={},s="",u="",c="",l=0,f=0,h;for(e=0;e<o.length;e+=1)if(s=o.charAt(e),Object.prototype.hasOwnProperty.call(t,s)||(t[s]=f++,a[s]=!0),u+=s,a[u]){if(Object.prototype.hasOwnProperty.call(t,u)){continue}if(u.length>1){delete a[u]}i=t[u.substring(0,u.length-1)],c=u.charAt(u.length-1),h=t[c],h==null&&(h=c.charCodeAt(0)),s=String.fromCharCode(i<<8|h),o=o.substring(0,e-u.length+1)+s+o.substring(e+1),e-=u.length-2,u=""}return o},decompressFromUTF16:function(o){if(o==null)return"";var r,n,e,t,i="",a=0,s,u,c,l,f,h,d,p;for(r=0;r<o.length;r+=1)n=o.charCodeAt(r),i+=String.fromCharCode(n>>8),i+=String.fromCharCode(n%256);return i}};return i}();
+function saveData(key,data){try{const c=LZString.compressToUTF16(JSON.stringify(data));localStorage.setItem(key,c);}catch(e){alert("⚠️ Storage full! Please export your data and clear old records.");}}
+function loadData(key){const d=localStorage.getItem(key);if(!d)return null;try{return JSON.parse(LZString.decompressFromUTF16(d));}catch(e){return null;}}
+</script>
 </body>
 </html>
