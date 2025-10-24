@@ -4,7 +4,27 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="./manifest.json">
+
+<!-- PWA Theme Color -->
+<meta name="theme-color" content="#3b82f6">
+<meta name="msapplication-TileColor" content="#3b82f6">
+
+<!-- iOS PWA Support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GMC App">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<!-- Enhanced Storage Script -->
+<script src="./storage.js"></script>
+<link rel="manifest" href="/manifest.json">
+
+
 <title>Gloves Manufacture Company</title>
+
 <style>
     /* VARIABLES */
     :root{
@@ -568,11 +588,13 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
-    .social-icon.facebook:hover { background: #000000; }
-    .social-icon.youtube:hover { background: #ff0000; }
-    .social-icon.whatsapp:hover { background: #2cf576; }
-    .social-icon.linkedin:hover { background: #ffffff; }
-    .social-icon.maps:hover { background: #ffee37; }
+    .social-icon.facebook:hover { background: #2821e3de; }
+    .social-icon.youtube:hover { background: #ff0000de; }
+    .social-icon.whatsapp:hover { background: #2cf576dd; }
+    .social-icon.linkedin:hover { background: #ffffffde; }
+    .social-icon.maps:hover { background: #ffee37dd; }
+    .social-icon.github:hover { 
+    background: #1d122d; /* GitHub ka purple color */}
     
     /* NEW: Footer styling */
     .footer-content {
@@ -1053,6 +1075,7 @@
       }
       
       /* NEW: Toggle button styling */
+      /* Mobile theme toggle button fix */
       .mobile-toggle-btn {
         padding: 8px 12px;
         border-radius: 20px;
@@ -1063,6 +1086,17 @@
         font-weight: 600;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dark .mobile-toggle-btn {
+        background: #ffffff;
+        color: #000000;
+      }
+
+      .mobile-toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       }
       
       /* NEW: User info item styling for mobile */
@@ -1437,72 +1471,72 @@
     }
 
     @media (max-width: 375px) {
-  h1{font-size:14px;}
-  h2{font-size:13px;}
-  .btn{padding:5px 6px;font-size:11px;}
-  input[type="number"], input[readonly], input[type="text"], input[type="tel"], input[type="date"], textarea, select {
-    padding: 6px;
-    font-size: 12px;
-  }
-  
-  /* === HEADER BUTTONS FIX === */
-  .header-buttons-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-  }
-  
-  .header-btn {
-    padding: 8px 6px;
-    font-size: 11px;
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    word-break: break-word;
-    line-height: 1.2;
-  }
-  
-  #themeToggle, #mobileThemeToggle {
-    grid-column: span 2;
-    font-size: 12px;
-    padding: 8px;
-  }
-  /* === HEADER BUTTONS FIX END === */
-  
-  /* Tips tab ke buttons ko bhi improve karen */
-  .tips-buttons-container {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-  
-  .tips-buttons-container .btn-new {
-    padding: 8px 10px;
-    font-size: 12px;
-    min-height: 36px;
-  }
-  
-  /* NEW: User info adjustments */
-  .combined-user-info {
-    padding: 8px;
-  }
-  
-  .profile-img-container {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .profile-upload-btn {
-    width: 18px;
-    height: 18px;
-    font-size: 14px;
-  }
-  
-  /* NEW: Net Final Amount Highlight Box for very small screens */
-  .net-final-amount {
-    font-size: 20px;
-  }
-}
+    h1{font-size:14px;}
+        h2{font-size:13px;}
+        .btn{padding:5px 6px;font-size:11px;}
+        input[type="number"], input[readonly], input[type="text"], input[type="tel"], input[type="date"], textarea, select {
+          padding: 6px;
+          font-size: 12px;
+        }
+        
+        /* === HEADER BUTTONS FIX === */
+        .header-buttons-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 6px;
+        }
+        
+        .header-btn {
+          padding: 8px 6px;
+          font-size: 11px;
+          min-height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          word-break: break-word;
+          line-height: 1.2;
+        }
+        
+        #themeToggle, #mobileThemeToggle {
+          grid-column: span 2;
+          font-size: 12px;
+          padding: 8px;
+        }
+        /* === HEADER BUTTONS FIX END === */
+        
+        /* Tips tab ke buttons ko bhi improve karen */
+        .tips-buttons-container {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        
+        .tips-buttons-container .btn-new {
+          padding: 8px 10px;
+          font-size: 12px;
+          min-height: 36px;
+        }
+        
+        /* NEW: User info adjustments */
+        .combined-user-info {
+          padding: 8px;
+        }
+        
+        .profile-img-container {
+          width: 50px;
+          height: 50px;
+        }
+        
+        .profile-upload-btn {
+          width: 18px;
+          height: 18px;
+          font-size: 14px;
+        }
+        
+        /* NEW: Net Final Amount Highlight Box for very small screens */
+        .net-final-amount {
+          font-size: 20px;
+        }
+      }
       /* NEW: User info adjustments */
       .combined-user-info {
         padding: 8px;
@@ -1534,117 +1568,117 @@
 
     
     /* Extra small screens ke liye (320px se chhota) */
-@media (max-width: 320px) {
-  .header-buttons-container {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-  
-  .header-btn {
-    padding: 6px 4px;
-    font-size: 10px;
-    min-height: 32px;
-  }
-  
-  #themeToggle, #mobileThemeToggle {
-    grid-column: span 1;
-  }
-  
-  h1 {
-    font-size: 14px;
-  }
-}
-
-    /* NEW: Center align inputs in table cells */
-    .table-input-cell input {
-      text-align: center;
-    }
-    
-    /* Calculator sections */
-    .calculator-section {
-      margin-bottom: 15px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed var(--border);
-    }
-    
-    /* Restore button */
-    .restore-section {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border);
-      text-align: center;
-    }
-    
-    /* NEW: Visual separation for calculator sections on mobile */
-    @media (max-width: 768px) {
-      .calculator-section {
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 12px;
-      }
-      
-      .calculator-section h3 {
-        text-align: center;
-        padding-bottom: 8px;
-        border-bottom: 1px dashed var(--border);
-        margin-top: 0;
+      @media (max-width: 320px) {
+        .header-buttons-container {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        
+        .header-btn {
+          padding: 6px 4px;
+          font-size: 10px;
+          min-height: 32px;
+        }
+        
+        #themeToggle, #mobileThemeToggle {
+          grid-column: span 1;
+        }
+        
+        h1 {
+          font-size: 14px;
+        }
       }
 
+          /* NEW: Center align inputs in table cells */
+          .table-input-cell input {
+            text-align: center;
+          }
+          
+          /* Calculator sections */
+          .calculator-section {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border);
+          }
+          
+          /* Restore button */
+          .restore-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
+            text-align: center;
+          }
+          
+          /* NEW: Visual separation for calculator sections on mobile */
+          @media (max-width: 768px) {
+            .calculator-section {
+              border: 1px solid var(--border);
+              border-radius: 8px;
+              padding: 12px;
+              margin-bottom: 12px;
+            }
+            
+            .calculator-section h3 {
+              text-align: center;
+              padding-bottom: 8px;
+              border-bottom: 1px dashed var(--border);
+              margin-top: 0;
+            }
+
+            }
+            .manual-entry-table tr.date-separator td:before {
+            content: none !important;
+            display: none !important;
+            }
+
+            .tabs-wrapper {
+        display: flex;
+        align-items: center;   /* vertical center */
+        justify-content: center;
+        gap: 6px;              /* thoda space arrows aur tabs ke beech */
+        margin-bottom: 10px;
       }
-       .manual-entry-table tr.date-separator td:before {
-       content: none !important;
-       display: none !important;
+
+      .tabs {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex: 1;               /* middle space fill kare */
+        white-space: nowrap;   /* tabs wrap na ho */
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+
+      .tab {
+        flex: 0 0 auto;        /* shrink na ho */
+        padding: 8px 12px;
       }
 
-      .tabs-wrapper {
-  display: flex;
-  align-items: center;   /* vertical center */
-  justify-content: center;
-  gap: 6px;              /* thoda space arrows aur tabs ke beech */
-  margin-bottom: 10px;
-}
+      /* Arrows ka fixed size */
+      .scroll-btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-.tabs {
-  display: flex;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  flex: 1;               /* middle space fill kare */
-  white-space: nowrap;   /* tabs wrap na ho */
-}
-.tabs::-webkit-scrollbar { display: none; }
+      /* Small screens ke liye compact arrows */
+      @media (max-width: 480px) {
+        .scroll-btn {
+          width: 28px;
+          height: 28px;
+          font-size: 14px;
+        }
+      }
 
-.tab {
-  flex: 0 0 auto;        /* shrink na ho */
-  padding: 8px 12px;
-}
-
-/* Arrows ka fixed size */
-.scroll-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Small screens ke liye compact arrows */
-@media (max-width: 480px) {
-  .scroll-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-}
-
-  </style>
+        </style>
 </head>
 <body>
 <header>
@@ -2052,6 +2086,7 @@
 </div>
 </div>
 </div>
+
 <!-- Tips Tab -->
 <div class="tab-content" id="tips-tab">
 <div class="panel">
@@ -2068,6 +2103,14 @@
 <li><strong>Backup:</strong> Data save/export (JSON/PDF) aur import se restore karo.</li>
 </ul>
 </div>
+
+<div class="how-to-use-section">
+<h2>📱 GMC App</h2>
+<p>APK app Chrome pe chalti hai • Data Chrome mein save hota hai</p>
+<p>Chrome clear kiya to: ✅ App rahegi • ❌ Data delete hoga</p>
+<p><strong>⚠️ Yaad Rakho: "Browser clear = Data clear" • Regular backup zaroori!</strong></p>
+</div>
+
 <h2>Tips: Data Backup</h2>
 <p>Apka data sirf browser me save hota hai. Browser ka data clear karne se apka sara record khatam ho jayga.
   <br/>
@@ -2086,11 +2129,13 @@
                   Poore page ka PDF download kar ke apna record save kar len.
               </li>
 </ol>
+
 <!-- Updated text with new styling -->
 <div class="inspirational-text">
 <p>🌿 Halal Rizq kamana bhi ek Ibadat hai.</p>
 <p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
 </div>
+
 <!-- Buttons moved to Tips tab for mobile -->
 <div class="tips-buttons-container mobile-only">
 <button class="btn-new" id="exportBtnTips">Export JSON</button>
@@ -2112,17 +2157,18 @@
 <div class="social-icons">
 <a class="social-icon maps" href="https://maps.app.goo.gl/VRAW4Poyuh58bCPw5" target="_blank" title="Location">🌍</a>
 <a class="social-icon linkedin" href="https://www.linkedin.com/in/alqaaborg" target="_blank" title="LinkedIn">🤵🏻</a>
+<a class="social-icon github" href="https://github.com/ALQAAB-Org" target="_blank" title="GitHub">🐱</a>
 <a class="social-icon whatsapp" href="https://wa.me/923261182021" target="_blank" title="WhatsApp">💬</a>
 <a class="social-icon facebook" href="https://www.facebook.com/alqaab.org" target="_blank" title="Facebook">ⓕ</a>
 <a class="social-icon youtube" href="https://www.youtube.com/@ALQAAB_YT_Studio" target="_blank" title="YouTube">▶︎</a>
 </div>
 </div>
 </footer>
-<!-- jsPDF library for PDF generation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-<!-- SheetJS library for Excel export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- JS PDF Libraries -->
+    <script src="./lib/jspdf.umd.min.js"></script>
+    <script src="./lib/jspdf-autotable.min.js"></script>
+
 <script>
     // --- Constants ---
     const PER_BORA_60 = 60;
@@ -2405,12 +2451,21 @@ function calculateDeductionsByRate(entries) {
 
     // Save calculator inputs to localStorage
     function saveCalculatorData() {
-      const calculatorData = {};
-      document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
-        calculatorData[input.id] = input.value || '';
-      });
-      localStorage.setItem(CALCULATOR_DATA_KEY, JSON.stringify(calculatorData));
+  const calculatorData = {};
+  
+  // Save all calculator inputs (both bora and darzan)
+  document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
+    if (input.id && input.id.startsWith('qcalc_')) {
+      calculatorData[input.id] = input.value || '';
     }
+  });
+  
+  try {
+    localStorage.setItem(CALCULATOR_DATA_KEY, JSON.stringify(calculatorData));
+  } catch (e) {
+    console.error('Calculator data save failed:', e);
+  }
+}
 
     // Load calculator inputs from localStorage
     function loadCalculatorData() {
@@ -3142,101 +3197,89 @@ function calculateDeductionsByRate(entries) {
     // --- Totals Calculation Functions ---
     
     // Calculate Bora 60 totals
-    function calculateBora60Totals() {
-      const bora60425 = state.entries
-        .filter(e => e.type === 'bora60' && e.rate == 4.25)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora60450 = state.entries
-        .filter(e => e.type === 'bora60' && e.rate == 4.50)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora60475 = state.entries
-        .filter(e => e.type === 'bora60' && e.rate == 4.75)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora60600 = state.entries
-        .filter(e => e.type === 'bora60' && e.rate == 6)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora60Amount425 = bora60425 * 4.25 * PER_BORA_60;
-      const bora60Amount450 = bora60450 * 4.50 * PER_BORA_60;
-      const bora60Amount475 = bora60475 * 4.75 * PER_BORA_60;
-      const bora60Amount600 = bora60600 * 6.00 * PER_BORA_60;
-      
-      return {
-        bora60425, bora60450, bora60475, bora60600,
-        bora60Amount425, bora60Amount450, bora60Amount475, bora60Amount600
-      };
-    }
+   function calculateBora60Totals() {
+  const bora60Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora60')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora60Totals[rateKey]) {
+        bora60Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora60Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora60Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_60;
+    });
+  
+  return bora60Totals;
+}
     
     // Calculate Bora 50 totals
     function calculateBora50Totals() {
-      const bora50475 = state.entries
-        .filter(e => e.type === 'bora50' && e.rate == 4.75)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora50450 = state.entries
-        .filter(e => e.type === 'bora50' && e.rate == 4.50)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora50Amount475 = bora50475 * 4.75 * PER_BORA_50;
-      const bora50Amount450 = bora50450 * 4.50 * PER_BORA_50;
-      
-      return {
-        bora50475, bora50450,
-        bora50Amount475, bora50Amount450
-      };
-    }
+  const bora50Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora50')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora50Totals[rateKey]) {
+        bora50Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora50Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora50Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_50;
+    });
+  
+  return bora50Totals;
+}
     
     // Calculate Bora 40 totals
     function calculateBora40Totals() {
-      const bora40475 = state.entries
-        .filter(e => e.type === 'bora40' && e.rate == 4.75)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora40450 = state.entries
-        .filter(e => e.type === 'bora40' && e.rate == 4.50)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const bora40Amount475 = bora40475 * 4.75 * PER_BORA_40;
-      const bora40Amount450 = bora40450 * 4.50 * PER_BORA_40;
-      
-      return {
-        bora40475, bora40450,
-        bora40Amount475, bora40Amount450
-      };
-    }
+  const bora40Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora40')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora40Totals[rateKey]) {
+        bora40Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora40Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora40Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_40;
+    });
+  
+  return bora40Totals;
+}
     
     // Calculate Darzan totals
     function calculateDarzanTotals() {
-      const darzan425 = state.entries
-        .filter(e => e.type === 'darzan' && e.rate == 4.25)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const darzan475 = state.entries
-        .filter(e => e.type === 'darzan' && e.rate == 4.75)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const darzan450 = state.entries
-        .filter(e => e.type === 'darzan' && e.rate == 4.50)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const darzan600 = state.entries
-        .filter(e => e.type === 'darzan' && e.rate == 6)
-        .reduce((sum, e) => sum + (Number(e.quantity) || 0), 0);
-      
-      const darzanAmount425 = darzan425 * 4.25 * PER_DARZAN;
-      const darzanAmount475 = darzan475 * 4.75 * PER_DARZAN;
-      const darzanAmount450 = darzan450 * 4.50 * PER_DARZAN;
-      const darzanAmount600 = darzan600 * 6.00 * PER_DARZAN;
-      
-      return {
-        darzan425, darzan475, darzan450, darzan600,
-        darzanAmount425, darzanAmount475, darzanAmount450, darzanAmount600
-      };
-    }
-    
+  const darzanTotals = {};
+  
+  state.entries
+    .filter(e => e.type === 'darzan')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!darzanTotals[rateKey]) {
+        darzanTotals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      darzanTotals[rateKey].quantity += Number(entry.quantity) || 0;
+      darzanTotals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_DARZAN;
+    });
+  
+  return darzanTotals;
+}
+
     // Calculate deduction totals - UPDATED VERSION
 function calculateDeductionTotals() {
   let totalDarzans = 0;
@@ -3259,54 +3302,49 @@ function calculateDeductionTotals() {
 }
 
     function totals(){
-      // Calculate totals using helper functions
-      const bora60Totals = calculateBora60Totals();
-      const bora50Totals = calculateBora50Totals();
-      const bora40Totals = calculateBora40Totals();
-      const darzanTotals = calculateDarzanTotals();
-      const deductionTotals = calculateDeductionTotals();
-      
-      // Calculate grand total WITH PREVIOUS BALANCE
-      const prevBalance = Number(state.meta.previousBalance) || 0;
-      const GT = (bora60Totals.bora60Amount425 + bora60Totals.bora60Amount450 + 
-                 bora60Totals.bora60Amount475 + bora60Totals.bora60Amount600 + 
-                 bora50Totals.bora50Amount475 + bora50Totals.bora50Amount450 + 
-                 bora40Totals.bora40Amount475 + bora40Totals.bora40Amount450 +
-                 darzanTotals.darzanAmount425 + darzanTotals.darzanAmount475 + 
-                 darzanTotals.darzanAmount450 + darzanTotals.darzanAmount600) + prevBalance;
-      
-      // Calculate total payments
-      const totalPayments = state.payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
-      
-      // Calculate final amount (GT already includes prevBalance, so no need to add again)
-      const finalAmount = GT - totalPayments - deductionTotals.totalDeductionAmount;
+  // Calculate totals using updated functions
+  const bora60Totals = calculateBora60Totals();
+  const bora50Totals = calculateBora50Totals();
+  const bora40Totals = calculateBora40Totals();
+  const darzanTotals = calculateDarzanTotals();
+  const deductionTotals = calculateDeductionTotals();
+  
+  // Calculate total Bora and Darzan amounts (ALL RATES INCLUDED)
+  let totalBoraAmount = 0;
+  let totalDarzanAmount = 0;
+  
+  // Sum all bora amounts
+  Object.values(bora60Totals).forEach(item => totalBoraAmount += item.amount);
+  Object.values(bora50Totals).forEach(item => totalBoraAmount += item.amount);
+  Object.values(bora40Totals).forEach(item => totalBoraAmount += item.amount);
+  
+  // Sum all darzan amounts
+  Object.values(darzanTotals).forEach(item => totalDarzanAmount += item.amount);
 
-      // Calculate total Bora and Darzan amounts separately
-      const totalBoraAmount = bora60Totals.bora60Amount425 + bora60Totals.bora60Amount450 + 
-                              bora60Totals.bora60Amount475 + bora60Totals.bora60Amount600 + 
-                              bora50Totals.bora50Amount475 + bora50Totals.bora50Amount450 + 
-                              bora40Totals.bora40Amount475 + bora40Totals.bora40Amount450;
-                              
-      const totalDarzanAmount = darzanTotals.darzanAmount425 + darzanTotals.darzanAmount475 + 
-                               darzanTotals.darzanAmount450 + darzanTotals.darzanAmount600;
+  // Calculate grand total WITH PREVIOUS BALANCE
+  const prevBalance = Number(state.meta.previousBalance) || 0;
+  const GT = totalBoraAmount + totalDarzanAmount + prevBalance;
+  
+  // Calculate total payments
+  const totalPayments = state.payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+  
+  // Calculate final amount
+  const finalAmount = GT - totalPayments - deductionTotals.totalDeductionAmount;
 
-      // Update deduction totals
-      document.getElementById('totalDarzans').value = deductionTotals.totalDarzans;
-      document.getElementById('deductionQty').value = deductionTotals.totalDeductionQty;
-      document.getElementById('deductionAmount').value = fmt(deductionTotals.totalDeductionAmount);
-      document.getElementById('deductingDarzanPayments').value = fmt(deductionTotals.totalDeductionAmount);
-      
-      // Update grand totals (GT already includes previous balance)
-      document.getElementById('totalBoraAmount').value = fmt(totalBoraAmount);
-      document.getElementById('totalDarzanAmount').value = fmt(totalDarzanAmount);
-      document.getElementById('grandTotal').value = fmt(GT);
-      document.getElementById('paymentGrandTotal').value = fmt(GT);
-      document.getElementById('prevBalanceDisplay').value = fmt(prevBalance);
-      document.getElementById('totalPayments').value = fmt(totalPayments);
-      
-      // Update net final amount
-      document.getElementById('netFinalAmount').value = fmt(finalAmount);
-    }
+  // Update UI
+  document.getElementById('totalDarzans').value = deductionTotals.totalDarzans;
+  document.getElementById('deductionQty').value = deductionTotals.totalDeductionQty;
+  document.getElementById('deductionAmount').value = fmt(deductionTotals.totalDeductionAmount);
+  document.getElementById('deductingDarzanPayments').value = fmt(deductionTotals.totalDeductionAmount);
+  
+  document.getElementById('totalBoraAmount').value = fmt(totalBoraAmount);
+  document.getElementById('totalDarzanAmount').value = fmt(totalDarzanAmount);
+  document.getElementById('grandTotal').value = fmt(GT);
+  document.getElementById('paymentGrandTotal').value = fmt(GT);
+  document.getElementById('prevBalanceDisplay').value = fmt(prevBalance);
+  document.getElementById('totalPayments').value = fmt(totalPayments);
+  document.getElementById('netFinalAmount').value = fmt(finalAmount);
+}
 
     // Update combined quick total
     function updateCombinedQuickTotal() {
@@ -3408,41 +3446,26 @@ function updateCalculatorDeduction() {
     function updateUserInfo() {
       state.meta.userName = document.getElementById('userName').value || document.getElementById('userNameMobile').value || '';
       state.meta.mobileNumber = document.getElementById('mobileNumber').value || document.getElementById('mobileNumberMobile').value || '';
-      state.meta.month = parseInt(document.getElementById('monthSelect').value || document.getElementById('monthSelectMobile').value || new Date().getMonth());
-      state.meta.year = parseInt(document.getElementById('yearInput').value || document.getElementById('yearInputMobile').value || new Date().getFullYear());
-      state.meta.previousBalance = Number(document.getElementById('previousBalance').value || document.getElementById('previousBalanceMobile').value || 0);
+      state.meta.month = parseInt(document.getElementById('monthSelect').value) || parseInt(document.getElementById('monthSelectMobile').value) || new Date().getMonth();
+      state.meta.year = parseInt(document.getElementById('yearInput').value) || parseInt(document.getElementById('yearInputMobile').value) || new Date().getFullYear();
+      state.meta.previousBalance = Number(document.getElementById('previousBalance').value) || Number(document.getElementById('previousBalanceMobile').value) || 0;
       
-      // Sync values between desktop and mobile
-      document.getElementById('userName').value = state.meta.userName;
-      document.getElementById('mobileNumber').value = state.meta.mobileNumber;
-      document.getElementById('monthSelect').value = state.meta.month;
-      document.getElementById('yearInput').value = state.meta.year;
-      document.getElementById('previousBalance').value = state.meta.previousBalance;
-      document.getElementById('userNameMobile').value = state.meta.userName;
-      document.getElementById('mobileNumberMobile').value = state.meta.mobileNumber;
-      document.getElementById('monthSelectMobile').value = state.meta.month;
-      document.getElementById('yearInputMobile').value = state.meta.year;
-      document.getElementById('previousBalanceMobile').value = state.meta.previousBalance;
-      
-      totals();
-      updateDynamicTotals();
       document.getElementById('statusIndicator').value = "Saving...";
       save();
     }
     
-    // Desktop inputs
-    document.getElementById('userName').addEventListener('input', updateUserInfo);
-    document.getElementById('mobileNumber').addEventListener('input', updateUserInfo);
-    document.getElementById('monthSelect').addEventListener('change', updateUserInfo);
-    document.getElementById('yearInput').addEventListener('input', updateUserInfo);
-    document.getElementById('previousBalance').addEventListener('input', updateUserInfo);
+    // Add event listeners for user info inputs
+    const userInfoInputs = [
+      'userName', 'mobileNumber', 'monthSelect', 'yearInput', 'previousBalance',
+      'userNameMobile', 'mobileNumberMobile', 'monthSelectMobile', 'yearInputMobile', 'previousBalanceMobile'
+    ];
     
-    // Mobile inputs
-    document.getElementById('userNameMobile').addEventListener('input', updateUserInfo);
-    document.getElementById('mobileNumberMobile').addEventListener('input', updateUserInfo);
-    document.getElementById('monthSelectMobile').addEventListener('change', updateUserInfo);
-    document.getElementById('yearInputMobile').addEventListener('input', updateUserInfo);
-    document.getElementById('previousBalanceMobile').addEventListener('input', updateUserInfo);
+    userInfoInputs.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.addEventListener('change', updateUserInfo);
+      }
+    });
 
     // --- Profile Image Upload ---
     function handleProfileUpload(e) {
@@ -3865,8 +3888,6 @@ function closeVideoPopup() {
 // Call this function when page loads
 showVideoPopup();
 
-
-
   </script>
 <!-- Video Tutorial Popup -->
 <div class="modal-overlay" id="videoPopup" style="display: none;">
@@ -3881,13 +3902,13 @@ showVideoPopup();
 </div>
 <!-- Video Frame -->
 <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 15px;">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="100%" id="tutorialVideo" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;" width="100%"></iframe>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="100%" id="tutorialVideo" src="https://www.youtube.com/watch?v=ZL4HQCI_muM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;" width="100%"></iframe>
 </div>
 <!-- Alternative: Direct Video Link -->
 <div style="text-align: center; padding: 10px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; margin-bottom: 15px;">
 <p style="margin: 0; font-size: 14px;">
 <strong>Can't see the video?</strong><br/>
-<a href="https://youtu.be/YOUR_VIDEO_ID_HERE" style="color: var(--accent); text-decoration: underline;" target="_blank">
+<a href="https://www.youtube.com/watch?v=ZL4HQCI_muM" style="color: var(--accent); text-decoration: underline;" target="_blank">
             Go live - watch on YouTube
           </a>
 </p>
@@ -3910,6 +3931,559 @@ showVideoPopup();
 var LZString=function(){function o(o,r){if(!t[o]){t[o]={};for(var n=0;n<o.length;n++)t[o][o.charAt(n)]=n}return t[o][r]}var r=String.fromCharCode,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",t={},i={compressToUTF16:function(o){if(o==null)return"";var e,i,t={},a={},s="",u="",c="",l=0,f=0,h;for(e=0;e<o.length;e+=1)if(s=o.charAt(e),Object.prototype.hasOwnProperty.call(t,s)||(t[s]=f++,a[s]=!0),u+=s,a[u]){if(Object.prototype.hasOwnProperty.call(t,u)){continue}if(u.length>1){delete a[u]}i=t[u.substring(0,u.length-1)],c=u.charAt(u.length-1),h=t[c],h==null&&(h=c.charCodeAt(0)),s=String.fromCharCode(i<<8|h),o=o.substring(0,e-u.length+1)+s+o.substring(e+1),e-=u.length-2,u=""}return o},decompressFromUTF16:function(o){if(o==null)return"";var r,n,e,t,i="",a=0,s,u,c,l,f,h,d,p;for(r=0;r<o.length;r+=1)n=o.charCodeAt(r),i+=String.fromCharCode(n>>8),i+=String.fromCharCode(n%256);return i}};return i}();
 function saveData(key,data){try{const c=LZString.compressToUTF16(JSON.stringify(data));localStorage.setItem(key,c);}catch(e){alert("⚠️ Storage full! Please export your data and clear old records.");}}
 function loadData(key){const d=localStorage.getItem(key);if(!d)return null;try{return JSON.parse(LZString.decompressFromUTF16(d));}catch(e){return null;}}
+</script>
+
+<script>
+// Replace existing service worker registration with this:
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        // Use relative path for service worker
+        navigator.serviceWorker.register('./sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('ServiceWorker registration failed: ', error);
+                // Continue without service worker
+            });
+    });
+} else {
+    console.log('Service workers are not supported.');
+}
+
+// PWA Installation Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log('PWA Installation available');
+  showInstallButton();
+});
+
+function showInstallButton() {
+  const installBtn = document.createElement('button');
+  installBtn.id = 'installPWA';
+  installBtn.innerHTML = '📱 Install App';
+  installBtn.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(145deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  `;
+  
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('User accepted PWA installation');
+      installBtn.remove();
+    }
+    
+    deferredPrompt = null;
+  });
+  
+  installBtn.addEventListener('mouseenter', () => {
+    installBtn.style.transform = 'translateY(-2px)';
+    installBtn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
+  });
+  
+  installBtn.addEventListener('mouseleave', () => {
+    installBtn.style.transform = 'translateY(0)';
+    installBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+  });
+  
+  document.body.appendChild(installBtn);
+}
+
+// Enhanced Storage Integration
+// Replace your existing save() and load() functions:
+
+async function save() {
+  if (preferences.autoSave === 'disable') {
+    document.getElementById('statusIndicator').value = "Auto Save Disabled";
+    return;
+  }
+  
+  state.meta.lastSaved = new Date().toISOString();
+  
+  // Save main data using enhanced storage
+  const result = await enhancedStorage.save(STORAGE_KEY, state);
+  
+  if (result.success) {
+    document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
+    document.getElementById('statusIndicator').value = "All changes saved";
+    
+    // Also save settings and preferences
+    await enhancedStorage.save(SETTINGS_KEY, settings);
+    await enhancedStorage.save(PREFERENCES_KEY, preferences);
+    
+    updateProfileInfo();
+    document.getElementById('restoreBtn').disabled = state.deletedItems.length === 0;
+    saveCalculatorData();
+    updateDynamicTotals();
+    
+    console.log(`Data saved using: ${result.method}`);
+  } else {
+    console.error('Save failed:', result.error);
+    document.getElementById('statusIndicator').value = "Save failed!";
+  }
+}
+
+async function load() {
+  try {
+    // Load main data
+    const data = await enhancedStorage.load(STORAGE_KEY);
+    if (data) return data;
+    
+    // Load settings
+    const savedSettings = await enhancedStorage.load(SETTINGS_KEY);
+    if (savedSettings) settings = savedSettings;
+    
+    // Load preferences  
+    const savedPreferences = await enhancedStorage.load(PREFERENCES_KEY);
+    if (savedPreferences) preferences = savedPreferences;
+    
+    return emptyMonth();
+  } catch (e) {
+    console.error('Load failed:', e);
+    return emptyMonth();
+  }
+}
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('ServiceWorker registration failed: ', error);
+      });
+  });
+}
+
+// Storage Info Display (Optional - for debugging)
+async function showStorageInfo() {
+  const info = await enhancedStorage.getStorageInfo();
+  console.log('Storage Info:', info);
+  
+  // You can display this info in your app if needed
+  const storageInfo = `
+    LocalStorage: ${info.localStorage.sizeMB} MB
+    IndexedDB: ${info.indexedDB.sizeMB} MB
+    Total: ${info.totalMB} MB
+  `;
+  
+  return storageInfo;
+}
+</script>
+
+<script>
+  // Remove any manifest link elements at runtime (extra safety)
+  try {
+    document.querySelectorAll('link[rel="manifest"]').forEach(function(el){ el.parentNode && el.parentNode.removeChild(el); });
+  } catch(e){}
+
+  // Utility to dynamically load a script
+  function loadScript(src, cb){
+    var s = document.createElement('script'); s.src = src; s.async = false;
+    s.onload = function(){ cb && cb(null); };
+    s.onerror = function(err){ cb && cb(err || new Error('Failed to load '+src)); };
+    document.head.appendChild(s);
+  }
+
+  // Enhanced PDF library loader with offline fallback
+function ensurePdfLibs(cb) {
+  // Check if libraries are loaded
+  if (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default) && window.jspdfAutoTable) {
+    return cb && cb();
+  } else {
+    // Wait a bit and check again (for slow connections)
+    setTimeout(() => {
+      if (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default) && window.jspdfAutoTable) {
+        cb && cb();
+      } else {
+        console.error('PDF libraries not available');
+        cb && cb(new Error('PDF libraries failed to load'));
+      }
+    }, 1000);
+  }
+}
+
+    // Calculator save/restore: look for element with id 'calculator' or class 'calculator'
+    try {
+      var calcEl = document.getElementById('calculator') || document.querySelector('.calculator') || document.querySelector('[data-module="calculator"]');
+      var CALC_KEY = 'calculator_data_v1';
+      function saveCalculator(){
+        if(!calcEl) return;
+        var inputs = calcEl.querySelectorAll('input, textarea, select');
+        var data = {};
+        inputs.forEach(function(inp){
+          if(!inp.name && !inp.id) return;
+          var key = inp.id || inp.name;
+          if(inp.type==='checkbox' || inp.type==='radio') data[key] = inp.checked;
+          else data[key] = inp.value;
+        });
+        try{ localStorage.setItem(CALC_KEY, JSON.stringify(data)); }catch(e){ console.warn('calc save failed', e); }
+      }
+      function restoreCalculator(){
+        if(!calcEl) return;
+        var raw = localStorage.getItem(CALC_KEY);
+        if(!raw) return;
+        try{
+          var data = JSON.parse(raw);
+          Object.keys(data).forEach(function(k){
+            var el = document.getElementById(k) || document.querySelector('[name="'+k+'"]');
+            if(!el) return;
+            if(el.type==='checkbox' || el.type==='radio') el.checked = !!data[k];
+            else el.value = data[k];
+            // trigger input events so UI updates
+            el.dispatchEvent(new Event('input',{bubbles:true}));
+            el.dispatchEvent(new Event('change',{bubbles:true}));
+          });
+        }catch(e){ console.warn('calc restore failed', e); }
+      }
+      // attach listeners if calcEl exists
+      if(calcEl){
+        calcEl.addEventListener('input', function(){ saveCalculator(); });
+        // also save on change and blur
+        calcEl.addEventListener('change', function(){ saveCalculator(); });
+        window.addEventListener('beforeunload', saveCalculator);
+        // restore on load
+        restoreCalculator();
+      } else {
+        // as fallback, also watch for Bora/Darzan inputs anywhere on the page
+        var boraDarzInputs = document.querySelectorAll('input[id*=\"bora\" i], input[name*=\"bora\" i], input[id*=\"darzan\" i], input[name*=\"darzan\" i]');
+        if(boraDarzInputs && boraDarzInputs.length){
+          boraDarzInputs.forEach(function(inp){
+            inp.addEventListener('input', function(){
+              try{
+                var key = 'bora_darzan_backup_v1';
+                var all = JSON.parse(localStorage.getItem(key) || '{}');
+                all[inp.id || inp.name || ('field_'+Math.random().toString(36).slice(2,8))] = inp.value;
+                localStorage.setItem(key, JSON.stringify(all));
+              }catch(e){}
+            });
+          });
+          // restore
+          try{
+            var raw = localStorage.getItem('bora_darzan_backup_v1');
+            if(raw){
+              var data = JSON.parse(raw);
+              Object.keys(data).forEach(function(k){
+                var el = document.getElementById(k) || document.querySelector('[name=\"'+k+'\"]');
+                if(el) { el.value = data[k]; el.dispatchEvent(new Event('input',{bubbles:true})); }
+              });
+            }
+          }catch(e){}
+        }
+      }
+
+      // augment Reset Month button to also clear calculator key and known profile image key
+      var resetBtn = document.getElementById('resetBtn') || document.querySelector('[id*=\"reset\" i]');
+      if(resetBtn){
+        resetBtn.addEventListener('click', function(){
+          try{ localStorage.removeItem('calculator_data_v1'); localStorage.removeItem('bora_darzan_backup_v1'); }catch(e){};
+          // also try to clear the profile image key if it's used
+          try{ localStorage.removeItem('gloves-profile-image'); }catch(e){};
+        });
+      }
+    } catch(e){ console.warn('Calculator save/restore setup failed', e); }
+
+  ; // DOMContentLoaded
+
+</script>
+<!-- Calculator persistent save/restore script (auto-inserted) -->
+<script>
+(function(){
+  const CALC_KEY = 'calculator_data_v3'; // versioned key
+  // Utility: generate a stable key for an element
+  function keyForElement(el, prefix){
+    if(!el) return null;
+    if(el.id) return el.id;
+    if(el.name) return el.name;
+    // try data-save-key
+    if(el.dataset && el.dataset.saveKey) return el.dataset.saveKey;
+    // else generate based on container and index path
+    let container = el.closest('#boraCalculatorGrid') ? 'bora' : (el.closest('#darzanCalculatorGrid') ? 'darzan' : 'calc');
+    // find index of the element among similar siblings
+    let inputs = Array.from((el.parentNode||document).querySelectorAll('input,select,textarea'));
+    let idx = inputs.indexOf(el);
+    // create key and store it on element for future stability
+    let generated = container + '_' + (el.tagName||'el').toLowerCase() + '_' + (el.className||'') .replace(/\s+/g,'_') + '_' + (idx>=0?idx:Math.random().toString(36).slice(2,8));
+    generated = generated.replace(/[^a-z0-9_\-]/ig,'').slice(0,60);
+    try{ el.dataset.saveKey = generated; }catch(e){}
+    return generated;
+  }
+
+  function collectFields(){
+    // look within both calculator grids
+    const grids = [];
+    const b = document.getElementById('boraCalculatorGrid');
+    const d = document.getElementById('darzanCalculatorGrid');
+    if(b) grids.push(b);
+    if(d) grids.push(d);
+    // also look for any element with class 'calculator-section' to catch edge cases
+    const extras = Array.from(document.querySelectorAll('.calculator-section'));
+    extras.forEach(x => { if(!grids.includes(x)) grids.push(x); });
+    // collect inputs/selects/textareas inside these grids
+    const fields = [];
+    grids.forEach(grid => {
+      const f = Array.from(grid.querySelectorAll('input,select,textarea'));
+      f.forEach(el => fields.push(el));
+    });
+    return fields;
+  }
+
+  function saveCalculator(){
+    try{
+      const data = { meta: { savedAt: new Date().toISOString() }, fields: {} };
+      const fields = collectFields();
+      fields.forEach(el => {
+        const k = keyForElement(el);
+        if(!k) return;
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          data.fields[k] = { type: el.type, value: el.checked };
+        } else {
+          data.fields[k] = { type: el.tagName.toLowerCase(), value: el.value };
+        }
+      });
+      localStorage.setItem(CALC_KEY, JSON.stringify(data));
+      // update lastSaved if present
+      const lastEl = document.getElementById('lastSaved');
+      if(lastEl) lastEl.value = new Date().toLocaleString();
+    }catch(e){ console.warn('Save calculator failed', e); }
+  }
+
+  function restoreCalculator(){
+    try{
+      const raw = localStorage.getItem(CALC_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      const fields = collectFields();
+      // build a map of keys to elements for quick lookup
+      const elMap = {};
+      fields.forEach(el => {
+        const k = keyForElement(el);
+        if(k) elMap[k] = el;
+      });
+      Object.keys(data.fields || {}).forEach(k => {
+        const entry = data.fields[k];
+        const el = elMap[k];
+        if(!el) return; // element not present currently
+        if(entry.type === 'checkbox' || entry.type === 'radio'){
+          el.checked = !!entry.value;
+        } else {
+          el.value = entry.value;
+        }
+        // Dispatch events so any computed totals update
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        el.dispatchEvent(new Event('blur', { bubbles: true }));
+      });
+      // update lastSaved UI
+      const lastEl = document.getElementById('lastSaved');
+      if(lastEl && data.meta && data.meta.savedAt) lastEl.value = new Date(data.meta.savedAt).toLocaleString();
+    }catch(e){ console.warn('Restore calculator failed', e); }
+  }
+
+  function clearCalculatorDataAndUI(){
+    try{
+      localStorage.removeItem(CALC_KEY);
+    }catch(e){}
+    const fields = collectFields();
+    fields.forEach(el => {
+      if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+      else el.value = '';
+      el.dispatchEvent(new Event('input', { bubbles:true }));
+      el.dispatchEvent(new Event('change', { bubbles:true }));
+    });
+    // Also clear computed summary fields if present
+    const idsToClear = ['calcTotalDarzans','calcDeductionQty','calcDeductionAmount','calcFinalAmount','combinedBoraAmount','combinedDarzanAmount','combinedTotalAmount'];
+    idsToClear.forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
+    // update lastSaved
+    const lastEl = document.getElementById('lastSaved');
+    if(lastEl) lastEl.value = '';
+  }
+
+  // Attach listeners to fields for autosave
+  function attachListeners(){
+    const fields = collectFields();
+    fields.forEach(el => {
+      // use input and change events
+      el.addEventListener('input', debounce(saveCalculator, 300));
+      el.addEventListener('change', debounce(saveCalculator, 300));
+    });
+  }
+
+  // Debounce helper
+  function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(fn, wait); }; }
+
+  // Wire Clear and Reset buttons
+  function wireClearButtons(){
+    const clearBtn = document.getElementById('clearCalculatorBtn') || document.querySelector('.calculator-clear-btn button');
+    if(clearBtn){
+      clearBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        if(!confirm('Clear all calculator data? This will remove Bora/Darzan inputs in Calculator tab.')) return;
+        clearCalculatorDataAndUI();
+      });
+    }
+    const resetBtn = document.getElementById('resetBtn');
+    if(resetBtn){
+      resetBtn.addEventListener('click', function(){
+        // confirm already may be on UI; still clear calc key silently
+        clearCalculatorDataAndUI();
+      });
+    }
+  }
+
+  // On DOM ready
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      restoreCalculator();
+      attachListeners();
+      wireClearButtons();
+      // ensure save when page unloads
+      window.addEventListener('beforeunload', saveCalculator);
+    }catch(e){ console.warn('Calculator persistence init failed', e); }
+  });
+})(); 
+</script>
+<!-- End calculator persistent script -->
+
+<script>
+// APK Environment Detection and Fix
+document.addEventListener('DOMContentLoaded', function() {
+    // Improved APK detection
+const isAPK = window.location.protocol === 'file:' || 
+              navigator.userAgent.includes('Android') ||
+              !window.location.hostname;
+    
+    if (isAPK) {
+        console.log('Running in APK environment');
+        
+        // Disable service worker in file protocol (APK)
+        if ('serviceWorker' in navigator && window.location.protocol === 'file:') {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Force theme to light mode for better compatibility
+        localStorage.setItem('gloves-theme', 'light');
+        document.documentElement.classList.remove('dark');
+    }
+});
+</script>
+<script>
+// APK Environment Fix
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - checking environment');
+    
+    // Force disable service worker in APK environment
+    if (window.location.protocol === 'file:' || !navigator.onLine) {
+        console.log('Running in APK/offline environment');
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                registrations.forEach(function(registration) {
+                    registration.unregister();
+                    console.log('ServiceWorker unregistered');
+                });
+            });
+        }
+        
+        // Ensure theme is set to light for better compatibility
+        setTimeout(() => {
+            if (!localStorage.getItem('gloves-theme')) {
+                localStorage.setItem('gloves-theme', 'light');
+                document.documentElement.classList.remove('dark');
+            }
+        }, 100);
+    }
+    
+    // Check if storage is working
+    setTimeout(() => {
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            console.log('LocalStorage is working');
+        } catch (e) {
+            console.error('LocalStorage error:', e);
+        }
+    }, 500);
+});
+</script>
+<script>
+// Previous Balance Fix Code
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Previous Balance Fix: DOM loaded');
+
+    // Wait for state to be loaded
+    setTimeout(() => {
+        console.log('Previous Balance Fix: Checking state...', state);
+
+        // Sync previous balance inputs
+        const desktopBalance = document.getElementById('previousBalance');
+        const mobileBalance = document.getElementById('previousBalanceMobile');
+
+        if (desktopBalance && mobileBalance) {
+            // If state has previous balance, set it to inputs
+            if (state.meta.previousBalance !== undefined) {
+                desktopBalance.value = state.meta.previousBalance;
+                mobileBalance.value = state.meta.previousBalance;
+                console.log('Previous Balance Fix: Set inputs from state', state.meta.previousBalance);
+            }
+
+            // Add event listeners to update state and save
+            function handleBalanceChange() {
+                const balanceValue = parseFloat(this.value) || 0;
+                state.meta.previousBalance = balanceValue;
+                console.log('Previous Balance Fix: Updated state', balanceValue);
+                save();
+            }
+
+            desktopBalance.addEventListener('input', handleBalanceChange);
+            mobileBalance.addEventListener('input', handleBalanceChange);
+        }
+
+        // Also update the totals to reflect previous balance
+        totals();
+    }, 1000);
+});
+
+// Override the existing updateUserInfo function to ensure it includes previous balance
+const originalUpdateUserInfo = updateUserInfo;
+updateUserInfo = function() {
+    // Call the original function
+    originalUpdateUserInfo();
+
+    // Additionally, make sure previous balance is saved
+    const desktopBalance = document.getElementById('previousBalance');
+    const mobileBalance = document.getElementById('previousBalanceMobile');
+    if (desktopBalance && mobileBalance) {
+        const balanceValue = parseFloat(desktopBalance.value) || parseFloat(mobileBalance.value) || 0;
+        state.meta.previousBalance = balanceValue;
+        console.log('updateUserInfo: Saved previous balance', balanceValue);
+    }
+};
 </script>
 </body>
 </html>
