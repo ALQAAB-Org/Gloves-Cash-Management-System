@@ -1,11 +1,32 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gloves Manufacture Company</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="./manifest.json">
+
+<!-- PWA Theme Color -->
+<meta name="theme-color" content="#3b82f6">
+<meta name="msapplication-TileColor" content="#3b82f6">
+
+<!-- iOS PWA Support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GMC App">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<!-- Enhanced Storage Script -->
+<script src="./storage.js"></script>
+<link rel="manifest" href="/manifest.json">
+
+
+<title>Gloves Manufacture Company</title>
+
+<style>
     /* VARIABLES */
     :root{
       --bg:#f0f8ff; --card:#ffffff; --text:#1e3a8a; --muted:#4b5563; --accent:#3b82f6; --border:#bfdbfe; --ok:#10b981;
@@ -17,94 +38,104 @@
     }
     /* BASE STYLES */
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"}
-    header, footer{padding:14px 18px}
-    header{background:var(--header-bg);border-bottom:1px solid var(--border);z-index:10}
-    .wrap{max-width:1100px;margin:0 auto;padding:18px}
-    .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05)}
-    h1{font-size:22px;margin:0;color:var(--accent)}
-    h2{font-size:18px;margin:0 0 8px 0;color:var(--accent)}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    .col{flex:1 1 320px}
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-    input[type="number"], input[readonly], input[type="text"], input[type="tel"], input[type="date"], textarea, select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:16px}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    header, footer{padding:10px 12px}
+    header{background:var(--header-bg);border-bottom:1px solid var(--border);}
+    .wrap{max-width:1100px;margin:0 auto;padding:12px}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+    h1{font-size:18px;margin:0;color:var(--accent)}
+    h2{font-size:16px;margin:0 0 6px 0;color:var(--accent)}
+    h3{font-size:14px;margin:8px 0 4px 0;color:var(--accent)}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .col{flex:1 1 280px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+    input[type="number"], input[readonly], input[type="text"], input[type="tel"], input[type="date"], textarea, select{width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:14px}
     input[readonly]{background:rgba(127,127,127,.05)}
-    .btn{appearance:none;border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer;transition:all 0.2s ease;font-size:14px}
+    .btn{text-align: center;appearance:none;border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 10px;border-radius:8px;cursor:pointer;transition:all 0.2s ease;font-size:13px}
     .btn.primary{background:var(--accent);border-color:var(--accent);color:white}
     .btn.success{background:var(--ok);border-color:var(--ok);color:white}
     .btn.warn{background:var(--accent2);border-color:var(--accent2);color:white}
     .btn:disabled{opacity:.6;cursor:not-allowed}
-    .btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.1)}
-    table{width:100%;border-collapse:collapse;}
-    th, td{border-bottom:1px solid var(--border);padding:8px;text-align:center}
-    th{font-weight:600;color:var(--muted);background:var(--header-bg)}
+    .btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+    table{width:100%;border-collapse:collapse; font-size: 13px;}
+    th, td{border-bottom:1px solid var(--border);padding:6px;text-align:center}
+    th{font-weight:600;color:var(--muted);background:var(--header-bg); font-size: 12px;}
     tfoot td{font-weight:700}
-    .note{font-size:12px;color:var(--muted)}
-    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(59,130,246,.1);color:var(--accent);font-size:12px}
+    .note{font-size:11px;color:var(--muted)}
+    .pill{display:inline-block;padding:3px 6px;border-radius:999px;background:rgba(59,130,246,.1);color:var(--accent)}
     .pill.orange{background:rgba(245,158,11,.1);color:var(--accent3)}
     .pill.red{background:rgba(239,68,68,.1);color:var(--accent2)}
-    .footer{font-size:13px;color:var(--muted);border-top:1px solid var(--border);text-align:center}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .card-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-    .right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-    .totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .mono{font-variant-numeric:tabular-nums;}
-    .user-info{display:grid;grid-columns:repeat(auto-fit, minmax(300px, 1fr));gap:12px;margin-bottom:16px;}
-    .date-container{display:flex;gap:8px;}
+    .footer{font-size:12px;color:var(--muted);border-top:1px solid var(--border);text-align:center; padding: 8px 0;}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .card-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px; font-size: 13px;}
+    .right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+    .totals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .mono{font-variant-numeric:tabular-nums; font-size: 13px;}
+    .user-info{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:8px;margin-bottom:12px;}
+    .date-container{display:flex;gap:6px;}
     
     /* NEW STYLES */
     .payment-details {
       display: grid;
       grid-template-columns: 1fr 1.5fr 1fr auto;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 8px;
       align-items: center;
+      font-size: 13px;
     }
     .payment-date {
-      min-width: 120px;
+      min-width: 100px;
     }
     .payment-note {
-      min-width: 150px;
+      min-width: 120px;
     }
     .centered-cell {
       text-align: center;
     }
     .payment-summary {
       background: rgba(16, 185, 129, 0.1);
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin-top: 10px;
-      border-left: 3px solid var(--ok);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border-left: 2px solid var(--ok);
+      font-size: 12px;
+    }
+    .darzan-deduction {
+      background: rgba(16, 185, 129, 0.1);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      font-size: 12px;
     }
     
     /* Colorful elements for light mode */
-    :root .panel:nth-child(3n+1) {border-top: 3px solid var(--accent);}
-    :root .panel:nth-child(3n+2) {border-top: 3px solid var(--accent3);}
-    :root .panel:nth-child(3n+3) {border-top: 3px solid var(--accent2);}
+    :root .panel:nth-child(3n+1) {border-top: 2px solid var(--accent);}
+    :root .panel:nth-child(3n+2) {border-top: 2px solid var(--accent3);}
+    :root .panel:nth-child(3n+3) {border-top: 2px solid var(--accent2);}
     
     /* Payment section styles */
-    .payment-section {margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border);}
-    .payment-row {display: flex; gap: 10px; margin-bottom: 10px; align-items: center;}
-    .payment-row input, .payment-row select {flex: 1;}
+    .payment-section {margin-top: 15px; padding-top: 12px; border-top: 1px dashed var(--border);}
+    .payment-row {display: flex; gap: 8px; margin-bottom: 8px; align-items: center;}
+    .payment-row input, .payment-row select {flex: 1; font-size: 13px;}
     .payment-row .btn {flex: 0 0 auto;}
     
     /* NEW: Combined user info section */
     .combined-user-info {
         display: grid;
         grid-template-columns: auto 1fr;
-        gap: 20px;
+        gap: 15px;
         align-items: center;
         background: var(--card);
         border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 16px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .user-details-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 12px;
     }
     .user-info-item {
         display: flex;
@@ -127,25 +158,25 @@
     }
 
     .deducting-payments {
-        font-size: 13px;
+        font-size: 12px;
         color: var(--muted);
-        margin-top: 5px;
+        margin-top: 4px;
     }
     
     .final-amount-label {
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
     /* Professional Image Styling */
     .profile-img-container {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       flex-shrink: 0;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     .profile-img {
       width: 100%;
@@ -157,329 +188,2035 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
       background: var(--accent);
       color: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 18px;
       line-height: 1;
       cursor: pointer;
       border: 2px solid var(--card);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    }
+    
+    /* NEW STYLES FOR MANUAL ENTRY SECTION */
+    .manual-entry-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.05);
+    }
+    
+    .manual-entry-table {
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+      align-items: center;
+    }
+    
+    .pagination-info {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    
+    /* NEW: Improved header button styles for mobile */
+    .header-buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    
+    .header-btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    
+    /* NEW: Calculator section mobile improvements */
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    /* NEW: Totals section mobile improvements */
+    .totals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    
+    /* NEW: Button redesign */
+    .btn-new {
+      text-align: center;
+      appearance: none;
+      border: none;
+      background: linear-gradient(145deg, var(--accent), #2563eb);
+      color: white;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-new:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(145deg, #2563eb, var(--accent));
+    }
+    
+    .btn-new:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-new.primary {
+      background: linear-gradient(145deg, var(--accent), #2563eb);
+    }
+    
+    .btn-new.success {
+      background: linear-gradient(145deg, var(--ok), #059669);
+    }
+    
+    .btn-new.warn {
+      background: linear-gradient(145deg, var(--accent2), #dc2626);
+    }
+    
+    .btn-new:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* NEW: Theme toggle button styling */
+    #themeToggle, #mobileThemeToggle {
+      background: rgb(54, 108, 227);
+      color: rgb(255, 255, 255);
+    }
+    
+    .dark #themeToggle, .dark #mobileThemeToggle {
+      background: rgb(54, 108, 227);;
+      color: black;
+    }
+    
+    /* NEW: Theme toggle hover effects */
+    #themeToggle:hover, #mobileThemeToggle:hover {
+      background: #000000 !important;
+      color: rgb(255, 255, 255) !important;
+    }
+    
+    .dark #themeToggle:hover, .dark #mobileThemeToggle:hover {
+      background: #ffffff !important;
+      color: rgb(0, 0, 0) !important;
+    }
+      
+    /* Dark mode dropdown fix */
+    .dark select {
+      background-color: var(--card);
+      color: var(--text);
+    }
+    
+    .dark select option {
+      background-color: var(--card);
+      color: var(--text);
+    }
+    
+    /* Combined total section in quick calculator */
+    .combined-total-panel {
+      grid-column: 1 / -1;
+      background: var(--card) !important;
+      border: 2px dashed var(--ok) !important;
+    }
+    
+    /* NEW: Darzan deduction section for desktop */
+    .darzan-deduction-panel {
+      grid-column: 1 / -1;
+      background: var(--card) !important;
+      border: 2px dashed var(--accent2) !important;
+    }
+    
+    .darzan-deduction-panel .card-title {
+      color: var(--accent2);
+    }
+    
+    .darzan-deduction-panel .deduction-amount {
+      color: var(--accent2);
+      font-weight: bold;
+    }
+    
+    /* NEW: Tabs for section switching */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      font-size: 13px;
+      background: rgba(0,0,0,0.05);
+    }
+    
+    .tab.active {
+      background: var(--card);
+      border-color: var(--border);
+      font-weight: 600;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* NEW: Reset button hover effect */
+    .btn-new.warn:hover:not(:disabled) {
+      background: linear-gradient(145deg, #000000, #dd0e0e) !important;
+      color: #ffffff !important;
+    }
+    
+    /* NEW: Buttons container in Tips tab */
+    .tips-buttons-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    /* NEW: Import button styling fixes */
+    .import-btn-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .import-btn-label {
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--accent), #2563eb);
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    .import-btn-label:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(145deg, #2563eb, var(--accent));
+    }
+    
+    .import-btn-label:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .import-btn-input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    
+    /* NEW: Form-like user info section */
+    .user-form-container {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .user-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--accent);
+    }
+    
+    .form-group input, .form-group select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+    
+    .form-group-full {
+      grid-column: 1 / -1;
+    }
+    
+    .date-inputs {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .date-inputs select, .date-inputs input {
+      flex: 1;
+    }
+    
+    /* NEW: Edit entry modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    
+    .modal-content {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    
+    .modal-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .modal-form .form-group-full {
+      grid-column: 1 / -1;
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    /* NEW: Footer social icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .social-icon.facebook:hover { background: #2821e3de; }
+    .social-icon.youtube:hover { background: #ff0000de; }
+    .social-icon.whatsapp:hover { background: #2cf576dd; }
+    .social-icon.linkedin:hover { background: #ffffffde; }
+    .social-icon.maps:hover { background: #ffee37dd; }
+    .social-icon.github:hover { 
+    background: #1d122d; /* GitHub ka purple color */}
+    
+    /* NEW: Footer styling */
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-title {
+      font-weight: bold;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    
+    .footer-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    
+    /* NEW: Calculator clear button */
+    .calculator-clear-btn {
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    /* NEW: Deduction panel styling */
+    .deduction-panel {
+            border: 1px solid var(--accent2) !important;
+    }
+    
+    .deduction-amount {
+      color: var(--accent2);
+      font-weight: bold;
+    }
+    
+    /* NEW: Date separator in entries table - UPDATED */
+    .date-separator {
+      background-color: #1e297f;
+      height: 4px;
+    }
+    
+    .date-separator td {
+      border-top: 1px solid #1e297f;
+      border-bottom: none;
+      padding: 0;
+      height: 4px;
+    }
+    
+    /* NEW: Deduction rule note styling */
+    .deduction-rule-note {
+      background: rgba(239, 68, 68, 0.1);
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-top: 12px;
+      border-left: 3px solid var(--accent2);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .deduction-rule-note p {
+      margin: 5px 0;
+    }
+    
+    .deduction-rule-note strong {
+      color: var(--accent2);
+    }
+    
+    /* NEW: Calculator deduction panel */
+    .calculator-deduction-panel {
+      border: 1px solid var(--accent2) !important;
+      background: var(--card) !important;
+    }
+    
+    .calculator-deduction-title {
+      color: var(--accent2);
+      font-weight: bold;
+    }
+    
+    /* NEW: Line-wise design for calculator and totals tabs */
+    .calculator-grid-new {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .totals-grid-new {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    
+    .section-divider {
+      grid-column: 1 / -1;
+      height: 1px;
+      background: var(--border);
+      margin: 15px 0;
+      position: relative;
+    }
+    
+    .section-divider::after {
+      content: attr(data-label);
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      padding: 0 15px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    /* NEW: Enhanced Grand Total Box */
+    .grand-total-panel {
+      border: 2px solid var(--ok) !important;
+      background: var(--card) !important;
+    }
+    
+    .grand-total-panel .card-title {
+      color: var(--ok);
+    }
+    
+    /* NEW: Enhanced Payment Summary Box */
+    .payment-summary-panel {
+      border: 2px solid var(--accent) !important;
+      background: var(--card) !important;
+    }
+    
+    .payment-summary-panel .card-title {
+      color: var(--accent);
+    }
+    
+    /* NEW: Net Final Amount Highlight Box */
+    .net-final-amount-panel {
+      grid-column: 1 / -1;
+      border: 3px solid var(--ok) !important;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05)) !important;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .net-final-amount-panel .card-title {
+      color: var(--ok);
+      font-size: 18px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    
+    .net-final-amount {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--ok);
+      text-align: center;
+      background: transparent;
+      border: none;
+      padding: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .net-final-amount-label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    
+    /* NEW: Updated text styling in Tips tab */
+    .inspirational-text {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.6;
+      border-left: 4px solid var(--ok);
+    }
+    
+    .inspirational-text p {
+      margin: 8px 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    /* NEW: How to Use section styling */
+    .how-to-use-section {
+      background: rgba(59, 130, 246, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .how-to-use-section h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    
+    .how-to-use-section ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .how-to-use-section li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    .how-to-use-section strong {
+      color: var(--accent);
+    }
+    
+    /* NEW: Settings tab styles */
+    .settings-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+    }
+    
+    .settings-section h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    
+    .rate-type-list, .calculator-box-list {
+      margin-bottom: 15px;
+    }
+    
+    .rate-type-item, .calculator-box-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .rate-type-value, .calculator-box-details {
+      flex: 1;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .rate-type-value input, .calculator-box-details input, .calculator-box-details select {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+    
+    .rate-type-value input {
+      width: 80px;
+    }
+    
+    .calculator-box-details input {
+      width: 100px;
+    }
+    
+    .calculator-box-details select {
+      width: 120px;
+    }
+    
+    .rate-type-actions, .calculator-box-actions {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .add-rate-type, .add-calculator-box {
+      margin-top: 10px;
+    }
+    
+    .dynamic-totals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+    
+    .dynamic-total-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .dynamic-total-box .card-title {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* NEW: Application Preferences Styles */
+    .app-preferences {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .preference-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .preference-group label {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0;
+    }
+    
+    .save-all-settings-btn {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .save-confirmation {
+      background: rgba(16, 185, 129, 0.1);
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 10px;
+      border-left: 3px solid var(--ok);
+      color: var(--ok);
+      font-weight: 600;
+      display: none;
+    }
+    
+    /* NEW: Beautiful Total Box Styles */
+    .bora-total-box {
+      border-left: 4px solid var(--accent) !important;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02)) !important;
+    }
+    
+    .darzan-total-box {
+      border-left: 4px solid var(--accent3) !important;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02)) !important;
+    }
+    
+    .bora-total-box .card-title {
+      color: var(--accent);
+    }
+    
+    .darzan-total-box .card-title {
+      color: var(--accent3);
+    }
+    
+    .total-section-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 15px 0 10px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    /* NEW: Summary Section Grid for Desktop */
+    .summary-section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
     
     /* Mobile specific styles */
-    @media (max-width: 768px) {
+    @media (max-width: 1280px) {
       .grid{grid-template-columns:repeat(2,1fr)}
       .totals{grid-template-columns:repeat(2,1fr)}
-      header .wrap{gap:8px;}
-      .right{gap:6px;}
-      .btn{padding:8px 10px;font-size:13px;}
-      h1{font-size:18px;}
+      .calculator-grid {grid-template-columns: repeat(2, 1fr);}
+      .calculator-grid-new {grid-template-columns: repeat(2, 1fr);}
+      .totals-grid-new {grid-template-columns: repeat(2, 1fr);}
+      .summary-section-grid {grid-template-columns: repeat(2, 1fr);}
+    }
+    
+    @media (max-width: 1024px) {
+      .totals-grid {grid-template-columns: repeat(2, 1fr);}
+    }
+    
+    @media (max-width: 900px) {
+      .header-buttons-container {
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .grid{grid-template-columns:1fr}
+      .totals{grid-template-columns:1fr}
+      .calculator-grid {grid-template-columns: 1fr;}
+      .totals-grid {grid-template-columns: 1fr;}
+      .calculator-grid-new {grid-template-columns: 1fr;}
+      .totals-grid-new {grid-template-columns: 1fr;}
+      .summary-section-grid {grid-template-columns: 1fr;}
+      header .wrap{gap:6px;}
+      .right{gap:4px;}
+      .btn{padding:6px 8px;font-size:12px;}
+      h1{font-size:16px;}
       .user-info{grid-template-columns:1fr;}
       .payment-row {flex-direction: column; align-items: stretch;}
-      .payment-details {grid-template-columns: 1fr; gap: 8px;}
+      .payment-details {grid-template-columns: 1fr; gap: 6px;}
+            
+      /* NEW: Header title size adjustment */
+      h1 {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 8px;
+      }
       
-      /* New combined user info on mobile */
+      /* NEW: Header buttons styling */
+      .header-buttons-container {
+        gap: 4px;
+      }
+      
+      .header-btn {
+        padding: 8px;
+        font-size: 11px;
+        flex: 1;
+        min-width: 0;
+      }
+      
+      /* NEW: Theme toggle button special styling */
+      #themeToggle {
+        min-width: 50px;
+      }
+      
+      /* NEW: User info section adjustments */
       .combined-user-info {
         grid-template-columns: 1fr;
         text-align: center;
+        padding: 12px;
+        border-radius: 8px;
+        gap: 12px;
+        background: linear-gradient(135deg, var(--card), var(--header-bg));
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-top: 10px;
       }
+      
       .user-details-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
       }
+      
       .profile-img-container {
-        margin: 0 auto; /* Center image on mobile */
+        margin: 0 auto;
+        width: 70px;
+        height: 70px;
+        border: 2px solid var(--accent);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       }
       
-      /* Updated Monthly Sheet Table Mobile View - No horizontal scroll */
-      .mobile-table-container {
-        overflow-x: hidden; /* Prevent horizontal scroll */
+      .profile-upload-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 16px;
       }
       
-      /* New: Make table cells responsive */
-      .monthly-sheet-table {
-          width: 100%; /* Ensure table takes full width */
-          table-layout: fixed; /* Fix column widths */
+      /* NEW: Profile image and toggle button container */
+      .profile-toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+      
+      /* NEW: Toggle button styling */
+      /* Mobile theme toggle button fix */
+      .mobile-toggle-btn {
+        padding: 8px 12px;
+        border-radius: 20px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
       }
 
-      .monthly-sheet-table th, .monthly-sheet-table td {
-          word-wrap: break-word; /* Allow content to wrap */
-          padding: 4px; /* Reduce padding for smaller screens */
+      .dark .mobile-toggle-btn {
+        background: #ffffff;
+        color: #000000;
       }
 
-      /* Reduce font size for readability on small screens */
-      .monthly-sheet-table th, .monthly-sheet-table td, .monthly-sheet-table input {
-          font-size: 10px;
+      .mobile-toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       }
       
-      /* Adjust column widths to fit */
-      .monthly-sheet-table th:first-child, .monthly-sheet-table td:first-child {
-          width: 10%; /* Date */
-      }
-      .monthly-sheet-table th:nth-child(2), .monthly-sheet-table td:nth-child(2),
-      .monthly-sheet-table th:nth-child(3), .monthly-sheet-table td:nth-child(3),
-      .monthly-sheet-table th:nth-child(4), .monthly-sheet-table td:nth-child(4) {
-          width: 15%; /* Quantity columns */
-      }
-      .monthly-sheet-table th:nth-child(5), .monthly-sheet-table td:nth-child(5) {
-          width: 25%; /* Total Amount */
-      }
-      .monthly-sheet-table th:last-child, .monthly-sheet-table td:last-child {
-          width: 25%; /* Note */
+      /* NEW: User info item styling for mobile */
+      .user-info-item-mobile {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        text-align: left;
       }
       
-      /* Make quantity inputs larger */
-      .monthly-sheet-table input[type="number"] {
-          width: 50px; /* Better size for input */
-          height: 30px; /* Consistent height */
-          font-size: 12px; /* Readable font size */
+      .user-info-item-mobile label {
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--accent);
+        font-size: 12px;
+      }
+      
+      .user-info-item-mobile input {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 13px;
+        background: var(--bg);
+      }
+      
+      /* Manual entry form */
+      .manual-entry-form {
+        grid-template-columns: 1fr;
+      }
+      
+      /* Pagination */
+      .pagination {
+        flex-wrap: wrap;
+      }
+      
+      /* Table adjustments for mobile */
+      .manual-entry-table table, 
+      .manual-entry-table thead, 
+      .manual-entry-table tbody, 
+      .manual-entry-table th, 
+      .manual-entry-table td, 
+      .manual-entry-table tr { 
+        display: block; 
+      }
+      
+      .manual-entry-table thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      
+      .manual-entry-table tr { 
+        border: 1px solid var(--border); 
+        margin-bottom: 8px;
+        border-radius: 6px;
+      }
+      
+      .manual-entry-table td { 
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid var(--border); 
+        position: relative;
+        padding-left: 50%; 
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .manual-entry-table td:before { 
+        /* Now like a table header */
+        position: absolute;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+      }
+      
+      .manual-entry-table td:nth-of-type(1):before { content: "Date"; }
+      .manual-entry-table td:nth-of-type(2):before { content: "Category"; }
+      .manual-entry-table td:nth-of-type(3):before { content: "Rate"; }
+      .manual-entry-table td:nth-of-type(4):before { content: "Quantity"; }
+      .manual-entry-table td:nth-of-type(5):before { content: "Total Darzans"; }
+      .manual-entry-table td:nth-of-type(6):before { content: "Deducts"; }
+      .manual-entry-table td:nth-of-type(7):before { content: "Amount"; }
+      .manual-entry-table td:nth-of-type(8):before { content: "Note"; }
+      .manual-entry-table td:nth-of-type(9):before { content: "Action"; }
+      
+      .manual-entry-table td:last-child {
+        border-bottom: none;
+        justify-content: center;
+      }
+      
+      /* NEW: Monthly totals mobile layout */
+      .totals .panel:nth-child(1),
+      .totals .panel:nth-child(2),
+      .totals .panel:nth-child(3) {
+        border-top: 2px solid var(--accent);
+      }
+      
+      .totals .panel:nth-child(4),
+      .totals .panel:nth-child(5),
+      .totals .panel:nth-child(6) {
+        border-top: 2px solid var(--accent3);
+      }
+      
+      .totals .panel:nth-child(7),
+      .totals .panel:nth-child(8),
+      .totals .panel:nth-child(9) {
+        border-top: 2px solid var(--accent2);
+      }
+      
+      /* NEW: Quick calculator mobile layout */
+      .calculator-section .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      /* NEW: Mobile header redesign */
+      header {
+        padding: 10px 12px;
+      }
+      
+      header .wrap {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      
+      h1 {
+        text-align: center;
+        font-size: 16px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        margin-bottom: 0;
+      }
+      
+      .header-buttons-container {
+        justify-content: center;
+        margin-top: 0;
+      }
+      
+      .header-btn {
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 12px;
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      }
+      
+      #themeToggle {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 60px;
+        background: var(--accent3);
+        border-color: var(--accent3);
+        color: white;
+      }
+      
+      /* NEW: User info mobile redesign */
+      .user-info-item label {
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 3px;
+      }
+      
+      .user-info-item input {
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 13px;
+        border: 1px solid var(--border);
+        transition: border-color 0.2s;
+      }
+      
+      .user-info-item input:focus {
+        border-color: var(--accent);
+        outline: none;
+      }
+      
+      .date-container {
+        flex-direction: column;
+        gap: 6px;
+      }
+      
+      .date-container select,
+      .date-container input {
+        width: 100%;
+      }
+      
+      /* NEW: Button redesign for mobile */
+      .btn-new {
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* NEW: Import button mobile styling */
+      .import-btn-label {
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+      }
+      
+      /* NEW: Form adjustments for mobile */
+      .user-form-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .user-form {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-group-full {
+        grid-column: 1;
+      }
+      
+      /* NEW: Modal adjustments for mobile */
+      .modal-content {
+        padding: 15px;
+        margin: 10px;
+      }
+      
+      .modal-form {
+        grid-template-columns: 1fr;
+      }
+      
+      /* NEW: Mobile styles for calculator sections */
+      .darzan-deduction-panel {
+        grid-column: 1;
+      }
+      
+      .combined-total-panel {
+        grid-column: 1;
+      }
+      
+      /* NEW: Enhanced Grand Total and Payment Summary for mobile */
+      .grand-total-panel,
+      .payment-summary-panel {
+        grid-column: 1;
+      }
+      
+      /* NEW: Net Final Amount Highlight Box for mobile */
+      .net-final-amount-panel {
+        grid-column: 1;
+      }
+      
+      .net-final-amount {
+        font-size: 28px;
+      }
+      
+      /* NEW: Inspirational text mobile styling */
+      .inspirational-text {
+        padding: 12px;
+        font-size: 13px;
+      }
+      
+      /* NEW: How to Use section mobile styling */
+      .how-to-use-section {
+        padding: 12px;
+      }
+      
+      /* NEW: Settings tab mobile styling */
+      .rate-type-item, .calculator-box-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .rate-type-value, .calculator-box-details {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .rate-type-value input, .calculator-box-details input, .calculator-box-details select {
+        width: 100%;
+      }
+      
+      .rate-type-actions, .calculator-box-actions {
+        justify-content: center;
+        margin-top: 8px;
+      }
+      
+      /* NEW: Application Preferences mobile styling */
+      .app-preferences {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 480px) {
-      .grid{grid-template-columns:1fr}
-      .totals{grid-template-columns:1fr}
-      .wrap{padding:12px;}
-      header, footer{padding:10px 12px;}
-      .panel{padding:12px;}
-      .btn{width:100%;margin-bottom:4px;}
+    @media (max-width: 600px) {
+      .header-buttons-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      
+      .header-btn {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0;
+      }
+      
+      #themeToggle {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 414px) {
+      .wrap{padding:10px;}
+      header, footer{padding:8px 10px;}
+      .panel{padding:10px;}
+      .btn{width:100%;margin-bottom:3px;}
       .right{flex-direction:column;width:100%;}
-      .date-container{flex-direction:column;gap:6px;}
+      .date-container{flex-direction:column;gap:4px;}
+      
+      /* NEW: Header title size adjustment */
+      h1 {
+        font-size: 15px;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      
+      /* NEW: Header buttons styling - IMPROVED FOR SMALL SCREENS */
+      .header-buttons-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      
+      .header-btn {
+        padding: 10px;
+        font-size: 12px;
+        width: 100%;
+        text-align: center;
+      }
+      
+      /* NEW: Theme toggle button special styling */
+      #themeToggle {
+        min-width: 100%;
+        margin-top: 4px;
+      }
+      
+      /* NEW: User info section adjustments */
+      .combined-user-info {
+        padding: 10px;
+      }
+      
+      .profile-img-container {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .user-info-item input {
+        padding: 8px;
+        font-size: 12px;
+      }
+      
+      /* NEW: Net Final Amount Highlight Box for small screens */
+      .net-final-amount {
+        font-size: 24px;
+      }
+      
+      /* NEW: Tips tab buttons styling for small screens */
+      .tips-buttons-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
     }
 
-    /* NEW: Center align inputs in table cells */
-    .table-input-cell input {
-      text-align: center;
-    }
-  </style>
+    @media (max-width: 375px) {
+    h1{font-size:14px;}
+        h2{font-size:13px;}
+        .btn{padding:5px 6px;font-size:11px;}
+        input[type="number"], input[readonly], input[type="text"], input[type="tel"], input[type="date"], textarea, select {
+          padding: 6px;
+          font-size: 12px;
+        }
+        
+        /* === HEADER BUTTONS FIX === */
+        .header-buttons-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 6px;
+        }
+        
+        .header-btn {
+          padding: 8px 6px;
+          font-size: 11px;
+          min-height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          word-break: break-word;
+          line-height: 1.2;
+        }
+        
+        #themeToggle, #mobileThemeToggle {
+          grid-column: span 2;
+          font-size: 12px;
+          padding: 8px;
+        }
+        /* === HEADER BUTTONS FIX END === */
+        
+        /* Tips tab ke buttons ko bhi improve karen */
+        .tips-buttons-container {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        
+        .tips-buttons-container .btn-new {
+          padding: 8px 10px;
+          font-size: 12px;
+          min-height: 36px;
+        }
+        
+        /* NEW: User info adjustments */
+        .combined-user-info {
+          padding: 8px;
+        }
+        
+        .profile-img-container {
+          width: 50px;
+          height: 50px;
+        }
+        
+        .profile-upload-btn {
+          width: 18px;
+          height: 18px;
+          font-size: 14px;
+        }
+        
+        /* NEW: Net Final Amount Highlight Box for very small screens */
+        .net-final-amount {
+          font-size: 20px;
+        }
+      }
+      /* NEW: User info adjustments */
+      .combined-user-info {
+        padding: 8px;
+      }
+      
+      .profile-img-container {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .profile-upload-btn {
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+      }
+      
+      /* NEW: Net Final Amount Highlight Box for very small screens */
+      .net-final-amount {
+        font-size: 20px;
+      }
+    
+      /* Account Balance ka amount bada aur highlight */
+        #netFinalAmount {
+        font-size: 28px;      /* text bada */
+        font-weight: bold;    /* mota text */
+        color: #16a34a;       /* green color highlight */
+       text-align: center;   /* beech me dikhane ke liye */
+      }
+
+    
+    /* Extra small screens ke liye (320px se chhota) */
+      @media (max-width: 320px) {
+        .header-buttons-container {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        
+        .header-btn {
+          padding: 6px 4px;
+          font-size: 10px;
+          min-height: 32px;
+        }
+        
+        #themeToggle, #mobileThemeToggle {
+          grid-column: span 1;
+        }
+        
+        h1 {
+          font-size: 14px;
+        }
+      }
+
+          /* NEW: Center align inputs in table cells */
+          .table-input-cell input {
+            text-align: center;
+          }
+          
+          /* Calculator sections */
+          .calculator-section {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border);
+          }
+          
+          /* Restore button */
+          .restore-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
+            text-align: center;
+          }
+          
+          /* NEW: Visual separation for calculator sections on mobile */
+          @media (max-width: 768px) {
+            .calculator-section {
+              border: 1px solid var(--border);
+              border-radius: 8px;
+              padding: 12px;
+              margin-bottom: 12px;
+            }
+            
+            .calculator-section h3 {
+              text-align: center;
+              padding-bottom: 8px;
+              border-bottom: 1px dashed var(--border);
+              margin-top: 0;
+            }
+
+            }
+            .manual-entry-table tr.date-separator td:before {
+            content: none !important;
+            display: none !important;
+            }
+
+            .tabs-wrapper {
+        display: flex;
+        align-items: center;   /* vertical center */
+        justify-content: center;
+        gap: 6px;              /* thoda space arrows aur tabs ke beech */
+        margin-bottom: 10px;
+      }
+
+      .tabs {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex: 1;               /* middle space fill kare */
+        white-space: nowrap;   /* tabs wrap na ho */
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+
+      .tab {
+        flex: 0 0 auto;        /* shrink na ho */
+        padding: 8px 12px;
+      }
+
+      /* Arrows ka fixed size */
+      .scroll-btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      /* Small screens ke liye compact arrows */
+      @media (max-width: 480px) {
+        .scroll-btn {
+          width: 28px;
+          height: 28px;
+          font-size: 14px;
+        }
+      }
+
+        </style>
 </head>
 <body>
-  <header>
-    <div class="wrap" style="display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;">
-      <h1>Gloves Manufacture Company</h1>
-      <div class="right">
-        <button id="themeToggle" class="btn" title="Light/Dark">🌙 / ☀️</button>
-        <button id="exportBtn" class="btn">Export JSON</button>
-        <label class="btn" for="importFile" title="Import JSON">Import JSON <input id="importFile" type="file" accept="application/json" style="display:none"/></label>
-        <button id="downloadImageBtn" class="btn">Download Image</button>
-        <button id="resetBtn" class="btn warn">Reset Month</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap" id="mainContent">
-    <!-- Combined User Info Section -->
-    <div class="combined-user-info">
-      <div class="profile-img-container">
-        <img id="profileImage" src="https://via.placeholder.com/100" class="profile-img" alt="Profile Image">
-        <label for="profileUpload" class="profile-upload-btn">+</label>
-        <input type="file" id="profileUpload" accept="image/*" style="display: none;">
-      </div>
-      <div class="user-details-grid">
-        <div class="user-info-item">
-            <label for="userName">Personal Name (Naam)</label>
-            <input type="text" id="userName" placeholder="Enter your name" />
-        </div>
-        <div class="user-info-item">
-            <label for="mobileNumber">Mobile Number (Mobile No.)</label>
-            <input type="tel" id="mobileNumber" placeholder="Enter mobile number" />
-        </div>
-        <div class="user-info-item">
-            <label>Month & Year (Mahina aur Saal)</label>
-            <div class="date-container">
-                <select id="monthSelect" style="flex:1;">
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                </select>
-                <input type="number" id="yearInput" min="2020" max="2100" value="2025" style="flex:1;" />
-            </div>
-        </div>
-        <div class="user-info-item">
-            <label for="previousBalance">Previous Balance (Sabqa Raqam)</label>
-            <input type="number" id="previousBalance" min="0" step="0.01" placeholder="0.00" />
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Rates & Quick Calculator (Bora/Bori → 60 Dozen each)</h2>
-      <p class="note">Payment har <b>bori</b> = <span class="pill">rate × 60 dozen</span>. Neechay quantity (bori) likhein — jawab khud aa jayega.</p>
-      <div class="grid">
-        <div class="panel col">
-          <div class="card-title"><strong>Rate: 4.25</strong> <span class="pill">× 60</span></div>
-          <label>Quantity (Bori)</label>
-          <input id="q425Quick" type="number" min="0" step="1" placeholder="e.g., 2" />
-          <label>Amount</label>
-          <input id="a425Quick" type="text" readonly class="mono" placeholder="0.00" />
-        </div>
-        <div class="panel col">
-          <div class="card-title"><strong>Rate: 4.75</strong> <span class="pill orange">× 60</span></div>
-          <label>Quantity (Bori)</label>
-          <input id="q475Quick" type="number" min="0" step="1" placeholder="e.g., 3" />
-          <label>Amount</label>
-          <input id="a475Quick" type="text" readonly class="mono" placeholder="0.00" />
-        </div>
-        <div class="panel col">
-          <div class="card-title"><strong>Rate: 6.00</strong> <span class="pill red">× 60</span></div>
-          <label>Quantity (Bori)</label>
-          <input id="q600Quick" type="number" min="0" step="1" placeholder="e.g., 1" />
-          <label>Amount</label>
-          <input id="a600Quick" type="text" readonly class="mono" placeholder="0.00" />
-        </div>
-        <div class="panel col">
-          <div class="card-title"><strong>Grand Total</strong> <span class="pill" style="background:rgba(16,185,129,.1);color:var(--ok)">All Rates</span></div>
-          <label>Total Bories</label>
-          <input id="totalBoriesQuick" type="text" readonly class="mono" placeholder="0" />
-          <label>Total Amount</label>
-          <input id="totalAmountQuick" type="text" readonly class="mono" placeholder="0.00" />
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Monthly Sheet (Monthly Sheet)</h2>
-      <p class="note">Har din ke liye teen rates par <b>bori</b> quantity add karein. Amount apnay aap niklay gi. Data aapke browser me autosave hota rehta hai (offline bhi chalega).</p>
-      <div class="mobile-table-container">
-        <table id="monthTable" class="monthly-sheet-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Qty @ 4.25</th>
-              <th>Qty @ 4.75</th>
-              <th>Qty @ 6.00</th>
-              <th>Total Amount</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-          <tfoot>
-            <tr>
-              <td>Monthly Total</td>
-              <td id="sumQ425" class="mono">0</td>
-              <td id="sumQ475" class="mono">0</td>
-              <td id="sumQ600" class="mono">0</td>
-              <td id="sumDay" class="mono">0.00</td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Payments (Adjusted) (Payments (Adjusted))</h2>
-      <p class="note">Yahan weekly payments add karein jo grand total se minus ho jayen gi.</p>
-      <div id="paymentsContainer">
-        <!-- Payments will be added here dynamically -->
-      </div>
-      <div class="payment-row">
-        <input type="date" id="newPaymentDate" />
-        <input type="number" id="newPaymentAmount" placeholder="Payment amount" step="0.01" min="0" />
-        <input type="text" id="newPaymentNote" placeholder="Payment note (e.g., Week 1)" />
-        <button id="addPaymentBtn" class="btn primary">Add Payment</button>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Totals (Poora Mahina)</h2>
-      <div class="totals">
-        <div class="panel">
-          <div class="card-title"><strong>Total Qty @ 4.25</strong></div>
-          <input id="totalQ425" type="text" readonly class="mono" />
-          <label>Total Amount</label>
-          <input id="totalA425" type="text" readonly class="mono" />
-        </div>
-        <div class="panel">
-          <div class="card-title"><strong>Total Qty @ 4.75</strong></div>
-          <input id="totalQ475" type="text" readonly class="mono" />
-          <label>Total Amount</label>
-          <input id="totalA475" type="text" readonly class="mono" />
-        </div>
-        <div class="panel">
-          <div class="card-title"><strong>Total Qty @ 6.00</strong></div>
-          <input id="totalQ600" type="text" readonly class="mono" />
-          <label>Total Amount</label>
-          <input id="totalA600" type="text" readonly class="mono" />
-        </div>
-        <div class="panel">
-          <div class="card-title"><strong>Grand Total</strong></div>
-          <input id="grandTotal" type="text" readonly class="mono" />
-          <label>Previous Balance</label>
-          <input id="prevBalanceDisplay" type="text" readonly class="mono" />
-        </div>
-        <div class="panel total-info-box">
-          <div class="card-title"><strong>Total Payments</strong></div>
-          <label class="deducting-payments">Deducting Payments</label>
-          <input id="totalPayments" type="text" readonly class="mono" />
-          <label class="final-amount-label">Net Cash | Final Amount</label>
-          <input id="finalAmount" type="text" readonly class="mono" />
-          <div class="payment-summary">
-            <small>After deducting weekly payments</small>
+<header>
+<div class="wrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
+<h1>Gloves Manufacture Company (GMC)</h1>
+<div class="header-buttons-container desktop-only">
+<button class="btn-new header-btn" id="exportBtn">Export JSON</button>
+<div class="import-btn-container">
+<label class="import-btn-label header-btn" title="Import JSON">Import JSON</label>
+<input accept="application/json" class="import-btn-input" id="importFile" type="file"/>
+</div>
+<button class="btn-new header-btn" id="downloadPdfBtn">Download PDF</button>
+<button class="btn-new warn header-btn" id="resetBtn">Reset Month</button>
+<button class="btn-new header-btn" id="themeToggle" title="Light/Dark">🌙 / ☀️</button>
+</div>
+</div>
+</header>
+<main class="wrap" id="mainContent">
+<!-- User Form Section - Desktop Version -->
+<div class="user-form-container desktop-only">
+<div class="profile-img-container">
+<img alt="Profile Image" class="profile-img" id="profileImageDesktop" src="https://via.placeholder.com/80"/>
+<label class="profile-upload-btn" for="profileUploadDesktop">+</label>
+<input accept="image/*" id="profileUploadDesktop" style="display: none;" type="file"/>
+</div>
+<div class="user-form">
+<div class="form-group">
+<label for="userName">Name:</label>
+<input id="userName" placeholder="Enter your name" type="text">
+</input></div>
+<div class="form-group">
+<label for="mobileNumber">Mobile No:</label>
+<input id="mobileNumber" placeholder="Enter your mobile no" type="tel"/>
+</div>
+<div class="form-group form-group-full">
+<label>Month &amp; Year:</label>
+<div class="date-inputs">
+<select id="monthSelect">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+<input id="yearInput" max="2100" min="2020" type="number" value="2025"/>
+</div>
+</div>
+<div class="form-group">
+<label for="previousBalance">Previous Balance:</label>
+<input id="previousBalance" min="0" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+</div>
+<!-- Combined User Info Section - Mobile Version -->
+<div class="combined-user-info mobile-only">
+<div class="profile-toggle-container">
+<div class="profile-img-container">
+<img alt="Profile Image" class="profile-img" id="profileImage" src="https://via.placeholder.com/80"/>
+<label class="profile-upload-btn" for="profileUpload">+</label>
+<input accept="image/*" id="profileUpload" style="display: none;" type="file"/>
+</div>
+<button class="mobile-toggle-btn" id="mobileThemeToggle">🌙 / ☀️</button>
+</div>
+<div class="user-info-fields-mobile">
+<div class="user-info-item-mobile">
+<label for="userNameMobile">Name</label>
+<input id="userNameMobile" placeholder="Enter your name" type="text">
+</input></div>
+<div class="user-info-item-mobile">
+<label for="mobileNumberMobile">Mobile No</label>
+<input id="mobileNumberMobile" placeholder="Enter your mobile no" type="tel"/>
+</div>
+<div class="user-info-item-mobile">
+<label>Month &amp; Year</label>
+<div class="date-container">
+<select id="monthSelectMobile" style="flex:1;">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+<input id="yearInputMobile" max="2100" min="2020" style="flex:1;" type="number" value="2025"/>
+</div>
+</div>
+<div class="user-info-item-mobile">
+<label for="previousBalanceMobile">Previous Balance</label>
+<input id="previousBalanceMobile" min="0" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+</div>
+<!-- Tabs with scroll arrows -->
+<div class="tabs-wrapper">
+<button class="scroll-btn left">←</button>
+<div class="tabs">
+<div class="tab active" data-tab="calculator">Calculator</div>
+<div class="tab" data-tab="entries">Entries</div>
+<div class="tab" data-tab="payments">Payments</div>
+<div class="tab" data-tab="totals">Totals</div>
+<div class="tab" data-tab="settings">Settings</div>
+<div class="tab" data-tab="tips">Tips &amp; Tools</div>
+</div>
+<button class="scroll-btn right">→</button>
+</div>
+<!-- Calculator Tab -->
+<div class="tab-content active" id="calculator-tab">
+<div class="panel">
+<h2>Rates &amp; Quick Calculator</h2>
+<div class="calculator-section">
+<h3>Bora Calculator</h3>
+<div class="calculator-grid-new" id="boraCalculatorGrid">
+<!-- Bora calculator boxes will be added here dynamically -->
+</div>
+</div>
+<div class="calculator-section">
+<h3>Darzan Calculator</h3>
+<div class="calculator-grid-new" id="darzanCalculatorGrid">
+<!-- Darzan calculator boxes will be added here dynamically -->
+</div>
+</div>
+<!-- Combined Total Section -->
+<div class="calculator-section">
+<h3>Combined Total (Bora + Darzan)</h3>
+<div class="grid">
+<div class="panel col combined-total-panel">
+<div class="card-title"><strong>Total Bora + Darzan</strong> <span class="pill" style="background:rgba(16,185,129,.3);color:var(--ok)">All Items</span></div>
+<label>Total Amount (Bora)</label>
+<input class="mono" id="combinedBoraAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Total Amount (Darzan)</label>
+<input class="mono" id="combinedDarzanAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Combined Total Amount</label>
+<input class="mono" id="combinedTotalAmount" placeholder="0.00" readonly="" type="text"/>
+</div>
+</div>
+</div>
+<!-- Calculator Darzan Deduction Section -->
+<div class="calculator-section">
+<h3>Calculator Darzan Deduction</h3>
+<div class="grid">
+<div class="panel col darzan-deduction-panel">
+<div class="card-title"><strong>Darzan Deduction</strong> <span class="pill red">Kharab Maal</span></div>
+<label>Total Darzans (Calculator)</label>
+<input class="mono" id="calcTotalDarzans" placeholder="0" readonly="" type="text"/>
+<label>Deduction Quantity</label>
+<input class="mono" id="calcDeductionQty" placeholder="0" readonly="" type="text"/>
+<label>Deduction Amount</label>
+<input class="mono deduction-amount" id="calcDeductionAmount" placeholder="0.00" readonly="" type="text"/>
+<label>Final Amount After Deduction</label>
+<input class="mono" id="calcFinalAmount" placeholder="0.00" readonly="" type="text"/>
+<div class="darzan-deduction">
+<small>Har 50 Darzan par 1 deduction hoga, aur agar total 50 ka multiple na ho to upar round karke agla deduction count hoga<br/>(e.g. 50=1, 51=2, 100=2).</small>
+</div>
+</div>
+</div>
+</div>
+<div class="calculator-clear-btn">
+<button class="btn-new warn" id="clearCalculatorBtn">Clear All Calculator</button>
+</div>
+</div>
+</div>
+<!-- Entries Tab -->
+<div class="tab-content" id="entries-tab">
+<div class="panel">
+<h2>Monthly Entry Sheet</h2>
+<div class="manual-entry-form">
+<div>
+<label for="entryDate">Date</label>
+<input id="entryDate" type="date"/>
+</div>
+<div>
+<label for="entryType">Category</label>
+<select id="entryType">
+<option value="bora60">Bora 60</option>
+<option value="bora50">Bora 50</option>
+<option value="bora40">Bora 40</option>
+<option value="darzan">Darzan</option>
+</select>
+</div>
+<div>
+<label for="entryRate">Rate Type</label>
+<select id="entryRate">
+<!-- Rate options will be populated dynamically from settings -->
+</select>
+</div>
+<div>
+<label for="entryQuantity">Quantity</label>
+<input id="entryQuantity" min="0" placeholder="Quantity" step="1" type="number"/>
+</div>
+<div>
+<label for="entryNote">Note</label>
+<input id="entryNote" placeholder="Note" type="text"/>
+</div>
+<div style="display: flex; align-items: flex-end;">
+<button class="btn-new primary" id="addEntryBtn">Add Entry</button>
+</div>
+</div>
+<div class="manual-entry-table">
+<table id="entriesTable">
+<thead>
+<tr>
+<th>Date</th>
+<th>Category</th>
+<th>Rate</th>
+<th>Quantity</th>
+<th>Total Darzans</th>
+<th>Deducts</th>
+<th>Amount</th>
+<th>Note</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="entriesTableBody"></tbody>
+</table>
+</div>
+<div class="pagination">
+<button class="btn-new" disabled="" id="prevPageBtn">Previous</button>
+<span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+<button class="btn-new" disabled="" id="nextPageBtn">Next</button>
+</div>
+<div class="restore-section">
+<button class="btn-new" disabled="" id="restoreBtn">Restore Last Deleted Item</button>
+</div>
+</div>
+</div>
+<!-- Payments Tab -->
+<div class="tab-content" id="payments-tab">
+<div class="panel">
+<h2>Weekly Payments</h2>
+<p class="note">Yahan weekly payments add karein jo monthly total se minus ho jayen gi.</p>
+<div id="paymentsContainer">
+<!-- Payments will be added here dynamically -->
+</div>
+<div class="payment-row">
+<input id="newPaymentDate" type="date"/>
+<input id="newPaymentAmount" min="0" placeholder="Add amount" step="0.01" type="number"/>
+<input id="newPaymentNote" placeholder="Note Week 1" type="text"/>
+<button class="btn-new primary" id="addPaymentBtn">Add Payment</button>
+</div>
+</div>
+</div>
+<!-- Totals Tab -->
+<div class="tab-content" id="totals-tab">
+<div class="panel">
+<h2>Monthly Totals</h2>
+<!-- Bora Totals Section -->
+<div class="total-section-header">Bora Totals</div>
+<div class="dynamic-totals-grid" id="boraTotalsGrid">
+<!-- Bora total boxes will be added here automatically -->
+</div>
+<!-- Darzan Totals Section -->
+<div class="total-section-header">Darzan Totals</div>
+<div class="dynamic-totals-grid" id="darzanTotalsGrid">
+<!-- Darzan total boxes will be added here automatically -->
+</div>
+<!-- Summary Section -->
+<div class="section-divider" data-label="Summary"></div>
+<!-- Summary Section Grid for Desktop -->
+<div class="summary-section-grid">
+<!-- Deduction Section -->
+<div class="panel deduction-panel">
+<div class="card-title"><strong>Deduction (Kharab Maal)</strong></div>
+<label>Total Darzans</label>
+<input class="mono" id="totalDarzans" readonly="" type="text"/>
+<label>Deduction Quantity</label>
+<input class="mono" id="deductionQty" readonly="" type="text"/>
+<label>Deduction Amount</label>
+<input class="mono deduction-amount" id="deductionAmount" readonly="" type="text"/>
+<div class="darzan-deduction">
+<small>
+    <strong>🚀 IMPROVED DEDUCTION RULE:</strong><br/>
+    • Ab daily basis pe har entry ka alag deduction nahi hoga<br/>
+    • Same rate ki saari entries ka total darzan calculate hoga<br/>
+    • Us total par 50 ke hisaab se roundup hoga<br/>
+    <br/>
+    <strong>Example:</strong><br/>
+    6 Din: Har Din 20 Darzan = 120 Total Darzan → 120 ÷ 50 = 2.4 → Roundup = 3 Deductions<br/>
+    <em>Purana rule: 6 din (20) × 1 deduction = 6 deductions | Naya rule: 3 (Q-120) deductions</em>
+  </small>
+</div>
+</div>
+<!-- Grand Total Section -->
+<div class="panel grand-total-panel">
+<div class="card-title"><strong>Grand Total</strong></div>
+<label>Total Bora Amount</label>
+<input class="mono" id="totalBoraAmount" readonly="" type="text"/>
+<label>Total Darzan Amount</label>
+<input class="mono" id="totalDarzanAmount" readonly="" type="text"/>
+<label>Previous Balance</label>
+<input class="mono" id="prevBalanceDisplay" readonly="" type="text"/>
+<label>Combined Grand Total</label>
+<input class="mono" id="grandTotal" readonly="" type="text"/>
+</div>
+<!-- Payment Summary Section -->
+<div class="panel payment-summary-panel">
+<div class="card-title"><strong>Payment Summary</strong></div>
+<label>Grand Total</label>
+<input class="mono" id="paymentGrandTotal" readonly="" type="text"/>
+<label class="deducting-payments">Received Weekly Payments</label>
+<input class="mono" id="totalPayments" readonly="" type="text"/>
+<label class="deducting-payments" style="color: var(--accent2);">Deducting Darzan Payments</label>
+<input class="mono deduction-amount" id="deductingDarzanPayments" readonly="" type="text"/>
+</div>
+</div>
+<!-- Net Final Amount Highlight Box -->
+<div class="panel net-final-amount-panel">
+<div class="card-title"><strong>Account Balance</strong></div>
+<input class="net-final-amount" id="netFinalAmount" readonly="" type="text"/>
+<div class="net-final-amount-label">Payable amount after all deductions</div>
+</div>
+<div class="panel total-info-box">
+<div class="card-title"><strong>Last Saved</strong></div>
+<input class="mono" id="lastSaved" readonly="" type="text"/>
+<label>Status</label>
+<input id="statusIndicator" readonly="" type="text" value="All changes saved"/>
+</div>
+</div>
+</div>
+<!-- Settings Tab -->
+<div class="tab-content" id="settings-tab">
+<div class="panel">
+<h2>Application Settings</h2>
+<!-- Rate Types Settings -->
+<div class="settings-section">
+<h3>Rate Types Management</h3>
+<p class="note">Yahan ap custom rate types add, edit ya remove kar sakte hain. Yeh rates entries aur calculator mein use honge.</p>
+<div class="rate-type-list" id="rateTypeList">
+<!-- Rate types will be added here dynamically -->
+</div>
+<div class="add-rate-type">
+<button class="btn-new primary" id="addRateTypeBtn">Add New Rate Type</button>
+</div>
+</div>
+<!-- Calculator Boxes Settings -->
+<div class="settings-section">
+<h3>Calculator Boxes Management</h3>
+<p class="note">Yahan ap calculator ke boxes customize kar sakte hain - add, edit, ya remove.</p>
+<div class="calculator-box-list" id="calculatorBoxList">
+<!-- Calculator boxes will be added here dynamically -->
+</div>
+<div class="add-calculator-box">
+<button class="btn-new primary" id="addCalculatorBoxBtn">Add New Calculator Box</button>
+</div>
+</div>
+<!-- Application Preferences Section -->
+<div class="settings-section">
+<h3>Application Preferences</h3>
+<p class="note">Yahan ap application ke preferences set kar sakte hain.</p>
+<div class="app-preferences">
+<div class="preference-group">
+<label for="decimalPlaces">Decimal Places</label>
+<select id="decimalPlaces">
+<option selected="" value="2">00 (Two decimals)</option>
+<option value="none">No formatting</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="autoSave">Auto Save</label>
+<select id="autoSave">
+<option selected="" value="enable">Enable</option>
+<option value="disable">Disable</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="defaultCategory">Default Category</label>
+<select id="defaultCategory">
+<option value="bora60">Bora 60</option>
+<option value="bora50">Bora 50</option>
+<option value="bora40">Bora 40</option>
+<option selected="" value="darzan">Darzan</option>
+</select>
+</div>
+<div class="preference-group">
+<label for="defaultRate">Default Rate</label>
+<select id="defaultRate">
+<!-- Options will be populated dynamically from rate types -->
+</select>
+</div>
+</div>
+<div class="save-all-settings-btn">
+<button class="btn-new success" id="saveAllSettingsBtn">Save All Settings</button>
+</div>
+<div class="save-confirmation" id="saveConfirmation">
+            All settings have been saved successfully!
           </div>
-        </div>
-        <div class="panel total-info-box">
-          <div class="card-title"><strong>Last Saved</strong></div>
-          <input id="lastSaved" type="text" readonly class="mono" />
-          <label>Status</label>
-          <input id="statusIndicator" type="text" readonly value="All changes saved" />
-        </div>
-      </div>
-    </div>
-    
-    <!-- NEW SECTION FOR TIPS -->
-    <div class="panel">
-        <h2>Tips: Data Bachana Zaroori Hai</h2>
-        <p>Aapka data sirf isi browser aur isi device me save hota hai. Agar aap browser ka data (history, cache) clear karenge, toh yeh data bhi khatam ho jayega. Apne data ko hamesha mehfooz rakhne ke liye neeche diye gaye tareeqon par amal karein:</p>
-        
-        <ol>
-            <li>
-                <strong>Export JSON File:</strong><br>
-                Upar "Export JSON" button par click kar ke data ki ek file download karein. Yeh file aapke computer ya mobile par save ho jayegi. Aap is file ko Google Drive, USB ya email me rakh sakte hain.
-            </li>
-            <li>
-                <strong>Import JSON File:</strong><br>
-                Jab aapko data wapas lana ho, toh "Import JSON" button par click kar ke wohi file upload karein. Aapka saara data wapas aa jayega.
-            </li>
-            <li>
-                <strong>Download Image:</strong><br>
-                "Download Image" button se aap poore page ka ek screenshot le sakte hain. Isse aapke totals aur report ki ek image ban jayegi. Yeh ek quick backup ka tareeqa hai.
-            </li>
-        </ol>
-        <p>In tips par amal kar ke aapka data hamesha mehfooz rahega, chahe aap galti se browser ka data clear hi kyun na kar dein.</p>
-    </div>
+</div>
+<!-- Reset Settings -->
+<div class="settings-section">
+<h3>Reset Settings</h3>
+<p class="note">Yahan ap default settings par wapas ja sakte hain.</p>
+<button class="btn-new warn" id="resetSettingsBtn">Reset to Default Settings</button>
+</div>
+</div>
+</div>
 
-  </main>
+<!-- Tips Tab -->
+<div class="tab-content" id="tips-tab">
+<div class="panel">
+<!-- NEW: How to Use Section -->
+<div class="how-to-use-section">
+<h3>How to Use This Calculator</h3>
+<ul>
+<li><strong>Browser</strong> Select Chrome browser for better use.</li>
+<li><strong>Calculators:</strong> Sirf jaldi hisaab keliye, (data save nahi hota).</li>
+<li><strong>Entries:</strong> Rozana/hafta war data yahan save karo.</li>
+<li><strong>Payments:</strong> Haftawar adaigi alag se likho.</li>
+<li><strong>Totals:</strong> Mahana summary aur final hisaab yahan milega.</li>
+<li><strong>Settings:</strong> Rate types aur calculator boxes customize karo.</li>
+<li><strong>Backup:</strong> Data save/export (JSON/PDF) aur import se restore karo.</li>
+</ul>
+</div>
 
-  <footer class="wrap footer">
-    <div>Cash Management System | Works offline | Free to use | Data saved in your browser</div>
-    <div style="margin-top:6px">©Copyright 2025 by I.T. Department of ALQAAB Web Studio by ALQAAB Org_Shahbaz Ali</div>
-  </footer>
+<div class="how-to-use-section">
+<h2>📱 GMC App</h2>
+<p>APK app Chrome pe chalti hai • Data Chrome mein save hota hai</p>
+<p>Chrome clear kiya to: ✅ App rahegi • ❌ Data delete hoga</p>
+<p><strong>⚠️ Yaad Rakho: "Browser clear = Data clear" • Regular backup zaroori!</strong></p>
+</div>
 
-  <!-- html2canvas library for screenshot functionality -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  
-  <script>
+<h2>Tips: Data Backup</h2>
+<p>Apka data sirf browser me save hota hai. Browser ka data clear karne se apka sara record khatam ho jayga.
+  <br/>
+  Is masle se bachne ke liye, in buttons ka istemal karen:</p>
+<ol>
+<li>
+<strong>Export JSON File:</strong><br/>
+                  Apne data ki file download kar ke Google Drive ya USB me save kar len.
+              </li>
+<li>
+<strong>Import JSON File:</strong><br/>
+                  Zarurat parne par, isi file ko dobara upload kar ke apna data wapis hasil kar len.
+              </li>
+<li>
+<strong>Download PDF:</strong><br/>
+                  Poore page ka PDF download kar ke apna record save kar len.
+              </li>
+</ol>
+
+<!-- Updated text with new styling -->
+<div class="inspirational-text">
+<p>🌿 Halal Rizq kamana bhi ek Ibadat hai.</p>
+<p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
+</div>
+
+<!-- Buttons moved to Tips tab for mobile -->
+<div class="tips-buttons-container mobile-only">
+<button class="btn-new" id="exportBtnTips">Export JSON</button>
+<div class="import-btn-container">
+<label class="import-btn-label" title="Import JSON">Import JSON</label>
+<input accept="application/json" class="import-btn-input" id="importFileTips" type="file"/>
+</div>
+<button class="btn-new" id="downloadPdfBtnTips">Download PDF</button>
+<button class="btn-new warn" id="resetBtnTips">Reset Month</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="wrap footer">
+<div class="footer-content">
+<div class="footer-title">Cash Management System v4.10 (Oct 18, 2025)</div>
+<div class="footer-subtitle">Works offline – Data saved in your browser</div>
+<div>© 2025 ALQAAB Org. Developed by ALQAAB Web Studio | Shahbaz Ali</div>
+<div class="social-icons">
+<a class="social-icon maps" href="https://maps.app.goo.gl/VRAW4Poyuh58bCPw5" target="_blank" title="Location">🌍</a>
+<a class="social-icon linkedin" href="https://www.linkedin.com/in/alqaaborg" target="_blank" title="LinkedIn">🤵🏻</a>
+<a class="social-icon github" href="https://github.com/ALQAAB-Org" target="_blank" title="GitHub">🐱</a>
+<a class="social-icon whatsapp" href="https://wa.me/923261182021" target="_blank" title="WhatsApp">💬</a>
+<a class="social-icon facebook" href="https://www.facebook.com/alqaab.org" target="_blank" title="Facebook">ⓕ</a>
+<a class="social-icon youtube" href="https://www.youtube.com/@ALQAAB_YT_Studio" target="_blank" title="YouTube">▶︎</a>
+</div>
+</div>
+</footer>
+
+<!-- JS PDF Libraries -->
+    <script src="./lib/jspdf.umd.min.js"></script>
+    <script src="./lib/jspdf-autotable.min.js"></script>
+
+<script>
     // --- Constants ---
-    const RATES = { r425: 4.25, r475: 4.75, r600: 6.0 };
-    const PER_BORI_DOZEN = 60;
-    const STORAGE_KEY = 'gloves-manufacture-month-v3'; // Updated to v3 for new data structure
+    const PER_BORA_60 = 60;
+    const PER_BORA_50 = 50;
+    const PER_BORA_40 = 40;
+    const PER_DARZAN = 1;
+    const STORAGE_KEY = 'gloves-manufacture-month-v16'; // Updated to v16 for new features
+    const SETTINGS_KEY = 'gloves-settings-v2';
+    const PREFERENCES_KEY = 'gloves-preferences-v1';
     const THEME_KEY = 'gloves-theme';
     const PROFILE_IMAGE_KEY = 'gloves-profile-image';
+    const ENTRIES_PER_PAGE = 20;
+    const CALCULATOR_DATA_KEY = 'gloves-calculator-data';
+
+    // Default settings
+    const DEFAULT_SETTINGS = {
+      rateTypes: [
+        { id: '1', value: 4.25, label: '4.25' },
+        { id: '2', value: 4.50, label: '4.50' },
+        { id: '3', value: 4.75, label: '4.75' },
+        { id: '4', value: 6.00, label: '6.00' }
+      ],
+      calculatorBoxes: [
+        // Bora boxes
+        { id: '1', type: 'bora', category: 'bora60', rateId: '1', multiplier: 60, label: 'Rate: 4.25 × 60' },
+        { id: '2', type: 'bora', category: 'bora60', rateId: '2', multiplier: 60, label: 'Rate: 4.50 × 60' },
+        { id: '3', type: 'bora', category: 'bora60', rateId: '3', multiplier: 60, label: 'Rate: 4.75 × 60' },
+        { id: '4', type: 'bora', category: 'bora60', rateId: '4', multiplier: 60, label: 'Rate: 6.00 × 60' },
+        { id: '5', type: 'bora', category: 'bora50', rateId: '2', multiplier: 50, label: 'Rate: 4.50 × 50' },
+        { id: '6', type: 'bora', category: 'bora50', rateId: '3', multiplier: 50, label: 'Rate: 4.75 × 50' },
+        { id: '7', type: 'bora', category: 'bora40', rateId: '2', multiplier: 40, label: 'Rate: 4.50 × 40' },
+        { id: '8', type: 'bora', category: 'bora40', rateId: '3', multiplier: 40, label: 'Rate: 4.75 × 40' },
+        // Darzan boxes
+        { id: '9', type: 'darzan', category: 'darzan', rateId: '1', multiplier: 1, label: 'Rate: 4.25' },
+        { id: '10', type: 'darzan', category: 'darzan', rateId: '2', multiplier: 1, label: 'Rate: 4.50' },
+        { id: '11', type: 'darzan', category: 'darzan', rateId: '3', multiplier: 1, label: 'Rate: 4.75' },
+        { id: '12', type: 'darzan', category: 'darzan', rateId: '4', multiplier: 1, label: 'Rate: 6.00' }
+      ]
+    };
+
+    // Default preferences
+    const DEFAULT_PREFERENCES = {
+      decimalPlaces: '2',
+      autoSave: 'enable',
+      defaultCategory: 'darzan',
+      defaultRate: '4.50'
+    };
 
     // --- Theme ---
     function applyTheme(){
@@ -487,35 +2224,164 @@
       document.documentElement.classList.toggle('dark', t==='dark');
     }
     applyTheme();
-    document.getElementById('themeToggle').addEventListener('click', ()=>{
+    
+    function toggleTheme(){
       const now = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
       localStorage.setItem(THEME_KEY, now);
       applyTheme();
+    }
+    
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('mobileThemeToggle').addEventListener('click', toggleTheme);
+
+    // --- Tab Functionality ---
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs and contents
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add('active');
+        document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+      });
     });
 
     // --- Helpers ---
-    const fmt = n => (Number(n)||0).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
+    let decimalPlaces = 2;
+    
+    function fmt(n) {
+      const num = Number(n) || 0;
+      if (decimalPlaces === '0') return Math.round(num).toString();
+      return num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    
     const sum = arr => arr.reduce((a,b)=>a+(Number(b)||0),0);
+    
+    // Format date as DD-MM-YYYY
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      
+      return `${day}-${month}-${year}`;
+    }
 
-    function emptyMonth(){
-      return {
-        meta:{ 
-          createdAt: new Date().toISOString(),
-          userName: '',
-          mobileNumber: '',
-          month: new Date().getMonth(),
-          year: new Date().getFullYear(),
-          previousBalance: 0
-        },
-        days: Array.from({length:31}, (_,i)=>({
-          day:i+1, q425:0, q475:0, q600:0, note:''
-        })),
-        payments: []
-      };
+    // Generate unique ID
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    // Calculate deductions based on darzan count
+function calculateDeductions(totalDarzans) {
+  if (totalDarzans <= 0) return 0;
+  return Math.ceil(totalDarzans / 50);
+}
+
+// NEW FUNCTION: Calculate deductions by rate groups
+function calculateDeductionsByRate(entries) {
+  const rateGroups = {};
+  
+  // Group entries by rate
+  entries.forEach(entry => {
+    const rate = entry.rate;
+    if (!rateGroups[rate]) {
+      rateGroups[rate] = 0;
+    }
+    
+    let multiplier;
+    if (entry.type === 'bora60') multiplier = PER_BORA_60;
+    else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+    else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+    else multiplier = PER_DARZAN;
+    
+    rateGroups[rate] += (Number(entry.quantity) || 0) * multiplier;
+  });
+  
+  // Calculate deductions for each rate group
+  let totalDeductionQty = 0;
+  let totalDeductionAmount = 0;
+  
+  Object.keys(rateGroups).forEach(rate => {
+    const groupTotalDarzans = rateGroups[rate];
+    const groupDeductionQty = Math.ceil(groupTotalDarzans / 50);
+    totalDeductionQty += groupDeductionQty;
+    totalDeductionAmount += groupDeductionQty * Number(rate);
+  });
+  
+  return { totalDeductionQty, totalDeductionAmount };
+}
+
+    // Calculate average rate for calculator deduction
+    function calculateAverageRate(totalAmount, totalDarzans) {
+      if (totalDarzans <= 0) return 0;
+      return totalAmount / totalDarzans;
+    }
+
+    // --- Settings Management ---
+    let settings = loadSettings();
+    let preferences = loadPreferences();
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(SETTINGS_KEY);
+        if (!raw) return DEFAULT_SETTINGS;
+        return JSON.parse(raw);
+      } catch (e) {
+        return DEFAULT_SETTINGS;
+      }
+    }
+
+    function saveSettings() {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    }
+
+    function loadPreferences() {
+      try {
+        const raw = localStorage.getItem(PREFERENCES_KEY);
+        if (!raw) return DEFAULT_PREFERENCES;
+        return JSON.parse(raw);
+      } catch (e) {
+        return DEFAULT_PREFERENCES;
+      }
+    }
+
+    function savePreferences() {
+      localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
+      applyPreferences();
+    }
+
+    function applyPreferences() {
+      decimalPlaces = preferences.decimalPlaces;
+      
+      // Update decimal places in UI
+      document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
+      document.getElementById('autoSave').value = preferences.autoSave;
+      document.getElementById('defaultCategory').value = preferences.defaultCategory;
+      document.getElementById('defaultRate').value = preferences.defaultRate;
+      
+      // Recalculate and update all displayed values
+      totals();
+      updateDynamicTotals();
+      updateCombinedQuickTotal();
+      updateCalculatorDeduction();
+    }
+
+    function resetSettings() {
+      settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+      saveSettings();
+      renderSettings();
+      updateCalculatorBoxes();
+      updateRateTypeDropdown();
     }
 
     // --- State ---
     let state = load();
+    let editingIndex = null; // Track which entry is being edited
 
     function load(){
       try{
@@ -526,20 +2392,46 @@
         // Handle migration from previous versions
         if(!data.payments) data.payments = [];
         if(!data.meta.previousBalance) data.meta.previousBalance = 0;
+        if(!data.entries) data.entries = [];
+        if(!data.currentPage) data.currentPage = 1;
+        if(!data.deletedItems) data.deletedItems = [];
+        if(!data.meta.profileImage) data.meta.profileImage = localStorage.getItem(PROFILE_IMAGE_KEY) || '';
         
         // Ensure each payment has a date
         data.payments.forEach(payment => {
           if (!payment.date) payment.date = new Date().toISOString().split('T')[0];
         });
         
-        if(!data.days || data.days.length!==31) return emptyMonth();
         return data;
       }catch(e){
         return emptyMonth();
       }
     }
 
+    function emptyMonth(){
+      return {
+        meta:{ 
+          createdAt: new Date().toISOString(),
+          userName: '',
+          mobileNumber: '',
+          month: new Date().getMonth(),
+          year: new Date().getFullYear(),
+          previousBalance: 0,
+          profileImage: localStorage.getItem(PROFILE_IMAGE_KEY) || ''
+        },
+        entries: [],
+        payments: [],
+        currentPage: 1,
+        deletedItems: [] // For restore functionality
+      };
+    }
+
     function save(){
+      if (preferences.autoSave === 'disable') {
+        document.getElementById('statusIndicator').value = "Auto Save Disabled";
+        return;
+      }
+      
       state.meta.lastSaved = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
@@ -547,68 +2439,667 @@
       
       // Update profile info
       updateProfileInfo();
+      
+      // Update restore button state
+      document.getElementById('restoreBtn').disabled = state.deletedItems.length === 0;
+      
+      // Save calculator data
+      saveCalculatorData();
+      
+      // Update dynamic totals
+      updateDynamicTotals();
+    }
+
+    // Save calculator inputs to localStorage
+    function saveCalculatorData() {
+  const calculatorData = {};
+  
+  // Save all calculator inputs (both bora and darzan)
+  document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
+    if (input.id && input.id.startsWith('qcalc_')) {
+      calculatorData[input.id] = input.value || '';
+    }
+  });
+  
+  try {
+    localStorage.setItem(CALCULATOR_DATA_KEY, JSON.stringify(calculatorData));
+  } catch (e) {
+    console.error('Calculator data save failed:', e);
+  }
+}
+
+    // Load calculator inputs from localStorage
+    function loadCalculatorData() {
+      try {
+        const calculatorData = JSON.parse(localStorage.getItem(CALCULATOR_DATA_KEY) || '{}');
+        
+        Object.keys(calculatorData).forEach(id => {
+          const input = document.getElementById(id);
+          if (input) {
+            input.value = calculatorData[id];
+            input.dispatchEvent(new Event('input'));
+          }
+        });
+      } catch (e) {
+        console.error('Error loading calculator data:', e);
+      }
     }
 
     // Update profile information display
     function updateProfileInfo() {
-      // This function is now used to initialize inputs, not just display text
       document.getElementById('userName').value = state.meta.userName || '';
       document.getElementById('mobileNumber').value = state.meta.mobileNumber || '';
       document.getElementById('previousBalance').value = state.meta.previousBalance || 0;
+      document.getElementById('userNameMobile').value = state.meta.userName || '';
+      document.getElementById('mobileNumberMobile').value = state.meta.mobileNumber || '';
+      document.getElementById('previousBalanceMobile').value = state.meta.previousBalance || 0;
+      document.getElementById('monthSelectMobile').value = state.meta.month || new Date().getMonth();
+      document.getElementById('yearInputMobile').value = state.meta.year || new Date().getFullYear();
       
       // Load profile image if available
-      const profileImage = localStorage.getItem(PROFILE_IMAGE_KEY);
+      const profileImage = state.meta.profileImage || localStorage.getItem(PROFILE_IMAGE_KEY);
       if (profileImage) {
         document.getElementById('profileImage').src = profileImage;
+        document.getElementById('profileImageDesktop').src = profileImage;
       }
     }
 
-    // --- Build Monthly Table ---
-    const tbody = document.querySelector('#monthTable tbody');
-
-    function rowAmount(qty, rate){
-      return (Number(qty)||0) * rate * PER_BORI_DOZEN;
+    // --- Settings Rendering ---
+    function renderSettings() {
+      renderRateTypes();
+      renderCalculatorBoxes();
+      renderPreferences();
     }
 
-    function makeRow(dayObj){
-      const tr = document.createElement('tr');
-      // Adding a new class to the input cells for centering
-      tr.innerHTML = `
-        <td>${dayObj.day}</td>
-        <td class="table-input-cell"><input type="number" min="0" step="1" data-bind="q425" value="${dayObj.q425 || ''}"></td>
-        <td class="table-input-cell"><input type="number" min="0" step="1" data-bind="q475" value="${dayObj.q475 || ''}"></td>
-        <td class="table-input-cell"><input type="number" min="0" step="1" data-bind="q600" value="${dayObj.q600 || ''}"></td>
-        <td class="mono" data-bind="dayTotal">0.00</td>
-        <td class="table-input-cell"><input type="text" data-bind="note" value="${dayObj.note||''}" placeholder="Note"></td>
-      `;
+    function renderRateTypes() {
+      const container = document.getElementById('rateTypeList');
+      container.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const item = document.createElement('div');
+        item.className = 'rate-type-item';
+        item.innerHTML = `
+          <div class="rate-type-value">
+            <input type="number" value="${rateType.value}" step="0.01" min="0" class="rate-value" data-id="${rateType.id}" />
+            <input type="text" value="${rateType.label}" placeholder="Label" class="rate-label" data-id="${rateType.id}" />
+          </div>
+          <div class="rate-type-actions">
+            <button class="btn-new save-rate" data-id="${rateType.id}">Save</button>
+            <button class="btn-new warn delete-rate" data-id="${rateType.id}">Delete</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.save-rate').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const valueInput = document.querySelector(`.rate-value[data-id="${id}"]`);
+          const labelInput = document.querySelector(`.rate-label[data-id="${id}"]`);
+          
+          const rateType = settings.rateTypes.find(rt => rt.id === id);
+          if (rateType) {
+            rateType.value = parseFloat(valueInput.value) || 0;
+            rateType.label = labelInput.value || rateType.value.toString();
+            saveSettings();
+            updateRateTypeDropdown();
+            updateCalculatorBoxes();
+            updatePreferencesDefaultRate();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.delete-rate').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          if (settings.rateTypes.length <= 1) {
+            alert('At least one rate type is required');
+            return;
+          }
+          
+          settings.rateTypes = settings.rateTypes.filter(rt => rt.id !== id);
+          saveSettings();
+          renderSettings();
+          updateRateTypeDropdown();
+          updateCalculatorBoxes();
+          updatePreferencesDefaultRate();
+        });
+      });
+    }
 
-      function recalc(){
-        const q425 = Number(tr.querySelector('input[data-bind="q425"]').value)||0;
-        const q475 = Number(tr.querySelector('input[data-bind="q475"]').value)||0;
-        const q600 = Number(tr.querySelector('input[data-bind="q600"]').value)||0;
-        const a425 = rowAmount(q425, RATES.r425);
-        const a475 = rowAmount(q475, RATES.r475);
-        const a600 = rowAmount(q600, RATES.r600);
-        tr.querySelector('[data-bind="dayTotal"]').textContent = fmt(a425+a475+a600);
-      }
+    function renderCalculatorBoxes() {
+      const container = document.getElementById('calculatorBoxList');
+      container.innerHTML = '';
+      
+      settings.calculatorBoxes.forEach(box => {
+        const item = document.createElement('div');
+        item.className = 'calculator-box-item';
+        item.innerHTML = `
+          <div class="calculator-box-details">
+            <select class="box-type" data-id="${box.id}">
+              <option value="bora" ${box.type === 'bora' ? 'selected' : ''}>Bora</option>
+              <option value="darzan" ${box.type === 'darzan' ? 'selected' : ''}>Darzan</option>
+            </select>
+            <select class="box-category" data-id="${box.id}">
+              <option value="bora60" ${box.category === 'bora60' ? 'selected' : ''}>Bora 60</option>
+              <option value="bora50" ${box.category === 'bora50' ? 'selected' : ''}>Bora 50</option>
+              <option value="bora40" ${box.category === 'bora40' ? 'selected' : ''}>Bora 40</option>
+              <option value="darzan" ${box.category === 'darzan' ? 'selected' : ''}>Darzan</option>
+            </select>
+            <select class="box-rate" data-id="${box.id}">
+              ${settings.rateTypes.map(rt => 
+                `<option value="${rt.id}" ${box.rateId === rt.id ? 'selected' : ''}>${rt.label}</option>`
+              ).join('')}
+            </select>
+            <input type="number" value="${box.multiplier}" min="1" step="1" class="box-multiplier" data-id="${box.id}" />
+            <input type="text" value="${box.label}" placeholder="Label" class="box-label" data-id="${box.id}" />
+          </div>
+          <div class="calculator-box-actions">
+            <button class="btn-new save-box" data-id="${box.id}">Save</button>
+            <button class="btn-new warn delete-box" data-id="${box.id}">Delete</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.save-box').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const typeSelect = document.querySelector(`.box-type[data-id="${id}"]`);
+          const categorySelect = document.querySelector(`.box-category[data-id="${id}"]`);
+          const rateSelect = document.querySelector(`.box-rate[data-id="${id}"]`);
+          const multiplierInput = document.querySelector(`.box-multiplier[data-id="${id}"]`);
+          const labelInput = document.querySelector(`.box-label[data-id="${id}"]`);
+          
+          const box = settings.calculatorBoxes.find(b => b.id === id);
+          if (box) {
+            box.type = typeSelect.value;
+            box.category = categorySelect.value;
+            box.rateId = rateSelect.value;
+            box.multiplier = parseInt(multiplierInput.value) || 1;
+            box.label = labelInput.value || `${getRateLabel(box.rateId)} × ${box.multiplier}`;
+            saveSettings();
+            updateCalculatorBoxes();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.delete-box').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          settings.calculatorBoxes = settings.calculatorBoxes.filter(b => b.id !== id);
+          saveSettings();
+          renderSettings();
+          updateCalculatorBoxes();
+        });
+      });
+    }
 
-      tr.addEventListener('input', (e)=>{
-        const el = e.target;
-        const key = el.getAttribute('data-bind');
-        const idx = dayObj.day - 1;
-        if(['q425','q475','q600'].includes(key)){
-          state.days[idx][key] = Number(el.value)||0;
-        } else if(key==='note'){
-          state.days[idx].note = el.value;
+    function renderPreferences() {
+      document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
+      document.getElementById('autoSave').value = preferences.autoSave;
+      document.getElementById('defaultCategory').value = preferences.defaultCategory;
+      
+      // Update default rate dropdown
+      updatePreferencesDefaultRate();
+    }
+
+    function updatePreferencesDefaultRate() {
+      const defaultRateSelect = document.getElementById('defaultRate');
+      defaultRateSelect.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const option = document.createElement('option');
+        option.value = rateType.value;
+        option.textContent = rateType.label;
+        if (rateType.value == preferences.defaultRate) {
+          option.selected = true;
         }
-        recalc();
+        defaultRateSelect.appendChild(option);
+      });
+    }
+
+    // Get rate label by ID
+    function getRateLabel(rateId) {
+      const rateType = settings.rateTypes.find(rt => rt.id === rateId);
+      return rateType ? rateType.label : 'N/A';
+    }
+
+    // Get rate value by ID
+    function getRateValue(rateId) {
+      const rateType = settings.rateTypes.find(rt => rt.id === rateId);
+      return rateType ? rateType.value : 0;
+    }
+
+    // Update rate type dropdown in entries form
+    function updateRateTypeDropdown() {
+      const dropdown = document.getElementById('entryRate');
+      dropdown.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const option = document.createElement('option');
+        option.value = rateType.value;
+        option.textContent = rateType.label;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Update calculator boxes
+    function updateCalculatorBoxes() {
+      const boraGrid = document.getElementById('boraCalculatorGrid');
+      const darzanGrid = document.getElementById('darzanCalculatorGrid');
+      
+      boraGrid.innerHTML = '';
+      darzanGrid.innerHTML = '';
+      
+      settings.calculatorBoxes.forEach(box => {
+        const boxId = `calc_${box.id}`;
+        const qId = `q${boxId}`;
+        const aId = `a${boxId}`;
+        
+        const boxElement = document.createElement('div');
+        boxElement.className = 'panel col';
+        
+        // Determine pill color based on multiplier
+        let pillClass = 'pill';
+        if (box.multiplier === 60) pillClass = 'pill';
+        else if (box.multiplier === 50) pillClass = 'pill orange';
+        else if (box.multiplier === 40) pillClass = 'pill red';
+        else pillClass = 'pill';
+        
+        boxElement.innerHTML = `
+          <div class="card-title"><strong>${box.label}</strong> <span class="${pillClass}">× ${box.multiplier}</span></div>
+          <label>Quantity</label>
+          <input id="${qId}" type="number" min="0" step="1" placeholder="e.g., 2" />
+          <label>Amount</label>
+          <input id="${aId}" type="text" readonly class="mono" placeholder="0.00" />
+        `;
+        
+        if (box.type === 'bora') {
+          boraGrid.appendChild(boxElement);
+        } else {
+          darzanGrid.appendChild(boxElement);
+        }
+        
+        // Setup calculator functionality
+        setupQuickCalculator(qId, aId, getRateValue(box.rateId), box.multiplier);
+      });
+      
+      // Load saved calculator data
+      loadCalculatorData();
+    }
+
+    // Setup quick calculator for a box
+    function setupQuickCalculator(qId, aId, rate, multiplier) {
+      const q = document.getElementById(qId);
+      const a = document.getElementById(aId);
+      
+      function calc() { 
+        a.value = fmt((Number(q.value)||0) * rate * multiplier);
+        updateCombinedQuickTotal();
+        updateCalculatorDeduction();
+        saveCalculatorData();
+      }
+      
+      q.addEventListener('input', calc);
+      
+      // Add Enter key functionality
+      q.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          calc();
+          // Move focus to next input for quick data entry
+          const inputs = Array.from(document.querySelectorAll('input[type="number"]'));
+          const currentIndex = inputs.indexOf(q);
+          if (currentIndex < inputs.length - 1) {
+            inputs[currentIndex + 1].focus();
+          }
+        }
+      });
+      
+      calc();
+    }
+
+    // Add new rate type
+    document.getElementById('addRateTypeBtn').addEventListener('click', () => {
+      const newId = generateId();
+      settings.rateTypes.push({
+        id: newId,
+        value: 0,
+        label: 'New Rate'
+      });
+      saveSettings();
+      renderSettings();
+    });
+
+    // Add new calculator box
+    document.getElementById('addCalculatorBoxBtn').addEventListener('click', () => {
+      const newId = generateId();
+      const firstRateId = settings.rateTypes[0]?.id || '1';
+      
+      settings.calculatorBoxes.push({
+        id: newId,
+        type: 'bora',
+        category: 'bora60',
+        rateId: firstRateId,
+        multiplier: 60,
+        label: 'New Box'
+      });
+      saveSettings();
+      renderSettings();
+    });
+
+    // Reset settings
+    document.getElementById('resetSettingsBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset all settings to default?')) {
+        resetSettings();
+      }
+    });
+
+    // Save all settings
+    document.getElementById('saveAllSettingsBtn').addEventListener('click', () => {
+      // Update preferences from UI
+      preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
+      preferences.autoSave = document.getElementById('autoSave').value;
+      preferences.defaultCategory = document.getElementById('defaultCategory').value;
+      preferences.defaultRate = document.getElementById('defaultRate').value;
+      
+      savePreferences();
+      
+      // Show confirmation
+      const confirmation = document.getElementById('saveConfirmation');
+      confirmation.style.display = 'block';
+      setTimeout(() => {
+        confirmation.style.display = 'none';
+      }, 3000);
+    });
+
+    // --- Dynamic Totals ---
+    function updateDynamicTotals() {
+      const boraContainer = document.getElementById('boraTotalsGrid');
+      const darzanContainer = document.getElementById('darzanTotalsGrid');
+      
+      boraContainer.innerHTML = '';
+      darzanContainer.innerHTML = '';
+      
+      // Group entries by category and rate
+      const boraEntries = {};
+      const darzanEntries = {};
+      
+      state.entries.forEach(entry => {
+        const key = `${entry.type}_${entry.rate}`;
+        
+        let multiplier;
+        if (entry.type === 'bora60') multiplier = PER_BORA_60;
+        else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+        else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+        else multiplier = PER_DARZAN;
+        
+        const entryAmount = (Number(entry.quantity) || 0) * Number(entry.rate) * multiplier;
+        
+        if (entry.type.startsWith('bora')) {
+          if (!boraEntries[key]) {
+            boraEntries[key] = {
+              type: entry.type,
+              rate: entry.rate,
+              quantity: 0,
+              amount: 0
+            };
+          }
+          boraEntries[key].quantity += Number(entry.quantity) || 0;
+          boraEntries[key].amount += entryAmount;
+        } else {
+          if (!darzanEntries[key]) {
+            darzanEntries[key] = {
+              type: entry.type,
+              rate: entry.rate,
+              quantity: 0,
+              amount: 0
+            };
+          }
+          darzanEntries[key].quantity += Number(entry.quantity) || 0;
+          darzanEntries[key].amount += entryAmount;
+        }
+      });
+      
+      // Create boxes for each bora group
+      Object.values(boraEntries).forEach(group => {
+        let categoryName = '';
+        if (group.type === 'bora60') categoryName = 'Bora 60';
+        else if (group.type === 'bora50') categoryName = 'Bora 50';
+        else if (group.type === 'bora40') categoryName = 'Bora 40';
+        
+        const box = document.createElement('div');
+        box.className = 'dynamic-total-box bora-total-box';
+        box.innerHTML = `
+          <div class="card-title">
+            <span>${categoryName} $ ${group.rate}</span>
+          </div>
+          <label>Total Quantity</label>
+          <input type="text" value="${group.quantity}" readonly class="mono" />
+          <label>Total Amount</label>
+          <input type="text" value="${fmt(group.amount)}" readonly class="mono" />
+        `;
+        boraContainer.appendChild(box);
+      });
+      
+      // Create boxes for each darzan group
+      Object.values(darzanEntries).forEach(group => {
+        const box = document.createElement('div');
+        box.className = 'dynamic-total-box darzan-total-box';
+        box.innerHTML = `
+          <div class="card-title">
+            <span>Darzan $ ${group.rate}</span>
+          </div>
+          <label>Total Quantity</label>
+          <input type="text" value="${group.quantity}" readonly class="mono" />
+          <label>Total Amount</label>
+          <input type="text" value="${fmt(group.amount)}" readonly class="mono" />
+        `;
+        darzanContainer.appendChild(box);
+      });
+    }
+
+    // --- Build Entries Table ---
+    function renderEntriesTable() {
+      const tbody = document.getElementById('entriesTableBody');
+      tbody.innerHTML = '';
+      
+      const startIndex = (state.currentPage - 1) * ENTRIES_PER_PAGE;
+      const endIndex = Math.min(startIndex + ENTRIES_PER_PAGE, state.entries.length);
+      
+      let lastDate = null;
+      
+      for (let i = startIndex; i < endIndex; i++) {
+        const entry = state.entries[i];
+        
+        // Add date separator if date has changed
+        if (lastDate !== entry.date && i > startIndex) {
+          const sepRow = document.createElement('tr');
+          sepRow.className = 'date-separator';
+          sepRow.innerHTML = `<td colspan="9"></td>`;
+          tbody.appendChild(sepRow);
+        }
+        lastDate = entry.date;
+        
+        let multiplier;
+        if (entry.type === 'bora60') multiplier = PER_BORA_60;
+        else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+        else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+        else multiplier = PER_DARZAN;
+        
+        const totalDarzans = (Number(entry.quantity) || 0) * multiplier;
+        const amount = (Number(entry.quantity) || 0) * Number(entry.rate) * multiplier;
+        
+        // Calculate deductions
+        const deductionQty = calculateDeductions(totalDarzans);
+        const deductionAmount = deductionQty * Number(entry.rate);
+        
+        // Display category name properly
+        let categoryName = '';
+        if (entry.type === 'bora60') categoryName = 'Bora 60';
+        else if (entry.type === 'bora50') categoryName = 'Bora 50';
+        else if (entry.type === 'bora40') categoryName = 'Bora 40';
+        else categoryName = 'Darzan';
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${formatDate(entry.date)}</td>
+          <td>${categoryName}</td>
+          <td>${entry.rate}</td>
+          <td>${entry.quantity}</td>
+          <td>${totalDarzans}</td>
+          <td>${deductionQty > 0 ? `${deductionQty} / ${fmt(deductionAmount)}` : '0'}</td>
+          <td class="mono">${fmt(amount)}</td>
+          <td>${entry.note || ''}</td>
+          <td>
+            <button class="btn-new edit-entry" data-index="${i}">Edit</button>
+            <button class="btn-new warn delete-entry" data-index="${i}">Delete</button>
+          </td>
+        `;
+        
+        tbody.appendChild(tr);
+      }
+      
+      // Update pagination info
+      const totalPages = Math.ceil(state.entries.length / ENTRIES_PER_PAGE);
+      document.getElementById('pageInfo').textContent = `Page ${state.currentPage} of ${totalPages}`;
+      document.getElementById('prevPageBtn').disabled = state.currentPage <= 1;
+      document.getElementById('nextPageBtn').disabled = state.currentPage >= totalPages;
+      
+      // Add event listeners for delete buttons
+      document.querySelectorAll('.delete-entry').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.getAttribute('data-index'));
+          // Store the deleted item for possible restoration
+          state.deletedItems.push(state.entries[index]);
+          state.entries.splice(index, 1);
+          renderEntriesTable();
+          totals();
+          updateCombinedQuickTotal();
+          updateDynamicTotals();
+          document.getElementById('statusIndicator').value = "Saving...";
+          save();
+        });
+      });
+      
+      // Add event listeners for edit buttons
+      document.querySelectorAll('.edit-entry').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.getAttribute('data-index'));
+          showEditModal(index);
+        });
+      });
+    }
+
+    // Show edit modal for an entry
+    function showEditModal(index) {
+      const entry = state.entries[index];
+      editingIndex = index;
+      
+      // Create modal
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Entry</h3>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-form">
+            <div class="form-group">
+              <label for="editDate">Date</label>
+              <input type="date" id="editDate" value="${entry.date}" />
+            </div>
+            <div class="form-group">
+              <label for="editType">Category</label>
+              <select id="editType">
+                <option value="bora60" ${entry.type === 'bora60' ? 'selected' : ''}>Bora 60</option>
+                <option value="bora50" ${entry.type === 'bora50' ? 'selected' : ''}>Bora 50</option>
+                <option value="bora40" ${entry.type === 'bora40' ? 'selected' : ''}>Bora 40</option>
+                <option value="darzan" ${entry.type === 'darzan' ? 'selected' : ''}>Darzan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editRate">Rate Type</label>
+              <select id="editRate">
+                ${settings.rateTypes.map(rt => 
+                  `<option value="${rt.value}" ${entry.rate == rt.value ? 'selected' : ''}>${rt.label}</option>`
+                ).join('')}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editQuantity">Quantity</label>
+              <input type="number" id="editQuantity" min="0" step="1" value="${entry.quantity}" />
+            </div>
+            <div class="form-group form-group-full">
+              <label for="editNote">Note</label>
+              <input type="text" id="editNote" value="${entry.note || ''}" />
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button id="cancelEditBtn" class="btn-new warn">Cancel</button>
+            <button id="saveEditBtn" class="btn-new primary">Save Changes</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Add event listeners
+      document.querySelector('.modal-close').addEventListener('click', () => {
+        document.body.removeChild(modal);
+        editingIndex = null;
+      });
+      
+      document.getElementById('cancelEditBtn').addEventListener('click', () => {
+        document.body.removeChild(modal);
+        editingIndex = null;
+      });
+      
+      document.getElementById('saveEditBtn').addEventListener('click', () => {
+        saveEditedEntry();
+        document.body.removeChild(modal);
+      });
+      
+      // Close modal when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+          editingIndex = null;
+        }
+      });
+    }
+    
+    // Save edited entry
+    function saveEditedEntry() {
+      if (editingIndex === null) return;
+      
+      const date = document.getElementById('editDate').value;
+      const type = document.getElementById('editType').value;
+      const rate = document.getElementById('editRate').value;
+      const quantity = Number(document.getElementById('editQuantity').value) || 0;
+      const note = document.getElementById('editNote').value.trim();
+      
+      // Allow entries with just notes (quantity can be 0)
+      if (note || quantity > 0) {
+        state.entries[editingIndex] = {
+          date: date,
+          type: type,
+          rate: rate,
+          quantity: quantity,
+          note: note
+        };
+        
+        renderEntriesTable();
         totals();
+        updateDynamicTotals();
         document.getElementById('statusIndicator').value = "Saving...";
         save();
-      });
-
-      recalc();
-      return tr;
+      }
+      
+      editingIndex = null;
     }
 
     function buildPayments(){
@@ -627,7 +3118,7 @@
           <input type="date" value="${payment.date}" readonly class="mono payment-date" />
           <input type="number" value="${payment.amount}" readonly class="mono" />
           <input type="text" value="${payment.note}" readonly class="payment-note" />
-          <button class="btn warn delete-payment" data-index="${index}">Delete</button>
+          <button class="btn-new warn delete-payment" data-index="${index}">Delete</button>
         `;
         container.appendChild(paymentEl);
       });
@@ -646,143 +3137,404 @@
     }
 
     function build(){
-      tbody.innerHTML = '';
-      state.days.forEach(d=> tbody.appendChild(makeRow(d)) );
-      totals();
-      if(state.meta.lastSaved){
-        document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
-      }
-      
       // Load user info
       document.getElementById('userName').value = state.meta.userName || '';
       document.getElementById('mobileNumber').value = state.meta.mobileNumber || '';
       document.getElementById('monthSelect').value = state.meta.month || new Date().getMonth();
       document.getElementById('yearInput').value = state.meta.year || new Date().getFullYear();
       document.getElementById('previousBalance').value = state.meta.previousBalance || 0;
+      document.getElementById('userNameMobile').value = state.meta.userName || '';
+      document.getElementById('mobileNumberMobile').value = state.meta.mobileNumber || '';
+      document.getElementById('monthSelectMobile').value = state.meta.month || new Date().getMonth();
+      document.getElementById('yearInputMobile').value = state.meta.year || new Date().getFullYear();
+      document.getElementById('previousBalanceMobile').value = state.meta.previousBalance || 0;
       
-      // Set default date for new payments to today
+      // Set default date for new entries and payments to today
       const today = new Date().toISOString().split('T')[0];
+      document.getElementById('entryDate').value = today;
       document.getElementById('newPaymentDate').value = today;
+      
+      // Apply preferences
+      applyPreferences();
+      
+      // Render settings
+      renderSettings();
+      
+      // Update rate type dropdown
+      updateRateTypeDropdown();
+      
+      // Update calculator boxes
+      updateCalculatorBoxes();
+      
+      // Render entries table
+      renderEntriesTable();
       
       // Build payments
       buildPayments();
       
       // Update profile info
       updateProfileInfo();
+      
+      // Calculate totals
+      totals();
+      
+      // Update dynamic totals
+      updateDynamicTotals();
+      
+      // Update combined quick total
+      updateCombinedQuickTotal();
+      
+      // Update calculator deduction
+      updateCalculatorDeduction();
+      
+      if(state.meta.lastSaved){
+        document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
+      }
+      
+      // Update restore button state
+      document.getElementById('restoreBtn').disabled = state.deletedItems.length === 0;
     }
+
+    // --- Totals Calculation Functions ---
+    
+    // Calculate Bora 60 totals
+   function calculateBora60Totals() {
+  const bora60Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora60')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora60Totals[rateKey]) {
+        bora60Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora60Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora60Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_60;
+    });
+  
+  return bora60Totals;
+}
+    
+    // Calculate Bora 50 totals
+    function calculateBora50Totals() {
+  const bora50Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora50')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora50Totals[rateKey]) {
+        bora50Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora50Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora50Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_50;
+    });
+  
+  return bora50Totals;
+}
+    
+    // Calculate Bora 40 totals
+    function calculateBora40Totals() {
+  const bora40Totals = {};
+  
+  state.entries
+    .filter(e => e.type === 'bora40')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!bora40Totals[rateKey]) {
+        bora40Totals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      bora40Totals[rateKey].quantity += Number(entry.quantity) || 0;
+      bora40Totals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_BORA_40;
+    });
+  
+  return bora40Totals;
+}
+    
+    // Calculate Darzan totals
+    function calculateDarzanTotals() {
+  const darzanTotals = {};
+  
+  state.entries
+    .filter(e => e.type === 'darzan')
+    .forEach(entry => {
+      const rateKey = entry.rate.toString();
+      if (!darzanTotals[rateKey]) {
+        darzanTotals[rateKey] = {
+          quantity: 0,
+          amount: 0
+        };
+      }
+      darzanTotals[rateKey].quantity += Number(entry.quantity) || 0;
+      darzanTotals[rateKey].amount += (Number(entry.quantity) || 0) * Number(entry.rate) * PER_DARZAN;
+    });
+  
+  return darzanTotals;
+}
+
+    // Calculate deduction totals - UPDATED VERSION
+function calculateDeductionTotals() {
+  let totalDarzans = 0;
+  
+  state.entries.forEach(entry => {
+    let multiplier;
+    if (entry.type === 'bora60') multiplier = PER_BORA_60;
+    else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+    else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+    else multiplier = PER_DARZAN;
+    
+    const entryDarzans = (Number(entry.quantity) || 0) * multiplier;
+    totalDarzans += entryDarzans;
+  });
+  
+  // Use new function for deductions by rate groups
+  const { totalDeductionQty, totalDeductionAmount } = calculateDeductionsByRate(state.entries);
+  
+  return { totalDarzans, totalDeductionQty, totalDeductionAmount };
+}
 
     function totals(){
-      const q425s = state.days.map(d=>Number(d.q425)||0);
-      const q475s = state.days.map(d=>Number(d.q475)||0);
-      const q600s = state.days.map(d=>Number(d.q600)||0);
+  // Calculate totals using updated functions
+  const bora60Totals = calculateBora60Totals();
+  const bora50Totals = calculateBora50Totals();
+  const bora40Totals = calculateBora40Totals();
+  const darzanTotals = calculateDarzanTotals();
+  const deductionTotals = calculateDeductionTotals();
+  
+  // Calculate total Bora and Darzan amounts (ALL RATES INCLUDED)
+  let totalBoraAmount = 0;
+  let totalDarzanAmount = 0;
+  
+  // Sum all bora amounts
+  Object.values(bora60Totals).forEach(item => totalBoraAmount += item.amount);
+  Object.values(bora50Totals).forEach(item => totalBoraAmount += item.amount);
+  Object.values(bora40Totals).forEach(item => totalBoraAmount += item.amount);
+  
+  // Sum all darzan amounts
+  Object.values(darzanTotals).forEach(item => totalDarzanAmount += item.amount);
 
-      const A425 = sum(q425s)*RATES.r425*PER_BORI_DOZEN;
-      const A475 = sum(q475s)*RATES.r475*PER_BORI_DOZEN;
-      const A600 = sum(q600s)*RATES.r600*PER_BORI_DOZEN;
-      const GT = A425 + A475 + A600;
+  // Calculate grand total WITH PREVIOUS BALANCE
+  const prevBalance = Number(state.meta.previousBalance) || 0;
+  const GT = totalBoraAmount + totalDarzanAmount + prevBalance;
+  
+  // Calculate total payments
+  const totalPayments = state.payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+  
+  // Calculate final amount
+  const finalAmount = GT - totalPayments - deductionTotals.totalDeductionAmount;
+
+  // Update UI
+  document.getElementById('totalDarzans').value = deductionTotals.totalDarzans;
+  document.getElementById('deductionQty').value = deductionTotals.totalDeductionQty;
+  document.getElementById('deductionAmount').value = fmt(deductionTotals.totalDeductionAmount);
+  document.getElementById('deductingDarzanPayments').value = fmt(deductionTotals.totalDeductionAmount);
+  
+  document.getElementById('totalBoraAmount').value = fmt(totalBoraAmount);
+  document.getElementById('totalDarzanAmount').value = fmt(totalDarzanAmount);
+  document.getElementById('grandTotal').value = fmt(GT);
+  document.getElementById('paymentGrandTotal').value = fmt(GT);
+  document.getElementById('prevBalanceDisplay').value = fmt(prevBalance);
+  document.getElementById('totalPayments').value = fmt(totalPayments);
+  document.getElementById('netFinalAmount').value = fmt(finalAmount);
+}
+
+    // Update combined quick total
+    function updateCombinedQuickTotal() {
+      let boraAmount = 0;
+      let darzanAmount = 0;
       
-      // Calculate total payments
-      const totalPayments = state.payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+      // Calculate amounts from all calculator boxes
+      settings.calculatorBoxes.forEach(box => {
+        const qId = `qcalc_${box.id}`;
+        const aId = `acalc_${box.id}`;
+        
+        const qInput = document.getElementById(qId);
+        const aInput = document.getElementById(aId);
+        
+        if (qInput && aInput) {
+          const amount = Number(aInput.value.replace(/,/g, '')) || 0;
+          
+          if (box.type === 'bora') {
+            boraAmount += amount;
+          } else {
+            darzanAmount += amount;
+          }
+        }
+      });
       
-      // Calculate final amount with previous balance and payments
-      const prevBalance = Number(state.meta.previousBalance) || 0;
-      const finalAmount = GT + prevBalance - totalPayments;
-
-      // Footer row
-      document.getElementById('sumQ425').textContent = sum(q425s);
-      document.getElementById('sumQ475').textContent = sum(q475s);
-      document.getElementById('sumQ600').textContent = sum(q600s);
-      document.getElementById('sumDay').textContent  = fmt(GT);
-
-      // Totals cards
-      document.getElementById('totalQ425').value = sum(q425s);
-      document.getElementById('totalA425').value = fmt(A425);
-      document.getElementById('totalQ475').value = sum(q475s);
-      document.getElementById('totalA475').value = fmt(A475);
-      document.getElementById('totalQ600').value = sum(q600s);
-      document.getElementById('totalA600').value = fmt(A600);
-      document.getElementById('grandTotal').value = fmt(GT);
-      document.getElementById('prevBalanceDisplay').value = fmt(prevBalance);
-      document.getElementById('totalPayments').value = fmt(totalPayments);
-      document.getElementById('finalAmount').value = fmt(finalAmount);
+      document.getElementById('combinedBoraAmount').value = fmt(boraAmount);
+      document.getElementById('combinedDarzanAmount').value = fmt(darzanAmount);
+      document.getElementById('combinedTotalAmount').value = fmt(boraAmount + darzanAmount);
+      
+      // Also update calculator deduction when combined total changes
+      updateCalculatorDeduction();
     }
+
+    // Update calculator deduction - UPDATED VERSION
+function updateCalculatorDeduction() {
+  let totalDarzans = 0;
+  const calculatorEntries = [];
+  
+  // Create virtual entries from calculator data
+  settings.calculatorBoxes.forEach(box => {
+    const qId = `qcalc_${box.id}`;
+    const qInput = document.getElementById(qId);
+    
+    if (qInput && qInput.value) {
+      const quantity = Number(qInput.value) || 0;
+      if (quantity > 0) {
+        calculatorEntries.push({
+          type: box.category,
+          rate: getRateValue(box.rateId),
+          quantity: quantity
+        });
+        
+        totalDarzans += quantity * box.multiplier;
+      }
+    }
+  });
+  
+  // Use new function for deductions by rate groups
+  const { totalDeductionQty, totalDeductionAmount } = calculateDeductionsByRate(calculatorEntries);
+  
+  // Calculate total amount
+  let totalAmount = 0;
+  settings.calculatorBoxes.forEach(box => {
+    const qId = `qcalc_${box.id}`;
+    const qInput = document.getElementById(qId);
+    
+    if (qInput) {
+      const quantity = Number(qInput.value) || 0;
+      const rate = getRateValue(box.rateId);
+      totalAmount += quantity * rate * box.multiplier;
+    }
+  });
+  
+  const finalAmount = totalAmount - totalDeductionAmount;
+  
+  // Update calculator deduction display
+  document.getElementById('calcTotalDarzans').value = totalDarzans;
+  document.getElementById('calcDeductionQty').value = totalDeductionQty;
+  document.getElementById('calcDeductionAmount').value = fmt(totalDeductionAmount);
+  document.getElementById('calcFinalAmount').value = fmt(finalAmount);
+}
 
     build();
     save();
 
-    // --- Quick Calculator ---
-    function setupQuick(qId, aId, rate){
-      const q = document.getElementById(qId);
-      const a = document.getElementById(aId);
-      function calc(){ 
-        a.value = fmt((Number(q.value)||0) * rate * PER_BORI_DOZEN);
-        updateQuickTotals();
-      }
-      q.addEventListener('input', calc); 
-      calc();
+    // Clear calculator function
+    function clearCalculator() {
+      document.querySelectorAll('#boraCalculatorGrid input[type="number"], #darzanCalculatorGrid input[type="number"]').forEach(input => {
+        input.value = '';
+        input.dispatchEvent(new Event('input'));
+      });
+      saveCalculatorData();
     }
     
-    function updateQuickTotals(){
-      const q425 = Number(document.getElementById('q425Quick').value) || 0;
-      const q475 = Number(document.getElementById('q475Quick').value) || 0;
-      const q600 = Number(document.getElementById('q600Quick').value) || 0;
-      
-      const totalBories = q425 + q475 + q600;
-      const totalAmount = (q425 * RATES.r425 + q475 * RATES.r475 + q600 * RATES.r600) * PER_BORI_DOZEN;
-      
-      document.getElementById('totalBoriesQuick').value = totalBories;
-      document.getElementById('totalAmountQuick').value = fmt(totalAmount);
-    }
-    
-    setupQuick('q425Quick', 'a425Quick', RATES.r425);
-    setupQuick('q475Quick', 'a475Quick', RATES.r475);
-    setupQuick('q600Quick', 'a600Quick', RATES.r600);
+    // Add event listener for clear calculator button
+    document.getElementById('clearCalculatorBtn').addEventListener('click', clearCalculator);
 
     // --- User Info Handling ---
-    document.getElementById('userName').addEventListener('input', (e)=>{
-      state.meta.userName = e.target.value;
+    function updateUserInfo() {
+      state.meta.userName = document.getElementById('userName').value || document.getElementById('userNameMobile').value || '';
+      state.meta.mobileNumber = document.getElementById('mobileNumber').value || document.getElementById('mobileNumberMobile').value || '';
+      state.meta.month = parseInt(document.getElementById('monthSelect').value) || parseInt(document.getElementById('monthSelectMobile').value) || new Date().getMonth();
+      state.meta.year = parseInt(document.getElementById('yearInput').value) || parseInt(document.getElementById('yearInputMobile').value) || new Date().getFullYear();
+      state.meta.previousBalance = Number(document.getElementById('previousBalance').value) || Number(document.getElementById('previousBalanceMobile').value) || 0;
+      
       document.getElementById('statusIndicator').value = "Saving...";
       save();
-    });
+    }
     
-    document.getElementById('mobileNumber').addEventListener('input', (e)=>{
-      state.meta.mobileNumber = e.target.value;
-      document.getElementById('statusIndicator').value = "Saving...";
-      save();
-    });
+    // Add event listeners for user info inputs
+    const userInfoInputs = [
+      'userName', 'mobileNumber', 'monthSelect', 'yearInput', 'previousBalance',
+      'userNameMobile', 'mobileNumberMobile', 'monthSelectMobile', 'yearInputMobile', 'previousBalanceMobile'
+    ];
     
-    document.getElementById('monthSelect').addEventListener('change', (e)=>{
-      state.meta.month = parseInt(e.target.value);
-      document.getElementById('statusIndicator').value = "Saving...";
-      save();
-    });
-    
-    document.getElementById('yearInput').addEventListener('input', (e)=>{
-      state.meta.year = parseInt(e.target.value);
-      document.getElementById('statusIndicator').value = "Saving...";
-      save();
-    });
-    
-    document.getElementById('previousBalance').addEventListener('input', (e)=>{
-      state.meta.previousBalance = Number(e.target.value) || 0;
-      totals();
-      document.getElementById('statusIndicator').value = "Saving...";
-      save();
+    userInfoInputs.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.addEventListener('change', updateUserInfo);
+      }
     });
 
     // --- Profile Image Upload ---
-    document.getElementById('profileUpload').addEventListener('change', function(e) {
+    function handleProfileUpload(e) {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(event) {
           const imgData = event.target.result;
           document.getElementById('profileImage').src = imgData;
+          document.getElementById('profileImageDesktop').src = imgData;
           localStorage.setItem(PROFILE_IMAGE_KEY, imgData);
+          state.meta.profileImage = imgData;
+          save();
         };
         reader.readAsDataURL(file);
       }
+    }
+    
+    document.getElementById('profileUpload').addEventListener('change', handleProfileUpload);
+    document.getElementById('profileUploadDesktop').addEventListener('change', handleProfileUpload);
+
+    // --- Entry Handling ---
+    document.getElementById('addEntryBtn').addEventListener('click', addEntry);
+    
+    // Add Enter key functionality to quantity field
+    document.getElementById('entryQuantity').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        addEntry();
+      }
     });
+    
+    // Add Enter key functionality to note field
+    document.getElementById('entryNote').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        addEntry();
+      }
+    });
+    
+    function addEntry(){
+      const date = document.getElementById('entryDate').value;
+      const type = document.getElementById('entryType').value;
+      const rate = document.getElementById('entryRate').value;
+      const quantity = Number(document.getElementById('entryQuantity').value) || 0;
+      const note = document.getElementById('entryNote').value.trim();
+      
+      // Allow entries with just notes (quantity can be 0)
+      if (note || quantity > 0) {
+        state.entries.push({
+          date: date,
+          type: type,
+          rate: rate,
+          quantity: quantity,
+          note: note
+        });
+        
+        document.getElementById('entryQuantity').value = '';
+        document.getElementById('entryNote').value = '';
+        
+        renderEntriesTable();
+        totals();
+        updateDynamicTotals();
+        document.getElementById('statusIndicator').value = "Saving...";
+        save();
+        
+        // Set focus back to quantity for quick entry
+        document.getElementById('entryQuantity').focus();
+      }
+    }
 
     // --- Payment Handling ---
     document.getElementById('addPaymentBtn').addEventListener('click', ()=>{
@@ -807,8 +3559,41 @@
       }
     });
 
+    // --- Pagination Handling ---
+    document.getElementById('prevPageBtn').addEventListener('click', ()=>{
+      if (state.currentPage > 1) {
+        state.currentPage--;
+        renderEntriesTable();
+      }
+    });
+    
+    document.getElementById('nextPageBtn').addEventListener('click', ()=>{
+      const totalPages = Math.ceil(state.entries.length / ENTRIES_PER_PAGE);
+      if (state.currentPage < totalPages) {
+        state.currentPage++;
+        renderEntriesTable();
+      }
+    });
+    
+    // --- Restore Handling ---
+    document.getElementById('restoreBtn').addEventListener('click', ()=>{
+      if (state.deletedItems.length > 0) {
+        const restoredItem = state.deletedItems.pop();
+        state.entries.push(restoredItem);
+        renderEntriesTable();
+        totals();
+        updateDynamicTotals();
+        updateCombinedQuickTotal();
+        document.getElementById('statusIndicator').value = "Saving...";
+        save();
+      }
+    });
+
     // --- Export / Import / Reset ---
-    document.getElementById('exportBtn').addEventListener('click', ()=>{
+    function exportData() {
+      // Include profile image in export
+      state.meta.profileImage = localStorage.getItem(PROFILE_IMAGE_KEY) || '';
+      
       const data = JSON.stringify(state, null, 2);
       const blob = new Blob([data], {type:'application/json'});
       const url = URL.createObjectURL(blob);
@@ -818,113 +3603,927 @@
       a.download = `gloves-manufacture-${stamp}.json`;
       a.click();
       URL.revokeObjectURL(url);
-    });
-
-    document.getElementById('importFile').addEventListener('change', (e)=>{
+    }
+    
+    document.getElementById('exportBtn').addEventListener('click', exportData);
+    
+    // Import function
+    function handleImport(e) {
       const file = e.target.files[0];
       if(!file) return;
+      
       const reader = new FileReader();
-      reader.onload = ()=>{
-        try{
+      reader.onload = () => {
+        try {
           const data = JSON.parse(reader.result);
-          if(!data.days || data.days.length!==31) throw new Error('Invalid file');
           
           // Handle migration from previous versions
           if(!data.payments) data.payments = [];
           if(!data.meta.previousBalance) data.meta.previousBalance = 0;
+          if(!data.entries) data.entries = [];
+          if(!data.currentPage) data.currentPage = 1;
+          if(!data.deletedItems) data.deletedItems = [];
+          if(!data.meta.profileImage) data.meta.profileImage = '';
           
           // Ensure each payment has a date
           data.payments.forEach(payment => {
             if (!payment.date) payment.date = new Date().toISOString().split('T')[0];
           });
           
-          state = data; build(); save();
-          // DO NOT USE alert().
-          // Replacing alert() with a custom modal or message.
-          const msg = "Import successful.";
-          const statusEl = document.getElementById('statusIndicator');
-          const originalValue = statusEl.value;
-          statusEl.value = msg;
-          setTimeout(() => { statusEl.value = originalValue; }, 3000);
-
-        }catch(err){
-          // DO NOT USE alert().
-          // Replacing alert() with a custom modal or message.
-          const msg = 'Import failed. Make sure you selected the correct JSON file.';
-          const statusEl = document.getElementById('statusIndicator');
-          const originalValue = statusEl.value;
-          statusEl.value = msg;
-          setTimeout(() => { statusEl.value = originalValue; }, 3000);
+          state = data;
+          
+          // Save profile image if included in import
+          if (data.meta.profileImage) {
+            localStorage.setItem(PROFILE_IMAGE_KEY, data.meta.profileImage);
+          }
+          
+          build();
+          save();
+          
+        } catch(err) {
+          alert('Error importing file: ' + err.message);
         }
       };
       reader.readAsText(file);
       e.target.value = '';
+    }
+    
+    document.getElementById('importFile').addEventListener('change', handleImport);
+    
+    function resetData() {
+      const shouldReset = confirm("Kya aap poore mahine ka data reset karna chahte hain? Yeh record hamesha ke liye delete ho jayega.");
+      
+      if(shouldReset){
+        state = emptyMonth(); 
+        build(); 
+        save();
+      }
+    }
+    
+    document.getElementById('resetBtn').addEventListener('click', resetData);
+
+        // --- PDF Download Function ---
+function downloadPDF() {
+  // PDF library ko load karo
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  
+  // Heading add karo
+  doc.setFontSize(20);
+  doc.text("Report G_M_C", 14, 22);
+  
+  // User ki information add karo
+  doc.setFontSize(12);
+  doc.text(`Name: ${state.meta.userName || 'Not specified'}`, 14, 32);
+  doc.text(`Mobile: ${state.meta.mobileNumber || 'Not specified'}`, 14, 39);
+  doc.text(`Month: ${document.getElementById('monthSelect').options[document.getElementById('monthSelect').selectedIndex].text} ${state.meta.year}`, 14, 46);
+  
+  // Saari entries ka table banayo
+  doc.autoTable({
+    startY: 55,
+    head: [['Date', 'Category', 'Rate', 'Quantity', 'Total Darzans', 'Deducts', 'Amount', 'Note']],
+    body: state.entries.map(entry => {
+      // Har entry ka type check karo aur multiplier set karo
+      let multiplier;
+      if (entry.type === 'bora60') multiplier = PER_BORA_60;
+      else if (entry.type === 'bora50') multiplier = PER_BORA_50;
+      else if (entry.type === 'bora40') multiplier = PER_BORA_40;
+      else multiplier = PER_DARZAN;
+      
+      // Calculations karo
+      const totalDarzans = (Number(entry.quantity) || 0) * multiplier;
+      const amount = (Number(entry.quantity) || 0) * Number(entry.rate) * multiplier;
+      const deductionQty = calculateDeductions(totalDarzans);
+      const deductionAmount = deductionQty * Number(entry.rate);
+      
+      // Category ka proper name dikhao
+      let categoryName = '';
+      if (entry.type === 'bora60') categoryName = 'Bora 60';
+      else if (entry.type === 'bora50') categoryName = 'Bora 50';
+      else if (entry.type === 'bora40') categoryName = 'Bora 40';
+      else categoryName = 'Darzan';
+      
+      // Table ki row return karo
+      return [
+        formatDate(entry.date),
+        categoryName,
+        entry.rate,
+        entry.quantity,
+        totalDarzans,
+        deductionQty > 0 ? `${deductionQty} / ${fmt(deductionAmount)}` : '0',
+        fmt(amount),
+        entry.note || ''
+      ];
+    })
+  });
+  
+  // Totals section shuru karo
+let finalY = doc.lastAutoTable.finalY + 10;
+doc.setFontSize(14);
+doc.text("Totals", 14, finalY);
+
+// Har total value ko PDF mein add karo with colors
+finalY += 10;
+doc.setFontSize(12);
+
+// Previous Balance - Gray color
+doc.setTextColor(128, 128, 128);
+doc.text(`Previous Balance: ${document.getElementById('prevBalanceDisplay').value}`, 14, finalY);
+finalY += 7;
+
+// Total Bora Amount - Blue color  
+doc.setTextColor(0, 0, 255);
+doc.text(`Total Bora Amount: ${document.getElementById('totalBoraAmount').value}`, 14, finalY);
+finalY += 7;
+
+// Total Darzan Amount - Blue color
+doc.setTextColor(0, 0, 255);
+doc.text(`Total Darzan Amount: ${document.getElementById('totalDarzanAmount').value}`, 14, finalY);
+finalY += 7;
+
+// Grand Total - Dark Blue/Bold color
+doc.setTextColor(0, 0, 139);
+doc.setFont(undefined, 'bold');
+doc.text(`Grand Total: ${document.getElementById('grandTotal').value}`, 14, finalY);
+doc.setFont(undefined, 'normal');
+finalY += 7;
+
+// Received Payments - Green color
+doc.setTextColor(0, 128, 0);
+doc.text(`Received Weekly Payments: ${document.getElementById('totalPayments').value}`, 14, finalY);
+finalY += 7;
+
+// Deducting Darzan Payments - Red color
+doc.setTextColor(255, 0, 0);
+doc.text(`Deducting Darzan Payments: ${document.getElementById('deductingDarzanPayments').value}`, 14, finalY);
+finalY += 7;
+
+// Final Amount - Extra Large and Highlighted
+doc.setTextColor(0, 100, 0);
+doc.setFontSize(16); // ← Aur bada size
+doc.setFont(undefined, 'bold');
+doc.text(`Final Amount in your hand: ${document.getElementById('netFinalAmount').value}`, 14, finalY);
+doc.setFont(undefined, 'normal');
+doc.setFontSize(12); // ← Reset to normal size
+
+// Reset to black color for remaining text
+doc.setTextColor(0, 0, 0);
+
+  // Yahan par line add karo (full width)
+    finalY += 6; // thoda gap line se pehle
+    doc.setDrawColor(0);       // Black color
+    doc.setLineWidth(0.5);     // Line thickness
+    doc.line(14, finalY, 200, finalY);  // (x1, y1, x2, y2)
+  
+    // Darzan deduction rules likho
+  finalY += 8;
+  doc.setFontSize(9);
+  doc.text('Darzan Deduction RULE: Ab deduction total darzan par hoga, rozana nahi.', 14, finalY);
+  finalY += 4;
+  doc.text('Misal: 6 din × 20 Darzan = 120 Total , 3 Deductions', 14, finalY);  
+  finalY += 4;    
+  doc.text('Purana: 6 deductions | Naya: 3 deductions', 14, finalY);
+
+  // Yahan par line add karo (full width)
+    finalY += 6; // thoda gap line se pehle
+    doc.setDrawColor(0);       // Black color
+    doc.setLineWidth(0.5);     // Line thickness
+    doc.line(14, finalY, 200, finalY);  // (x1, y1, x2, y2)
+
+  // Footer section - Date aur time dikhao
+  finalY += 10;
+  doc.setFontSize(10);
+  const now = new Date();
+  const hours = now.getHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 || 12;
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const formattedDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}, ${hours12}:${minutes}:${seconds} ${ampm}`;
+  doc.text(`Report generated by Cash Management System v4.10 (Oct 18, 2025) ${formattedDate}`, 14, finalY);
+  finalY += 6;
+  doc.text('© 2025 ALQAAB Org. Developed by ALQAAB Web Studio | Shahbaz Ali', 14, finalY);
+
+  // PDF file ko save/download karo
+  const date = new Date();
+  const fileName = `darzan-deduction-report-${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}.pdf`;
+  doc.save(fileName);
+}
+    
+    document.getElementById('downloadPdfBtn').addEventListener('click', downloadPDF);
+
+    // --- Mobile buttons for Tips tab ---
+    document.getElementById('exportBtnTips').addEventListener('click', exportData);
+    document.getElementById('importFileTips').addEventListener('change', handleImport);
+    document.getElementById('downloadPdfBtnTips').addEventListener('click', downloadPDF);
+    document.getElementById('resetBtnTips').addEventListener('click', resetData);
+
+    // --- Scroll buttons for tabs ---
+    document.querySelector('.scroll-btn.left').addEventListener('click', () => {
+      document.querySelector('.tabs').scrollBy({ left: -100, behavior: 'smooth' });
+    });
+    
+    document.querySelector('.scroll-btn.right').addEventListener('click', () => {
+      document.querySelector('.tabs').scrollBy({ left: 100, behavior: 'smooth' });
     });
 
-    document.getElementById('resetBtn').addEventListener('click', ()=>{
-      // DO NOT USE confirm().
-      // Using a custom modal/message box logic.
-      const shouldReset = true; // Placeholder for a custom confirmation dialog.
-      if(shouldReset){
-        state = emptyMonth(); build(); save();
+    // --- Auto-save timer ---
+    setInterval(() => {
+      if (document.getElementById('statusIndicator').value !== "All changes saved" && 
+          preferences.autoSave === 'enable') {
+        save();
+      }
+    }, 5000);
+
+    // --- Responsive detection ---
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+    
+    // Add mobile/desktop classes to body
+    function updateResponsiveClasses() {
+      if (isMobile()) {
+        document.body.classList.add('mobile');
+        document.body.classList.remove('desktop');
+      } else {
+        document.body.classList.add('desktop');
+        document.body.classList.remove('mobile');
+      }
+    }
+    
+    // Initial call
+    updateResponsiveClasses();
+    
+    // Update on resize
+    window.addEventListener('resize', updateResponsiveClasses);
+    
+    // Mobile-only and desktop-only elements
+    document.querySelectorAll('.desktop-only').forEach(el => {
+      if (isMobile()) el.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.mobile-only').forEach(el => {
+      if (!isMobile()) el.style.display = 'none';
+    });
+
+     </script>
+<!-- Video Tutorial Popup - UPDATED: Only Image, Click to Open YouTube -->
+<div class="modal-overlay" id="videoPopup" style="display: none;">
+<div class="modal-content" style="max-width: 800px;">
+<div class="modal-header">
+<h2>Welcome to GMC</h2>
+<button class="modal-close" onclick="closeVideoPopup()">×</button>
+</div>
+<div class="modal-body">
+<div style="text-align: center; margin-bottom: 15px;">
+<p><strong>Watch this tutorial to learn how to use the Gloves Manufacturing Calculator:</strong></p>
+</div>
+
+<!-- Video Thumbnail with Click to Open YouTube -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 15px;">
+  <a href="https://www.youtube.com/watch?v=PoTMM6YKhIM" target="_blank" style="text-decoration: none;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; background: #000; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+            <img src="https://img.youtube.com/vi/PoTMM6YKhIM/maxresdefault.jpg" 
+            alt="Gloves Manufacture Company GMC Cash Management"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; opacity: 0.9;">
+      <div style="position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.6); padding: 10px;">
+        Click to Watch on YouTube
+      </div>
+    </div>
+  </a>
+</div>
+
+<!-- Alternative: Direct Video Link -->
+<div style="text-align: center; padding: 10px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; margin-bottom: 15px;">
+<p style="margin: 0; font-size: 14px;">
+<strong>Video will open in new tab</strong><br/>
+<a href="https://www.youtube.com/watch?v=PoTMM6YKhIM" style="color: var(--accent); text-decoration: underline;" target="_blank">
+            Or click here to open YouTube directly
+          </a>
+</p>
+</div>
+
+<div class="preference-group">
+<label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+<input id="dontShowAgain" type="checkbox"/>
+<span>Don't show this again</span>
+</label>
+</div>
+<div style="text-align: center; margin-top: 15px;">
+<button class="btn-new primary" onclick="closeVideoPopup()">Get Started</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Video Popup Functions
+const VIDEO_POPUP_KEY = 'gloves-video-popup-shown';
+
+function showVideoPopup() {
+  const hasSeenPopup = localStorage.getItem(VIDEO_POPUP_KEY);
+  if (!hasSeenPopup) {
+    setTimeout(() => {
+      document.getElementById('videoPopup').style.display = 'flex';
+    }, 1000);
+  }
+}
+
+function closeVideoPopup() {
+  const dontShowAgain = document.getElementById('dontShowAgain').checked;
+  if (dontShowAgain) {
+    localStorage.setItem(VIDEO_POPUP_KEY, 'true');
+  }
+  document.getElementById('videoPopup').style.display = 'none';
+}
+
+// Hover effects for better UX
+document.addEventListener('DOMContentLoaded', function() {
+  const videoThumbnail = document.querySelector('#videoPopup a');
+  
+  if (videoThumbnail) {
+    videoThumbnail.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.02)';
+      const playButton = this.querySelector('div > div:first-child');
+      if (playButton) {
+        playButton.style.transform = 'scale(1.1)';
+        playButton.style.background = 'rgba(255,0,0,1)';
       }
     });
-
-    // --- Image Download ---
-    document.getElementById('downloadImageBtn').addEventListener('click', ()=>{
-      // Get the full height of the content to be captured
-      const mainContent = document.getElementById('mainContent');
-      const originalHeight = mainContent.style.height;
-      
-      // Temporarily set height to auto to capture full content
-      mainContent.style.height = 'auto';
-
-      // Capture the main content area
-      html2canvas(mainContent, {
-        allowTaint: true,
-        useCORS: true,
-        scrollX: 0,
-        scrollY: -window.scrollY // Capture from the top of the element
-      }).then(canvas => {
-        const imgData = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        const date = new Date();
-        const fileName = `gloves-report-${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}.png`;
-        
-        link.href = imgData;
-        link.download = fileName;
-        link.click();
-
-        // Restore the original height
-        mainContent.style.height = originalHeight;
-      });
+    
+    videoThumbnail.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+      const playButton = this.querySelector('div > div:first-child');
+      if (playButton) {
+        playButton.style.transform = 'scale(1)';
+        playButton.style.background = 'rgba(255,0,0,0.9)';
+      }
     });
+  }
+});
 
+// Call this function when page loads
+showVideoPopup();
+</script>
 
-    // --- Offline (Service Worker in single file via Blob) ---
-    if('serviceWorker' in navigator){
-      const swCode = `
-        const CACHE = 'gloves-cache-v1';
-        self.addEventListener('install', e=>{
-          e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));
-          self.skipWaiting();
-        });
-        self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
-        self.addEventListener('fetch', e=>{
-          const req = e.request;
-          e.respondWith(
-            caches.match(req).then(res=> res || fetch(req).then(r=>re=>{
-              const copy = r.clone();
-              caches.open(CACHE).then(c=>c.put(req, copy)).catch(()=>{});
-              return r;
-            }).catch(()=>caches.match('./')))
-          );
-        });
-      `;
-      const blob = new Blob([swCode], {type:'text/javascript'});
-      const swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl).catch(()=>{});
+<script>
+// Offline embedded LZString (minified) v1.5.0
+var LZString=function(){function o(o,r){if(!t[o]){t[o]={};for(var n=0;n<o.length;n++)t[o][o.charAt(n)]=n}return t[o][r]}var r=String.fromCharCode,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",t={},i={compressToUTF16:function(o){if(o==null)return"";var e,i,t={},a={},s="",u="",c="",l=0,f=0,h;for(e=0;e<o.length;e+=1)if(s=o.charAt(e),Object.prototype.hasOwnProperty.call(t,s)||(t[s]=f++,a[s]=!0),u+=s,a[u]){if(Object.prototype.hasOwnProperty.call(t,u)){continue}if(u.length>1){delete a[u]}i=t[u.substring(0,u.length-1)],c=u.charAt(u.length-1),h=t[c],h==null&&(h=c.charCodeAt(0)),s=String.fromCharCode(i<<8|h),o=o.substring(0,e-u.length+1)+s+o.substring(e+1),e-=u.length-2,u=""}return o},decompressFromUTF16:function(o){if(o==null)return"";var r,n,e,t,i="",a=0,s,u,c,l,f,h,d,p;for(r=0;r<o.length;r+=1)n=o.charCodeAt(r),i+=String.fromCharCode(n>>8),i+=String.fromCharCode(n%256);return i}};return i}();
+function saveData(key,data){try{const c=LZString.compressToUTF16(JSON.stringify(data));localStorage.setItem(key,c);}catch(e){alert("⚠️ Storage full! Please export your data and clear old records.");}}
+function loadData(key){const d=localStorage.getItem(key);if(!d)return null;try{return JSON.parse(LZString.decompressFromUTF16(d));}catch(e){return null;}}
+</script>
+
+<script>
+// Replace existing service worker registration with this:
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        // Use relative path for service worker
+        navigator.serviceWorker.register('./sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('ServiceWorker registration failed: ', error);
+                // Continue without service worker
+            });
+    });
+} else {
+    console.log('Service workers are not supported.');
+}
+
+// PWA Installation Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log('PWA Installation available');
+  showInstallButton();
+});
+
+function showInstallButton() {
+  const installBtn = document.createElement('button');
+  installBtn.id = 'installPWA';
+  installBtn.innerHTML = '📱 Install App';
+  installBtn.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(145deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  `;
+  
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('User accepted PWA installation');
+      installBtn.remove();
     }
-  </script>
+    
+    deferredPrompt = null;
+  });
+  
+  installBtn.addEventListener('mouseenter', () => {
+    installBtn.style.transform = 'translateY(-2px)';
+    installBtn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
+  });
+  
+  installBtn.addEventListener('mouseleave', () => {
+    installBtn.style.transform = 'translateY(0)';
+    installBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+  });
+  
+  document.body.appendChild(installBtn);
+}
+
+// Enhanced Storage Integration
+// Replace your existing save() and load() functions:
+
+async function save() {
+  if (preferences.autoSave === 'disable') {
+    document.getElementById('statusIndicator').value = "Auto Save Disabled";
+    return;
+  }
+  
+  state.meta.lastSaved = new Date().toISOString();
+  
+  // Save main data using enhanced storage
+  const result = await enhancedStorage.save(STORAGE_KEY, state);
+  
+  if (result.success) {
+    document.getElementById('lastSaved').value = new Date(state.meta.lastSaved).toLocaleString();
+    document.getElementById('statusIndicator').value = "All changes saved";
+    
+    // Also save settings and preferences
+    await enhancedStorage.save(SETTINGS_KEY, settings);
+    await enhancedStorage.save(PREFERENCES_KEY, preferences);
+    
+    updateProfileInfo();
+    document.getElementById('restoreBtn').disabled = state.deletedItems.length === 0;
+    saveCalculatorData();
+    updateDynamicTotals();
+    
+    console.log(`Data saved using: ${result.method}`);
+  } else {
+    console.error('Save failed:', result.error);
+    document.getElementById('statusIndicator').value = "Save failed!";
+  }
+}
+
+async function load() {
+  try {
+    // Load main data
+    const data = await enhancedStorage.load(STORAGE_KEY);
+    if (data) return data;
+    
+    // Load settings
+    const savedSettings = await enhancedStorage.load(SETTINGS_KEY);
+    if (savedSettings) settings = savedSettings;
+    
+    // Load preferences  
+    const savedPreferences = await enhancedStorage.load(PREFERENCES_KEY);
+    if (savedPreferences) preferences = savedPreferences;
+    
+    return emptyMonth();
+  } catch (e) {
+    console.error('Load failed:', e);
+    return emptyMonth();
+  }
+}
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('ServiceWorker registration failed: ', error);
+      });
+  });
+}
+
+// Storage Info Display (Optional - for debugging)
+async function showStorageInfo() {
+  const info = await enhancedStorage.getStorageInfo();
+  console.log('Storage Info:', info);
+  
+  // You can display this info in your app if needed
+  const storageInfo = `
+    LocalStorage: ${info.localStorage.sizeMB} MB
+    IndexedDB: ${info.indexedDB.sizeMB} MB
+    Total: ${info.totalMB} MB
+  `;
+  
+  return storageInfo;
+}
+</script>
+
+<script>
+  // Remove any manifest link elements at runtime (extra safety)
+  try {
+    document.querySelectorAll('link[rel="manifest"]').forEach(function(el){ el.parentNode && el.parentNode.removeChild(el); });
+  } catch(e){}
+
+  // Utility to dynamically load a script
+  function loadScript(src, cb){
+    var s = document.createElement('script'); s.src = src; s.async = false;
+    s.onload = function(){ cb && cb(null); };
+    s.onerror = function(err){ cb && cb(err || new Error('Failed to load '+src)); };
+    document.head.appendChild(s);
+  }
+
+  // Enhanced PDF library loader with offline fallback
+function ensurePdfLibs(cb) {
+  // Check if libraries are loaded
+  if (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default) && window.jspdfAutoTable) {
+    return cb && cb();
+  } else {
+    // Wait a bit and check again (for slow connections)
+    setTimeout(() => {
+      if (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default) && window.jspdfAutoTable) {
+        cb && cb();
+      } else {
+        console.error('PDF libraries not available');
+        cb && cb(new Error('PDF libraries failed to load'));
+      }
+    }, 1000);
+  }
+}
+
+    // Calculator save/restore: look for element with id 'calculator' or class 'calculator'
+    try {
+      var calcEl = document.getElementById('calculator') || document.querySelector('.calculator') || document.querySelector('[data-module="calculator"]');
+      var CALC_KEY = 'calculator_data_v1';
+      function saveCalculator(){
+        if(!calcEl) return;
+        var inputs = calcEl.querySelectorAll('input, textarea, select');
+        var data = {};
+        inputs.forEach(function(inp){
+          if(!inp.name && !inp.id) return;
+          var key = inp.id || inp.name;
+          if(inp.type==='checkbox' || inp.type==='radio') data[key] = inp.checked;
+          else data[key] = inp.value;
+        });
+        try{ localStorage.setItem(CALC_KEY, JSON.stringify(data)); }catch(e){ console.warn('calc save failed', e); }
+      }
+      function restoreCalculator(){
+        if(!calcEl) return;
+        var raw = localStorage.getItem(CALC_KEY);
+        if(!raw) return;
+        try{
+          var data = JSON.parse(raw);
+          Object.keys(data).forEach(function(k){
+            var el = document.getElementById(k) || document.querySelector('[name="'+k+'"]');
+            if(!el) return;
+            if(el.type==='checkbox' || el.type==='radio') el.checked = !!data[k];
+            else el.value = data[k];
+            // trigger input events so UI updates
+            el.dispatchEvent(new Event('input',{bubbles:true}));
+            el.dispatchEvent(new Event('change',{bubbles:true}));
+          });
+        }catch(e){ console.warn('calc restore failed', e); }
+      }
+      // attach listeners if calcEl exists
+      if(calcEl){
+        calcEl.addEventListener('input', function(){ saveCalculator(); });
+        // also save on change and blur
+        calcEl.addEventListener('change', function(){ saveCalculator(); });
+        window.addEventListener('beforeunload', saveCalculator);
+        // restore on load
+        restoreCalculator();
+      } else {
+        // as fallback, also watch for Bora/Darzan inputs anywhere on the page
+        var boraDarzInputs = document.querySelectorAll('input[id*=\"bora\" i], input[name*=\"bora\" i], input[id*=\"darzan\" i], input[name*=\"darzan\" i]');
+        if(boraDarzInputs && boraDarzInputs.length){
+          boraDarzInputs.forEach(function(inp){
+            inp.addEventListener('input', function(){
+              try{
+                var key = 'bora_darzan_backup_v1';
+                var all = JSON.parse(localStorage.getItem(key) || '{}');
+                all[inp.id || inp.name || ('field_'+Math.random().toString(36).slice(2,8))] = inp.value;
+                localStorage.setItem(key, JSON.stringify(all));
+              }catch(e){}
+            });
+          });
+          // restore
+          try{
+            var raw = localStorage.getItem('bora_darzan_backup_v1');
+            if(raw){
+              var data = JSON.parse(raw);
+              Object.keys(data).forEach(function(k){
+                var el = document.getElementById(k) || document.querySelector('[name=\"'+k+'\"]');
+                if(el) { el.value = data[k]; el.dispatchEvent(new Event('input',{bubbles:true})); }
+              });
+            }
+          }catch(e){}
+        }
+      }
+
+      // augment Reset Month button to also clear calculator key and known profile image key
+      var resetBtn = document.getElementById('resetBtn') || document.querySelector('[id*=\"reset\" i]');
+      if(resetBtn){
+        resetBtn.addEventListener('click', function(){
+          try{ localStorage.removeItem('calculator_data_v1'); localStorage.removeItem('bora_darzan_backup_v1'); }catch(e){};
+          // also try to clear the profile image key if it's used
+          try{ localStorage.removeItem('gloves-profile-image'); }catch(e){};
+        });
+      }
+    } catch(e){ console.warn('Calculator save/restore setup failed', e); }
+
+  ; // DOMContentLoaded
+
+</script>
+<!-- Calculator persistent save/restore script (auto-inserted) -->
+<script>
+(function(){
+  const CALC_KEY = 'calculator_data_v3'; // versioned key
+  // Utility: generate a stable key for an element
+  function keyForElement(el, prefix){
+    if(!el) return null;
+    if(el.id) return el.id;
+    if(el.name) return el.name;
+    // try data-save-key
+    if(el.dataset && el.dataset.saveKey) return el.dataset.saveKey;
+    // else generate based on container and index path
+    let container = el.closest('#boraCalculatorGrid') ? 'bora' : (el.closest('#darzanCalculatorGrid') ? 'darzan' : 'calc');
+    // find index of the element among similar siblings
+    let inputs = Array.from((el.parentNode||document).querySelectorAll('input,select,textarea'));
+    let idx = inputs.indexOf(el);
+    // create key and store it on element for future stability
+    let generated = container + '_' + (el.tagName||'el').toLowerCase() + '_' + (el.className||'') .replace(/\s+/g,'_') + '_' + (idx>=0?idx:Math.random().toString(36).slice(2,8));
+    generated = generated.replace(/[^a-z0-9_\-]/ig,'').slice(0,60);
+    try{ el.dataset.saveKey = generated; }catch(e){}
+    return generated;
+  }
+
+  function collectFields(){
+    // look within both calculator grids
+    const grids = [];
+    const b = document.getElementById('boraCalculatorGrid');
+    const d = document.getElementById('darzanCalculatorGrid');
+    if(b) grids.push(b);
+    if(d) grids.push(d);
+    // also look for any element with class 'calculator-section' to catch edge cases
+    const extras = Array.from(document.querySelectorAll('.calculator-section'));
+    extras.forEach(x => { if(!grids.includes(x)) grids.push(x); });
+    // collect inputs/selects/textareas inside these grids
+    const fields = [];
+    grids.forEach(grid => {
+      const f = Array.from(grid.querySelectorAll('input,select,textarea'));
+      f.forEach(el => fields.push(el));
+    });
+    return fields;
+  }
+
+  function saveCalculator(){
+    try{
+      const data = { meta: { savedAt: new Date().toISOString() }, fields: {} };
+      const fields = collectFields();
+      fields.forEach(el => {
+        const k = keyForElement(el);
+        if(!k) return;
+        if(el.type === 'checkbox' || el.type === 'radio'){
+          data.fields[k] = { type: el.type, value: el.checked };
+        } else {
+          data.fields[k] = { type: el.tagName.toLowerCase(), value: el.value };
+        }
+      });
+      localStorage.setItem(CALC_KEY, JSON.stringify(data));
+      // update lastSaved if present
+      const lastEl = document.getElementById('lastSaved');
+      if(lastEl) lastEl.value = new Date().toLocaleString();
+    }catch(e){ console.warn('Save calculator failed', e); }
+  }
+
+  function restoreCalculator(){
+    try{
+      const raw = localStorage.getItem(CALC_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      const fields = collectFields();
+      // build a map of keys to elements for quick lookup
+      const elMap = {};
+      fields.forEach(el => {
+        const k = keyForElement(el);
+        if(k) elMap[k] = el;
+      });
+      Object.keys(data.fields || {}).forEach(k => {
+        const entry = data.fields[k];
+        const el = elMap[k];
+        if(!el) return; // element not present currently
+        if(entry.type === 'checkbox' || entry.type === 'radio'){
+          el.checked = !!entry.value;
+        } else {
+          el.value = entry.value;
+        }
+        // Dispatch events so any computed totals update
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        el.dispatchEvent(new Event('blur', { bubbles: true }));
+      });
+      // update lastSaved UI
+      const lastEl = document.getElementById('lastSaved');
+      if(lastEl && data.meta && data.meta.savedAt) lastEl.value = new Date(data.meta.savedAt).toLocaleString();
+    }catch(e){ console.warn('Restore calculator failed', e); }
+  }
+
+  function clearCalculatorDataAndUI(){
+    try{
+      localStorage.removeItem(CALC_KEY);
+    }catch(e){}
+    const fields = collectFields();
+    fields.forEach(el => {
+      if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+      else el.value = '';
+      el.dispatchEvent(new Event('input', { bubbles:true }));
+      el.dispatchEvent(new Event('change', { bubbles:true }));
+    });
+    // Also clear computed summary fields if present
+    const idsToClear = ['calcTotalDarzans','calcDeductionQty','calcDeductionAmount','calcFinalAmount','combinedBoraAmount','combinedDarzanAmount','combinedTotalAmount'];
+    idsToClear.forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
+    // update lastSaved
+    const lastEl = document.getElementById('lastSaved');
+    if(lastEl) lastEl.value = '';
+  }
+
+  // Attach listeners to fields for autosave
+  function attachListeners(){
+    const fields = collectFields();
+    fields.forEach(el => {
+      // use input and change events
+      el.addEventListener('input', debounce(saveCalculator, 300));
+      el.addEventListener('change', debounce(saveCalculator, 300));
+    });
+  }
+
+  // Debounce helper
+  function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(fn, wait); }; }
+
+  // Wire Clear and Reset buttons
+  function wireClearButtons(){
+    const clearBtn = document.getElementById('clearCalculatorBtn') || document.querySelector('.calculator-clear-btn button');
+    if(clearBtn){
+      clearBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        if(!confirm('Clear all calculator data? This will remove Bora/Darzan inputs in Calculator tab.')) return;
+        clearCalculatorDataAndUI();
+      });
+    }
+    const resetBtn = document.getElementById('resetBtn');
+    if(resetBtn){
+      resetBtn.addEventListener('click', function(){
+        // confirm already may be on UI; still clear calc key silently
+        clearCalculatorDataAndUI();
+      });
+    }
+  }
+
+  // On DOM ready
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      restoreCalculator();
+      attachListeners();
+      wireClearButtons();
+      // ensure save when page unloads
+      window.addEventListener('beforeunload', saveCalculator);
+    }catch(e){ console.warn('Calculator persistence init failed', e); }
+  });
+})(); 
+</script>
+<!-- End calculator persistent script -->
+
+<script>
+// APK Environment Detection and Fix
+document.addEventListener('DOMContentLoaded', function() {
+    // Improved APK detection
+const isAPK = window.location.protocol === 'file:' || 
+              navigator.userAgent.includes('Android') ||
+              !window.location.hostname;
+    
+    if (isAPK) {
+        console.log('Running in APK environment');
+        
+        // Disable service worker in file protocol (APK)
+        if ('serviceWorker' in navigator && window.location.protocol === 'file:') {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Force theme to light mode for better compatibility
+        localStorage.setItem('gloves-theme', 'light');
+        document.documentElement.classList.remove('dark');
+    }
+});
+</script>
+<script>
+// APK Environment Fix
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - checking environment');
+    
+    // Force disable service worker in APK environment
+    if (window.location.protocol === 'file:' || !navigator.onLine) {
+        console.log('Running in APK/offline environment');
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                registrations.forEach(function(registration) {
+                    registration.unregister();
+                    console.log('ServiceWorker unregistered');
+                });
+            });
+        }
+        
+        // Ensure theme is set to light for better compatibility
+        setTimeout(() => {
+            if (!localStorage.getItem('gloves-theme')) {
+                localStorage.setItem('gloves-theme', 'light');
+                document.documentElement.classList.remove('dark');
+            }
+        }, 100);
+    }
+    
+    // Check if storage is working
+    setTimeout(() => {
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            console.log('LocalStorage is working');
+        } catch (e) {
+            console.error('LocalStorage error:', e);
+        }
+    }, 500);
+});
+</script>
+<script>
+// Previous Balance Fix Code
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Previous Balance Fix: DOM loaded');
+
+    // Wait for state to be loaded
+    setTimeout(() => {
+        console.log('Previous Balance Fix: Checking state...', state);
+
+        // Sync previous balance inputs
+        const desktopBalance = document.getElementById('previousBalance');
+        const mobileBalance = document.getElementById('previousBalanceMobile');
+
+        if (desktopBalance && mobileBalance) {
+            // If state has previous balance, set it to inputs
+            if (state.meta.previousBalance !== undefined) {
+                desktopBalance.value = state.meta.previousBalance;
+                mobileBalance.value = state.meta.previousBalance;
+                console.log('Previous Balance Fix: Set inputs from state', state.meta.previousBalance);
+            }
+
+            // Add event listeners to update state and save
+            function handleBalanceChange() {
+                const balanceValue = parseFloat(this.value) || 0;
+                state.meta.previousBalance = balanceValue;
+                console.log('Previous Balance Fix: Updated state', balanceValue);
+                save();
+            }
+
+            desktopBalance.addEventListener('input', handleBalanceChange);
+            mobileBalance.addEventListener('input', handleBalanceChange);
+        }
+
+        // Also update the totals to reflect previous balance
+        totals();
+    }, 1000);
+});
+
+// Override the existing updateUserInfo function to ensure it includes previous balance
+const originalUpdateUserInfo = updateUserInfo;
+updateUserInfo = function() {
+    // Call the original function
+    originalUpdateUserInfo();
+
+    // Additionally, make sure previous balance is saved
+    const desktopBalance = document.getElementById('previousBalance');
+    const mobileBalance = document.getElementById('previousBalanceMobile');
+    if (desktopBalance && mobileBalance) {
+        const balanceValue = parseFloat(desktopBalance.value) || parseFloat(mobileBalance.value) || 0;
+        state.meta.previousBalance = balanceValue;
+        console.log('updateUserInfo: Saved previous balance', balanceValue);
+    }
+};
+</script>
 </body>
 </html>
