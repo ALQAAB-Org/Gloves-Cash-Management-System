@@ -2166,10 +2166,6 @@
 </div>
 </footer>
 
-<!-- JS PDF Libraries -->
-    <script src="./lib/jspdf.umd.min.js"></script>
-    <script src="./lib/jspdf-autotable.min.js"></script>
-
 <script>
     // --- Constants ---
     const PER_BORA_60 = 60;
