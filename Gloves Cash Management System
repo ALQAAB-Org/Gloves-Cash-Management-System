@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <link rel="manifest" href="./manifest.json">
+
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 
 <!-- PWA Manifest -->
@@ -2159,6 +2161,10 @@
 </div>
 </div>
 </footer>
+
+<!-- JS PDF Libraries -->
+    <script src="./lib/jspdf.umd.min.js"></script>
+    <script src="./lib/jspdf-autotable.min.js"></script>
 
 <script>
     // --- Constants ---
