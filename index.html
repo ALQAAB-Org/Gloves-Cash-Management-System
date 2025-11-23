@@ -3944,23 +3944,6 @@ function loadData(key){const d=localStorage.getItem(key);if(!d)return null;try{r
 </script>
 
 <script>
-// Replace existing service worker registration with this:
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        // Use relative path for service worker
-        navigator.serviceWorker.register('./sw.js')
-            .then(function(registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('ServiceWorker registration failed: ', error);
-                // Continue without service worker
-            });
-    });
-} else {
-    console.log('Service workers are not supported.');
-}
-
 // PWA Installation Prompt
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -4075,16 +4058,13 @@ async function load() {
 
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      })
-      .catch(function(error) {
-        console.log('ServiceWorker registration failed: ', error);
-      });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+    .then(reg => console.log('SW registered:', reg.scope))
+    .catch(err => console.error('SW registration failed', err));
   });
 }
+
 
 // Storage Info Display (Optional - for debugging)
 async function showStorageInfo() {
@@ -4372,71 +4352,6 @@ function ensurePdfLibs(cb) {
 </script>
 <!-- End calculator persistent script -->
 
-<script>
-// APK Environment Detection and Fix
-document.addEventListener('DOMContentLoaded', function() {
-    // Improved APK detection
-const isAPK = window.location.protocol === 'file:' || 
-              navigator.userAgent.includes('Android') ||
-              !window.location.hostname;
-    
-    if (isAPK) {
-        console.log('Running in APK environment');
-        
-        // Disable service worker in file protocol (APK)
-        if ('serviceWorker' in navigator && window.location.protocol === 'file:') {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                }
-            });
-        }
-        
-        // Force theme to light mode for better compatibility
-        localStorage.setItem('gloves-theme', 'light');
-        document.documentElement.classList.remove('dark');
-    }
-});
-</script>
-<script>
-// APK Environment Fix
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - checking environment');
-    
-    // Force disable service worker in APK environment
-    if (window.location.protocol === 'file:' || !navigator.onLine) {
-        console.log('Running in APK/offline environment');
-        
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                registrations.forEach(function(registration) {
-                    registration.unregister();
-                    console.log('ServiceWorker unregistered');
-                });
-            });
-        }
-        
-        // Ensure theme is set to light for better compatibility
-        setTimeout(() => {
-            if (!localStorage.getItem('gloves-theme')) {
-                localStorage.setItem('gloves-theme', 'light');
-                document.documentElement.classList.remove('dark');
-            }
-        }, 100);
-    }
-    
-    // Check if storage is working
-    setTimeout(() => {
-        try {
-            localStorage.setItem('test', 'test');
-            localStorage.removeItem('test');
-            console.log('LocalStorage is working');
-        } catch (e) {
-            console.error('LocalStorage error:', e);
-        }
-    }, 500);
-});
-</script>
 <script>
 // Previous Balance Fix Code
 document.addEventListener('DOMContentLoaded', function() {
