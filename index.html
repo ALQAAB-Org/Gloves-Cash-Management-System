@@ -4056,47 +4056,134 @@ async function load() {
   }
 }
 
-// ✅ IMPROVED Service Worker Registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    // Check if we're in APK/file environment
-    const isAPK = window.location.protocol === 'file:';
+// 🚀 APK-FRIENDLY SERVICE WORKER & DATA LOADING
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('📱 GMC App Starting...');
+  
+  // APK Environment Detection
+  const isAPK = window.location.protocol === 'file:' || 
+                !window.location.hostname ||
+                navigator.userAgent.includes('Android');
+  
+  console.log('Environment:', isAPK ? 'APK Mode' : 'Web Mode');
+  
+  if (isAPK) {
+    console.log('📱 APK Detected - Using Direct Storage');
+    startAPKMode();
+  } else {
+    console.log('🌐 Web Environment - Using Service Worker');
+    startWebMode();
+  }
+  
+  function startAPKMode() {
+    // Force light theme for APK
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('gloves-theme', 'light');
     
-    if (isAPK) {
-      console.log('APK environment detected - Service Worker disabled');
-      return;
+    // Load data immediately for APK
+    setTimeout(function() {
+      console.log('📊 Loading APK Data...');
+      
+      // Direct function calls - no service worker dependency
+      if (typeof load === 'function') {
+        console.log('✅ Calling load() function');
+        load();
+      }
+      
+      if (typeof build === 'function') {
+        console.log('✅ Calling build() function');
+        build();
+      }
+      
+      if (typeof save === 'function') {
+        console.log('✅ Calling save() function');
+        save();
+      }
+      
+      // Check if data loaded successfully
+      setTimeout(checkAPKLoad, 1000);
+      
+    }, 1000);
+    
+    // APK status updates
+    window.addEventListener('offline', function() {
+      updateStatus('📴 APK Offline Mode - Data Saved');
+    });
+    
+    window.addEventListener('online', function() {
+      updateStatus('✅ APK Online Mode');
+    });
+  }
+  
+  function startWebMode() {
+    // Web mode with Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(registration) {
+          console.log('✅ Service Worker Registered');
+        })
+        .catch(function(error) {
+          console.error('❌ Service Worker Failed, using APK mode');
+          startAPKMode(); // Fallback to APK mode
+        });
     }
     
-    // Register Service Worker for web environment
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(registration) {
-        console.log('✅ ServiceWorker registered successfully with scope: ', registration.scope);
-        
-        // Check for updates
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          console.log('🔄 New Service Worker found...');
-          
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('🔄 New content available - please refresh');
-            }
-          });
-        });
-      })
-      .catch(function(error) {
-        console.error('❌ ServiceWorker registration failed: ', error);
-      });
-      
-    // Listen for controlled page
-    navigator.serviceWorker.ready.then(() => {
-      console.log('✅ Service Worker is ready and controlling the page');
+    // PWA Install Prompt for Web
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButton();
     });
-  });
-} else {
-  console.log('❌ Service workers are not supported');
-}
 
+    function showInstallButton() {
+      const installBtn = document.createElement('button');
+      installBtn.innerHTML = '📱 Install App';
+      installBtn.style.cssText = `
+        position: fixed; bottom: 20px; right: 20px;
+        background: #3b82f6; color: white; border: none;
+        padding: 12px 16px; border-radius: 25px; z-index: 10000;
+        font-size: 14px; font-weight: 600; cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      `;
+      installBtn.onclick = async function() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('User installed PWA');
+          installBtn.remove();
+        }
+        deferredPrompt = null;
+      };
+      document.body.appendChild(installBtn);
+    }
+  }
+  
+  function checkAPKLoad() {
+    console.log('🔍 Checking APK Data Load...');
+    const mainContent = document.getElementById('mainContent');
+    const entriesTable = document.getElementById('entriesTableBody');
+    
+    if (mainContent && entriesTable) {
+      console.log('✅ APK Load Successful');
+      updateStatus('✅ APK Mode - Data Loaded');
+    } else {
+      console.warn('❌ APK Load Issues - Retrying...');
+      setTimeout(function() {
+        if (typeof build === 'function') build();
+        if (typeof totals === 'function') totals();
+      }, 500);
+    }
+  }
+  
+  function updateStatus(message) {
+    const statusEl = document.getElementById('statusIndicator');
+    if (statusEl) {
+      statusEl.value = message;
+    }
+  }
+});
 
 // Storage Info Display (Optional - for debugging)
 async function showStorageInfo() {
