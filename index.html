@@ -4525,5 +4525,48 @@ updateUserInfo = function() {
     }
 };
 </script>
+
+    <!-- APK LOAD CHECK SCRIPT -->
+<script>
+// APK Load Success Check
+setTimeout(function() {
+  console.log('🔍 Checking APK Load Status...');
+  
+  // Check karo kya app properly load hua hai
+  const mainContent = document.getElementById('mainContent');
+  const userNameInput = document.getElementById('userName') || document.getElementById('userNameMobile');
+  
+  if (!mainContent || !userNameInput) {
+    console.error('❌ APK Load Failed - Showing Fallback');
+    showAPKFallback();
+  } else {
+    console.log('✅ APK Load Successful');
+  }
+}, 2000);
+
+function showAPKFallback() {
+  document.body.innerHTML = `
+    <div style="padding: 20px; text-align: center; font-family: Arial;">
+      <h1>🛠️ GMC App</h1>
+      <p>App loading... If this persists, please:</p>
+      <button onclick="location.reload()" style="padding: 10px; margin: 5px;">🔄 Reload App</button>
+      <button onclick="clearAndReload()" style="padding: 10px; margin: 5px;">🗑️ Clear Data & Reload</button>
+      <p><small>APK Mode - Data saved locally</small></p>
+    </div>
+  `;
+}
+
+function clearAndReload() {
+  localStorage.clear();
+  location.reload();
+}
+
+// Force APK theme to light mode
+if (window.location.protocol === 'file:') {
+  document.documentElement.classList.remove('dark');
+  localStorage.setItem('gloves-theme', 'light');
+}
+</script>
+    
 </body>
 </html>
