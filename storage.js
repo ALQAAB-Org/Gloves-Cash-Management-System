@@ -305,3 +305,88 @@ window.addEventListener('offline', function() {
     console.log('📴 App is now offline');
     document.getElementById('statusIndicator').value = "Working offline - Data saved locally";
 });
+
+// storage.js - APK Support Add karo
+class EnhancedStorage {
+    constructor() {
+        this.isAPK = window.location.protocol === 'file:' || !window.location.hostname;
+        console.log('📱 Storage Mode:', this.isAPK ? 'APK' : 'Web');
+    }
+
+    // APK ke liye optimized save function
+    async save(key, data) {
+        if (this.isAPK) {
+            return this.saveForAPK(key, data);
+        }
+        
+        // Web ke liye normal save
+        try {
+            saveData(key, data);
+            return { success: true, method: 'localStorage' };
+        } catch (e) {
+            return { success: false, error: e };
+        }
+    }
+
+    // APK ke liye optimized load function  
+    async load(key) {
+        if (this.isAPK) {
+            return this.loadForAPK(key);
+        }
+        
+        // Web ke liye normal load
+        try {
+            return loadData(key);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    saveForAPK(key, data) {
+        try {
+            // APK mein simple localStorage use karo
+            localStorage.setItem(key, JSON.stringify(data));
+            console.log('✅ APK Data Saved:', key);
+            return { success: true, method: 'APK-Storage' };
+        } catch (e) {
+            console.error('❌ APK Save Failed:', e);
+            return { success: false, error: e };
+        }
+    }
+
+    loadForAPK(key) {
+        try {
+            const data = localStorage.getItem(key);
+            if (data) {
+                console.log('✅ APK Data Loaded:', key);
+                return JSON.parse(data);
+            }
+            return null;
+        } catch (e) {
+            console.error('❌ APK Load Failed:', e);
+            return null;
+        }
+    }
+}
+
+// Global instance create karo
+let enhancedStorage;
+try {
+    enhancedStorage = new EnhancedStorage();
+} catch (error) {
+    console.error('Storage init failed:', error);
+    enhancedStorage = {
+        async save(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+                return { success: true };
+            } catch (e) { return { success: false, error: e }; }
+        },
+        async load(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key));
+            } catch (e) { return null; }
+        }
+    };
+}
+
