@@ -1979,8 +1979,13 @@
 <input class="mono" id="totalDarzanAmount" readonly="" type="text"/>
 <label>Previous Balance</label>
 <input class="mono" id="prevBalanceDisplay" readonly="" type="text"/>
-<label>Combined Grand Total</label>
-<input class="mono" id="grandTotal" readonly="" type="text"/>
+    <!-- Grand Total Section - With Increased Font Size -->
+<div class="panel net-final-amount-panel">
+  <div class="card-title"><strong>Account Balance</strong></div>
+  <input class="net-final-amount" id="grandTotal" readonly type="text" 
+         style="font-size: 25px; font-weight: bold; color: var(--ok); text-align: center; background: transparent; border: none; padding: 10px; width: 100%;"/>
+  <div class="net-final-amount-label">Payable amount after all deductions</div>
+</div>
 </div>
 <!-- Payment Summary Section -->
 <div class="panel payment-summary-panel">
@@ -2133,6 +2138,26 @@
 <p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
 </div>
 
+<br>
+
+<!-- Tips Tab ke andar yeh add karo -->
+<div class="how-to-use-section">
+  <h3>🔄 App Updates</h3>
+  <p>Check for new features and improvements. Your data will be safe.</p>
+  
+  <div class="tips-buttons-container">
+    <button class="btn-new success" id="checkUpdateBtn">Check for Updates</button>
+    <button class="btn-new" id="installUpdateBtn" style="display: none;">🔄 Install Update Now</button>
+  </div>
+  
+  <div id="updateStatus" style="margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 13px; display: none;"></div>
+  
+  <div id="updateInfo" style="margin-top: 10px; font-size: 12px; color: var(--muted); display: none;">
+    <strong>What's New:</strong>
+    <div id="changelog" style="margin-top: 5px;"></div>
+  </div>
+</div>
+
 <!-- Buttons moved to Tips tab for mobile -->
 <div class="tips-buttons-container mobile-only">
 <button class="btn-new" id="exportBtnTips">Export JSON</button>
@@ -2146,6 +2171,7 @@
 </div>
 </div>
 </main>
+
 <footer class="wrap footer">
 <div class="footer-content">
 <div class="footer-title">Cash Management System v4.10 (Oct 18, 2025)</div>
@@ -2246,13 +2272,47 @@
     // --- Helpers ---
     let decimalPlaces = 2;
     
-    function fmt(n) {
-      const num = Number(n) || 0;
-      if (decimalPlaces === '0') return Math.round(num).toString();
-      return num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+   // ✅ CORRECTED fmt FUNCTION
+function fmt(n) {
+  const num = Number(n) || 0;
+  
+  // Decimal places preference check
+  if (preferences.decimalPlaces === 'none') {
+    // No formatting - return as is
+    if (Number.isInteger(num)) {
+      return num.toString();
+    } else {
+      // Remove trailing zeros
+      return parseFloat(num.toString()).toString();
     }
-    
-    const sum = arr => arr.reduce((a,b)=>a+(Number(b)||0),0);
+  } else {
+    // Two decimals formatting
+    return num.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+}
+
+// ✅ IMPROVED applyPreferences FUNCTION
+function applyPreferences() {
+  // Update decimal places from preferences
+  decimalPlaces = preferences.decimalPlaces;
+  
+  // Update UI elements
+  document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
+  document.getElementById('autoSave').value = preferences.autoSave;
+  document.getElementById('defaultCategory').value = preferences.defaultCategory;
+  document.getElementById('defaultRate').value = preferences.defaultRate;
+  
+  // Recalculate and update ALL displayed values
+  totals();
+  updateDynamicTotals();
+  updateCombinedQuickTotal();
+  updateCalculatorDeduction();
+  
+  console.log('✅ Preferences applied - Decimal Format:', decimalPlaces);
+}
     
     // Format date as DD-MM-YYYY
     function formatDate(dateString) {
@@ -2642,20 +2702,30 @@ function calculateDeductionsByRate(entries) {
       updatePreferencesDefaultRate();
     }
 
-    function updatePreferencesDefaultRate() {
-      const defaultRateSelect = document.getElementById('defaultRate');
-      defaultRateSelect.innerHTML = '';
-      
-      settings.rateTypes.forEach(rateType => {
-        const option = document.createElement('option');
-        option.value = rateType.value;
-        option.textContent = rateType.label;
-        if (rateType.value == preferences.defaultRate) {
-          option.selected = true;
-        }
-        defaultRateSelect.appendChild(option);
-      });
+    // ✅ IMPROVED Default Rate Dropdown
+function updatePreferencesDefaultRate() {
+  const defaultRateSelect = document.getElementById('defaultRate');
+  if (!defaultRateSelect) return;
+  
+  defaultRateSelect.innerHTML = '';
+  
+  settings.rateTypes.forEach(rateType => {
+    const option = document.createElement('option');
+    option.value = rateType.value;
+    option.textContent = `${rateType.label} (${rateType.value})`;
+    
+    // Set selected based on saved preference
+    if (rateType.value == preferences.defaultRate) {
+      option.selected = true;
     }
+    defaultRateSelect.appendChild(option);
+  });
+  
+  // Agar koi selection nahi hai, toh first option select karo
+  if (!defaultRateSelect.value && settings.rateTypes.length > 0) {
+    defaultRateSelect.value = settings.rateTypes[0].value;
+  }
+}
 
     // Get rate label by ID
     function getRateLabel(rateId) {
@@ -2793,24 +2863,31 @@ function calculateDeductionsByRate(entries) {
       }
     });
 
-    // Save all settings
-    document.getElementById('saveAllSettingsBtn').addEventListener('click', () => {
-      // Update preferences from UI
-      preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
-      preferences.autoSave = document.getElementById('autoSave').value;
-      preferences.defaultCategory = document.getElementById('defaultCategory').value;
-      preferences.defaultRate = document.getElementById('defaultRate').value;
-      
-      savePreferences();
-      
-      // Show confirmation
-      const confirmation = document.getElementById('saveConfirmation');
-      confirmation.style.display = 'block';
-      setTimeout(() => {
-        confirmation.style.display = 'none';
-      }, 3000);
-    });
-
+    // ✅ IMPROVED Save All Settings Button
+document.getElementById('saveAllSettingsBtn').addEventListener('click', function() {
+  // Update preferences from UI
+  preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
+  preferences.autoSave = document.getElementById('autoSave').value;
+  preferences.defaultCategory = document.getElementById('defaultCategory').value;
+  preferences.defaultRate = document.getElementById('defaultRate').value;
+  
+  // Save preferences
+  savePreferences();
+  
+  // Apply preferences immediately
+  applyPreferences();
+  
+  // Show confirmation
+  const confirmation = document.getElementById('saveConfirmation');
+  confirmation.style.display = 'block';
+  confirmation.textContent = "All settings saved successfully!";
+  
+  setTimeout(() => {
+    confirmation.style.display = 'none';
+  }, 3000);
+  
+  console.log('💾 Settings saved:', preferences);
+});
     // --- Dynamic Totals ---
     function updateDynamicTotals() {
       const boraContainer = document.getElementById('boraTotalsGrid');
@@ -4566,7 +4643,242 @@ if (window.location.protocol === 'file:') {
   document.documentElement.classList.remove('dark');
   localStorage.setItem('gloves-theme', 'light');
 }
+
+// 🚀 MANUAL UPDATE CHECK SYSTEM FOR GMC08.NETLIFY.APP
+class AppUpdater {
+  constructor() {
+    this.currentVersion = '4.10'; // Aapki current version
+    this.updateUrl = 'https://gmc08.netlify.app/version.json';
+    this.init();
+  }
+
+  init() {
+    const checkBtn = document.getElementById('checkUpdateBtn');
+    const installBtn = document.getElementById('installUpdateBtn');
+    
+    if (checkBtn) {
+      checkBtn.addEventListener('click', () => this.checkForUpdates());
+    }
+    
+    if (installBtn) {
+      installBtn.addEventListener('click', () => this.installUpdate());
+    }
+  }
+
+  async checkForUpdates() {
+    if (!navigator.onLine) {
+      this.showStatus('❌ Please connect to internet to check updates', 'error');
+      return;
+    }
+
+    this.showStatus('🔍 Checking for updates...', 'loading');
+    document.getElementById('checkUpdateBtn').disabled = true;
+
+    try {
+      // Cache busting ke liye timestamp add karo
+      const response = await fetch(`${this.updateUrl}?t=${Date.now()}`);
+      
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      this.handleUpdateResponse(data);
+      
+    } catch (error) {
+      console.error('Update check failed:', error);
+      this.showStatus('❌ Update check failed. Try again.', 'error');
+    } finally {
+      document.getElementById('checkUpdateBtn').disabled = false;
+    }
+  }
+
+  handleUpdateResponse(data) {
+    if (!data.version) {
+      this.showStatus('❌ Invalid update information', 'error');
+      return;
+    }
+
+    const isNewVersion = this.isNewVersionAvailable(data.version);
+    
+    if (isNewVersion) {
+      this.showNewUpdateAvailable(data);
+    } else {
+      this.showStatus('✅ You have the latest version ' + this.currentVersion, 'success');
+    }
+  }
+
+  isNewVersionAvailable(latestVersion) {
+    // Simple version comparison
+    const currentParts = this.currentVersion.split('.').map(Number);
+    const latestParts = latestVersion.split('.').map(Number);
+    
+    for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
+      const current = currentParts[i] || 0;
+      const latest = latestParts[i] || 0;
+      
+      if (latest > current) return true;
+      if (latest < current) return false;
+    }
+    
+    return false;
+  }
+
+  showNewUpdateAvailable(data) {
+    this.showStatus(`🎉 New version ${data.version} available!`, 'success');
+    
+    // Install button show karo
+    const installBtn = document.getElementById('installUpdateBtn');
+    if (installBtn) {
+      installBtn.style.display = 'block';
+      installBtn.dataset.updateData = JSON.stringify(data);
+    }
+    
+    // Changelog show karo
+    const updateInfo = document.getElementById('updateInfo');
+    const changelog = document.getElementById('changelog');
+    
+    if (updateInfo && changelog) {
+      updateInfo.style.display = 'block';
+      
+      if (data.changelog) {
+        changelog.innerHTML = data.changelog;
+      } else if (data.whatsNew) {
+        changelog.innerHTML = data.whatsNew;
+      } else {
+        changelog.innerHTML = 'Bug fixes and performance improvements';
+      }
+    }
+  }
+
+  installUpdate() {
+    const installBtn = document.getElementById('installUpdateBtn');
+    const updateData = installBtn ? JSON.parse(installBtn.dataset.updateData || '{}') : {};
+    
+    if (confirm(`Install version ${updateData.version || 'new'}? Your data will be safe.`)) {
+      this.performUpdate();
+    }
+  }
+
+  async performUpdate() {
+    this.showStatus('🔄 Installing update...', 'loading');
+    
+    try {
+      // Step 1: Service Worker clear karo (agar hai toh)
+      await this.clearServiceWorker();
+      
+      // Step 2: App cache clear karo
+      await this.clearAppCache();
+      
+      // Step 3: Page reload karo
+      setTimeout(() => {
+        this.showStatus('✅ Update complete! Reloading...', 'success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Update failed:', error);
+      this.showStatus('❌ Update failed. Please reload manually.', 'error');
+    }
+  }
+
+  async clearServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+          await registration.unregister();
+          console.log('Service Worker unregistered');
+        }
+      } catch (error) {
+        console.warn('Service Worker clear failed:', error);
+      }
+    }
+  }
+
+  async clearAppCache() {
+    try {
+      // Sirf cache clear karo, user data safe rakho
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        for (let cacheName of cacheNames) {
+          await caches.delete(cacheName);
+          console.log('Cache cleared:', cacheName);
+        }
+      }
+      
+      // Calculator cache clear karo (optional)
+      const cacheKeys = ['gloves-calculator-data', 'calculator_data_v3'];
+      cacheKeys.forEach(key => {
+        try { localStorage.removeItem(key); } catch(e) {}
+      });
+      
+    } catch (error) {
+      console.warn('Cache clear failed:', error);
+    }
+  }
+
+  showStatus(message, type = 'info') {
+    const statusEl = document.getElementById('updateStatus');
+    if (!statusEl) return;
+    
+    statusEl.textContent = message;
+    statusEl.style.display = 'block';
+    
+    // Colors set karo based on type
+    const colors = {
+      error: 'var(--accent2)',
+      success: 'var(--ok)',
+      loading: 'var(--accent3)',
+      info: 'var(--accent)'
+    };
+    
+    statusEl.style.backgroundColor = type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 
+                                   type === 'success' ? 'rgba(16, 185, 129, 0.1)' :
+                                   type === 'loading' ? 'rgba(245, 158, 11, 0.1)' :
+                                   'rgba(59, 130, 246, 0.1)';
+    
+    statusEl.style.borderLeft = `3px solid ${colors[type] || colors.info}`;
+    statusEl.style.color = colors[type] || colors.info;
+    
+    console.log(`Update: ${message}`);
+  }
+}
+
+// Initialize Update System when DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for main app to load
+  setTimeout(() => {
+    window.appUpdater = new AppUpdater();
+    console.log('🔧 Update system ready - GMC08.netlify.app');
+  }, 2000);
+});
+
+// APK mode mein update button ko modify karo
+function setupAPKUpdateButton() {
+  const isAPK = window.location.protocol === 'file:';
+  
+  if (isAPK) {
+    const updateBtn = document.getElementById('checkUpdateBtn');
+    if (updateBtn) {
+      updateBtn.innerHTML = '📱 Check APK Update';
+      updateBtn.onclick = function() {
+        alert('For APK updates, please visit:\nhttps://gmc08.netlify.app\n\nYour data will sync when you reinstall.');
+        window.open('https://gmc08.netlify.app', '_blank');
+      };
+    }
+  }
+}
+
+// Isko bhi DOM ready mein call karo
+document.addEventListener('DOMContentLoaded', function() {
+  setupAPKUpdateButton();
+});
 </script>
+
+
     
 </body>
 </html>
