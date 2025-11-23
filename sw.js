@@ -1,6 +1,6 @@
 // sw.js - FINAL FIXED VERSION (Offline-safe + Stable PWA)
-const CACHE_NAME = 'gloves-manufacture-v4.13';
-const STATIC_CACHE = 'static-v4.13';
+const CACHE_NAME = 'gloves-manufacture-v4.20';
+const STATIC_CACHE = 'static-v4.20';
 
 // ✅ Static files to cache
 const STATIC_FILES = [
@@ -104,5 +104,6 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
 
 
