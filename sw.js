@@ -1,13 +1,13 @@
-// sw.js - FINAL FIXED VERSION (Offline-safe + Stable PWA)
-const CACHE_NAME = 'gloves-manufacture-v4.20';
-const STATIC_CACHE = 'static-v4.20';
+// sw.js - FIXED OFFLINE VERSION
+const CACHE_NAME = 'gloves-manufacture-v4.15-offline';
+const STATIC_CACHE = 'static-v4.15-offline';
 
-// ✅ Static files to cache
+// ✅ ALL files to cache for offline use
 const STATIC_FILES = [
   './',
   './index.html',
   './manifest.json',
-  './storage.js',
+  './storage.js', 
   './sw.js',
   './icon-192.png',
   './icon-512.png',
@@ -16,18 +16,28 @@ const STATIC_FILES = [
   './lib/jspdf-autotable.min.js'
 ];
 
-// 🧱 INSTALL EVENT
+// 🧱 INSTALL EVENT - Cache all files
 self.addEventListener('install', (event) => {
-  console.log('Service Worker: Installing...');
-
+  console.log('Service Worker: Installing and caching files...');
+  
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('Service Worker: Caching static files');
-        return cache.addAll(STATIC_FILES);
+        console.log('Service Worker: Caching all static files');
+        // Add all files to cache
+        return cache.addAll(STATIC_FILES).catch(error => {
+          console.log('Cache addAll failed, adding files one by one:', error);
+          // If addAll fails, add files individually
+          const promises = STATIC_FILES.map(url => {
+            return cache.add(url).catch(e => {
+              console.log(`Failed to cache: ${url}`, e);
+            });
+          });
+          return Promise.all(promises);
+        });
       })
       .then(() => {
-        console.log('Service Worker: Installed');
+        console.log('Service Worker: All files cached successfully');
         return self.skipWaiting();
       })
       .catch(error => {
@@ -36,74 +46,86 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 🚀 ACTIVATE EVENT
+// 🚀 ACTIVATE EVENT - Clean old caches
 self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activating...');
+  
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
-          if (cache !== STATIC_CACHE) {
+          if (cache !== STATIC_CACHE && cache !== CACHE_NAME) {
             console.log('Service Worker: Deleting old cache', cache);
             return caches.delete(cache);
           }
         })
       );
     }).then(() => {
-      console.log('Service Worker: Activated');
+      console.log('Service Worker: Activated and ready');
       return self.clients.claim();
     })
   );
 });
 
-// 🌐 FETCH EVENT (fixed offline fallback)
+// 🌐 FETCH EVENT - OFFLINE FIRST STRATEGY
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
-
-  // Skip extension or chrome requests
-  if (event.request.url.startsWith('chrome-extension://')) return;
+  // Skip non-GET requests and chrome extensions
+  if (event.request.method !== 'GET' || 
+      event.request.url.startsWith('chrome-extension://')) {
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // ✅ Cache hit - return directly
-        if (response) return response;
+        // ✅ OFFLINE: Return from cache if available
+        if (response) {
+          return response;
+        }
 
-        // Clone the request before fetch
-        const fetchRequest = event.request.clone();
-
-        return fetch(fetchRequest)
-          .then((response) => {
-            // Check for valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
+        // ✅ ONLINE: Try network request
+        return fetch(event.request)
+          .then((networkResponse) => {
+            // Cache successful responses
+            if (networkResponse && networkResponse.status === 200) {
+              const responseClone = networkResponse.clone();
+              caches.open(STATIC_CACHE)
+                .then(cache => {
+                  cache.put(event.request, responseClone);
+                });
             }
-
-            // Clone response and store it in cache
-            const responseToCache = response.clone();
-            caches.open(STATIC_CACHE).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-
-            return response;
+            return networkResponse;
           })
-          .catch(() => {
-            // 🧩 FIXED OFFLINE FALLBACK
-            if (event.request.destination === 'document') {
-              // Try both absolute + relative match
+          .catch((error) => {
+            // 🆘 OFFLINE FALLBACKS
+            console.log('Network failed, serving offline fallback:', error);
+            
+            // For HTML pages, return index.html
+            if (event.request.destination === 'document' || 
+                event.request.headers.get('accept').includes('text/html')) {
+              return caches.match('./index.html');
+            }
+            
+            // For CSS/JS, try to get from cache with different URLs
+            if (event.request.url.includes('.css') || 
+                event.request.url.includes('.js')) {
               return caches.match(event.request.url)
                 .then(r => r || caches.match('./index.html'));
             }
-
-            // Other assets (images, JS) fallback
-            return new Response('⚠️ Network error (offline)', {
-              status: 408,
-              headers: { 'Content-Type': 'text/plain' }
+            
+            // Default offline message
+            return new Response('🔌 You are offline. App is working in offline mode.', {
+              status: 200,
+              headers: { 'Content-Type': 'text/html' }
             });
           });
       })
   );
 });
 
-
-
+// 📱 Handle app updates
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
