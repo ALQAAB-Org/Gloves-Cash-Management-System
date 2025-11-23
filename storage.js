@@ -13,6 +13,9 @@ class EnhancedStorage {
         
         this.db = null;
         this.isIndexedDBSupported = this.checkIndexedDBSupport();
+        this.isAPK = window.location.protocol === 'file:' || !window.location.hostname;
+        
+        console.log('📱 Storage Mode:', this.isAPK ? 'APK' : 'Web');
         this.init();
     }
 
@@ -69,9 +72,25 @@ class EnhancedStorage {
         });
     }
 
-    // Main save function with fallback
+    // Main save function with APK and offline support
     async save(key, data) {
-        // Use existing saveData function from index.html
+        // APK mode - simple localStorage
+        if (this.isAPK) {
+            return this.saveForAPK(key, data);
+        }
+        
+        // Offline mode detection
+        if (!navigator.onLine) {
+            console.log('📴 Offline mode - Saving to localStorage only');
+            try {
+                saveData(key, data);
+                return { success: true, method: 'localStorage-offline' };
+            } catch (e) {
+                return { success: false, error: e, offline: true };
+            }
+        }
+        
+        // Online mode - normal save with fallback
         try {
             saveData(key, data);
             return { success: true, method: 'localStorage' };
@@ -90,8 +109,13 @@ class EnhancedStorage {
         }
     }
 
-    // Main load function with fallback
+    // Main load function with APK and fallback support
     async load(key) {
+        // APK mode - simple localStorage
+        if (this.isAPK) {
+            return this.loadForAPK(key);
+        }
+        
         // Use existing loadData function from index.html first
         try {
             const data = loadData(key);
@@ -115,6 +139,33 @@ class EnhancedStorage {
         }
         
         return null;
+    }
+
+    // APK specific functions
+    saveForAPK(key, data) {
+        try {
+            // APK mein simple localStorage use karo
+            localStorage.setItem(key, JSON.stringify(data));
+            console.log('✅ APK Data Saved:', key);
+            return { success: true, method: 'APK-Storage' };
+        } catch (e) {
+            console.error('❌ APK Save Failed:', e);
+            return { success: false, error: e };
+        }
+    }
+
+    loadForAPK(key) {
+        try {
+            const data = localStorage.getItem(key);
+            if (data) {
+                console.log('✅ APK Data Loaded:', key);
+                return JSON.parse(data);
+            }
+            return null;
+        } catch (e) {
+            console.error('❌ APK Load Failed:', e);
+            return null;
+        }
     }
 
     // IndexedDB specific functions
@@ -222,19 +273,24 @@ class EnhancedStorage {
             totalMB: ((localStorageSize + indexedDBSize) / (1024 * 1024)).toFixed(2)
         };
     }
+
+    // Offline detection helper
+    checkOfflineStatus() {
+        return !navigator.onLine;
+    }
 }
 
-// Create global instance with error handling
+// ✅ SINGLE GLOBAL INSTANCE - No duplicate declaration
 let enhancedStorage;
 try {
     enhancedStorage = new EnhancedStorage();
 } catch (error) {
     console.error('Failed to initialize EnhancedStorage:', error);
-    // Fallback to simple object using existing functions
+    // Fallback to simple object
     enhancedStorage = {
         async save(key, data) {
             try {
-                saveData(key, data);
+                localStorage.setItem(key, JSON.stringify(data));
                 return { success: true, method: 'localStorage' };
             } catch (e) {
                 return { success: false, error: e };
@@ -242,7 +298,7 @@ try {
         },
         async load(key) {
             try {
-                return loadData(key);
+                return JSON.parse(localStorage.getItem(key));
             } catch (e) {
                 return null;
             }
@@ -258,135 +314,30 @@ try {
             } catch (error) {
                 return { success: false, error: error };
             }
+        },
+        async getStorageInfo() {
+            return {
+                localStorage: { sizeMB: '0.00' },
+                indexedDB: { sizeMB: '0.00' },
+                totalMB: '0.00'
+            };
         }
     };
-
 }
 
-// storage.js - Add this function for offline detection
-class EnhancedStorage {
-    // ... your existing code ...
-    
-    // Add offline detection
-    checkOfflineStatus() {
-        return !navigator.onLine;
-    }
-    
-    // Enhanced save with offline support
-    async save(key, data) {
-        if (this.checkOfflineStatus()) {
-            console.log('📴 Offline mode - Saving to localStorage only');
-            // In offline mode, use compression to save space
-            try {
-                saveData(key, data);
-                return { success: true, method: 'localStorage-offline' };
-            } catch (e) {
-                return { success: false, error: e, offline: true };
-            }
-        }
-        
-        // Online mode - use normal save logic
-        try {
-            saveData(key, data);
-            return { success: true, method: 'localStorage' };
-        } catch (e) {
-            // ... rest of your existing save logic
-        }
-    }
-}
-
-// Add offline event listeners
+// ✅ SINGLE SET of offline event listeners
 window.addEventListener('online', function() {
     console.log('✅ App is now online');
-    document.getElementById('statusIndicator').value = "Back online - Syncing data";
+    const statusEl = document.getElementById('statusIndicator');
+    if (statusEl) {
+        statusEl.value = "Back online - Syncing data";
+    }
 });
 
 window.addEventListener('offline', function() {
     console.log('📴 App is now offline');
-    document.getElementById('statusIndicator').value = "Working offline - Data saved locally";
+    const statusEl = document.getElementById('statusIndicator');
+    if (statusEl) {
+        statusEl.value = "Working offline - Data saved locally";
+    }
 });
-
-// storage.js - APK Support Add karo
-class EnhancedStorage {
-    constructor() {
-        this.isAPK = window.location.protocol === 'file:' || !window.location.hostname;
-        console.log('📱 Storage Mode:', this.isAPK ? 'APK' : 'Web');
-    }
-
-    // APK ke liye optimized save function
-    async save(key, data) {
-        if (this.isAPK) {
-            return this.saveForAPK(key, data);
-        }
-        
-        // Web ke liye normal save
-        try {
-            saveData(key, data);
-            return { success: true, method: 'localStorage' };
-        } catch (e) {
-            return { success: false, error: e };
-        }
-    }
-
-    // APK ke liye optimized load function  
-    async load(key) {
-        if (this.isAPK) {
-            return this.loadForAPK(key);
-        }
-        
-        // Web ke liye normal load
-        try {
-            return loadData(key);
-        } catch (e) {
-            return null;
-        }
-    }
-
-    saveForAPK(key, data) {
-        try {
-            // APK mein simple localStorage use karo
-            localStorage.setItem(key, JSON.stringify(data));
-            console.log('✅ APK Data Saved:', key);
-            return { success: true, method: 'APK-Storage' };
-        } catch (e) {
-            console.error('❌ APK Save Failed:', e);
-            return { success: false, error: e };
-        }
-    }
-
-    loadForAPK(key) {
-        try {
-            const data = localStorage.getItem(key);
-            if (data) {
-                console.log('✅ APK Data Loaded:', key);
-                return JSON.parse(data);
-            }
-            return null;
-        } catch (e) {
-            console.error('❌ APK Load Failed:', e);
-            return null;
-        }
-    }
-}
-
-// Global instance create karo
-let enhancedStorage;
-try {
-    enhancedStorage = new EnhancedStorage();
-} catch (error) {
-    console.error('Storage init failed:', error);
-    enhancedStorage = {
-        async save(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-                return { success: true };
-            } catch (e) { return { success: false, error: e }; }
-        },
-        async load(key) {
-            try {
-                return JSON.parse(localStorage.getItem(key));
-            } catch (e) { return null; }
-        }
-    };
-}
-
