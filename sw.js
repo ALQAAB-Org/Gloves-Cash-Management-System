@@ -8,8 +8,10 @@ const STATIC_FILES = [
   './index.html',
   './manifest.json',
   './storage.js',
+  './sw.js',
   './icon-192.png',
   './icon-512.png',
+  './thumb.jpg',
   './lib/jspdf.umd.min.js',
   './lib/jspdf-autotable.min.js'
 ];
@@ -102,4 +104,5 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
 
