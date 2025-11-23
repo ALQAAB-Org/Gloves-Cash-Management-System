@@ -260,4 +260,48 @@ try {
             }
         }
     };
+
 }
+
+// storage.js - Add this function for offline detection
+class EnhancedStorage {
+    // ... your existing code ...
+    
+    // Add offline detection
+    checkOfflineStatus() {
+        return !navigator.onLine;
+    }
+    
+    // Enhanced save with offline support
+    async save(key, data) {
+        if (this.checkOfflineStatus()) {
+            console.log('📴 Offline mode - Saving to localStorage only');
+            // In offline mode, use compression to save space
+            try {
+                saveData(key, data);
+                return { success: true, method: 'localStorage-offline' };
+            } catch (e) {
+                return { success: false, error: e, offline: true };
+            }
+        }
+        
+        // Online mode - use normal save logic
+        try {
+            saveData(key, data);
+            return { success: true, method: 'localStorage' };
+        } catch (e) {
+            // ... rest of your existing save logic
+        }
+    }
+}
+
+// Add offline event listeners
+window.addEventListener('online', function() {
+    console.log('✅ App is now online');
+    document.getElementById('statusIndicator').value = "Back online - Syncing data";
+});
+
+window.addEventListener('offline', function() {
+    console.log('📴 App is now offline');
+    document.getElementById('statusIndicator').value = "Working offline - Data saved locally";
+});
