@@ -280,49 +280,28 @@ class EnhancedStorage {
     }
 }
 
-// ✅ SINGLE GLOBAL INSTANCE - No duplicate declaration
-let enhancedStorage;
-try {
+// DO NOT auto-instantiate here — we'll create instance after SW is ready (see index.html)
+let enhancedStorage = null;
+
+// Provide a helper to instantiate if needed
+function initStorageInstance() {
+  if (enhancedStorage) return enhancedStorage;
+  try {
     enhancedStorage = new EnhancedStorage();
-} catch (error) {
-    console.error('Failed to initialize EnhancedStorage:', error);
-    // Fallback to simple object
+    return enhancedStorage;
+  } catch (error) {
+    console.error('Failed to initialize EnhancedStorage (fallback):', error);
     enhancedStorage = {
-        async save(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-                return { success: true, method: 'localStorage' };
-            } catch (e) {
-                return { success: false, error: e };
-            }
-        },
-        async load(key) {
-            try {
-                return JSON.parse(localStorage.getItem(key));
-            } catch (e) {
-                return null;
-            }
-        },
-        async clear(key = null) {
-            try {
-                if (key) {
-                    localStorage.removeItem(key);
-                } else {
-                    localStorage.clear();
-                }
-                return { success: true };
-            } catch (error) {
-                return { success: false, error: error };
-            }
-        },
-        async getStorageInfo() {
-            return {
-                localStorage: { sizeMB: '0.00' },
-                indexedDB: { sizeMB: '0.00' },
-                totalMB: '0.00'
-            };
-        }
+      async save(key, data) {
+        try { localStorage.setItem(key, JSON.stringify(data)); return { success: true, method: 'localStorage' }; }
+        catch (e) { return { success: false, error: e }; }
+      },
+      async load(key) { try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; } },
+      async clear(key = null) { try { if (key) localStorage.removeItem(key); else localStorage.clear(); return { success: true }; } catch (e) { return { success: false, error: e }; } },
+      async getStorageInfo() { return { localStorage: { sizeMB: '0.00' }, indexedDB: { sizeMB: '0.00' }, totalMB: '0.00' }; }
     };
+    return enhancedStorage;
+  }
 }
 
 // ✅ SINGLE SET of offline event listeners
@@ -341,3 +320,4 @@ window.addEventListener('offline', function() {
         statusEl.value = "Working offline - Data saved locally";
     }
 });
+
