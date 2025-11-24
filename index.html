@@ -4669,237 +4669,200 @@ if (window.location.protocol === 'file:') {
   localStorage.setItem('gloves-theme', 'light');
 }
 
-// 🚀 MANUAL UPDATE CHECK SYSTEM FOR GMC08.NETLIFY.APP
+/* =======================================================
+   🚀 GMC08 — OFFLINE-SAFE UPDATE SYSTEM (FINAL VERSION)
+   ======================================================= */
+
 class AppUpdater {
   constructor() {
-    this.currentVersion = '4.10'; // Aapki current version
+    this.currentVersion = '4.10';
     this.updateUrl = 'https://gmc08.netlify.app/version.json';
+    this.isAPK =
+      window.location.protocol === 'file:' ||
+      !window.location.hostname ||
+      navigator.userAgent.includes("Android") ||
+      navigator.userAgent.includes("wv");
+
     this.init();
   }
 
   init() {
     const checkBtn = document.getElementById('checkUpdateBtn');
     const installBtn = document.getElementById('installUpdateBtn');
-    
-    if (checkBtn) {
-      checkBtn.addEventListener('click', () => this.checkForUpdates());
-    }
-    
-    if (installBtn) {
-      installBtn.addEventListener('click', () => this.installUpdate());
+
+    if (this.isAPK) {
+      this.patchAPKButton();
+    } else {
+      if (checkBtn) checkBtn.addEventListener('click', () => this.checkForUpdates());
+      if (installBtn) installBtn.addEventListener('click', () => this.installUpdate());
     }
   }
 
+  /* -----------------------------------------
+     OFFLINE-SAFE UPDATE CHECK
+     ----------------------------------------- */
   async checkForUpdates() {
     if (!navigator.onLine) {
-      this.showStatus('❌ Please connect to internet to check updates', 'error');
+      this.showStatus("📴 Offline — cannot check updates", "info");
       return;
     }
 
-    this.showStatus('🔍 Checking for updates...', 'loading');
-    document.getElementById('checkUpdateBtn').disabled = true;
+    this.showStatus("🔍 Checking for updates...", "loading");
 
     try {
-      // Cache busting ke liye timestamp add karo
-      const response = await fetch(`${this.updateUrl}?t=${Date.now()}`);
-      
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-      
+      const response = await fetch(this.updateUrl + "?t=" + Date.now(), {
+        cache: "no-store",
+      });
+
       const data = await response.json();
       this.handleUpdateResponse(data);
-      
-    } catch (error) {
-      console.error('Update check failed:', error);
-      this.showStatus('❌ Update check failed. Try again.', 'error');
-    } finally {
-      document.getElementById('checkUpdateBtn').disabled = false;
+
+    } catch (e) {
+      console.warn("Update check failed:", e);
+      this.showStatus("⚠ Could not check updates (network)", "error");
     }
   }
 
+  /* -----------------------------------------
+     PROCESS UPDATE
+     ----------------------------------------- */
   handleUpdateResponse(data) {
     if (!data.version) {
-      this.showStatus('❌ Invalid update information', 'error');
+      this.showStatus("❌ Invalid update file", "error");
       return;
     }
 
-    const isNewVersion = this.isNewVersionAvailable(data.version);
-    
-    if (isNewVersion) {
-      this.showNewUpdateAvailable(data);
+    const latest = data.version;
+    const current = this.currentVersion;
+
+    if (this.isNewer(latest, current)) {
+      this.showNewUpdate(data);
     } else {
-      this.showStatus('✅ You have the latest version ' + this.currentVersion, 'success');
+      this.showStatus(`✔ You are up to date (${current})`, "success");
     }
   }
 
-  isNewVersionAvailable(latestVersion) {
-    // Simple version comparison
-    const currentParts = this.currentVersion.split('.').map(Number);
-    const latestParts = latestVersion.split('.').map(Number);
-    
-    for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
-      const current = currentParts[i] || 0;
-      const latest = latestParts[i] || 0;
-      
-      if (latest > current) return true;
-      if (latest < current) return false;
+  isNewer(latest, current) {
+    const L = latest.split('.').map(Number);
+    const C = current.split('.').map(Number);
+
+    for (let i = 0; i < Math.max(L.length, C.length); i++) {
+      if ((L[i] || 0) > (C[i] || 0)) return true;
+      if ((L[i] || 0) < (C[i] || 0)) return false;
     }
-    
     return false;
   }
 
-  showNewUpdateAvailable(data) {
-    this.showStatus(`🎉 New version ${data.version} available!`, 'success');
-    
-    // Install button show karo
+  /* -----------------------------------------
+     SHOW UPDATE AVAILABLE
+     ----------------------------------------- */
+  showNewUpdate(data) {
+    this.showStatus(`🎉 Update ${data.version} available!`, "success");
+
     const installBtn = document.getElementById('installUpdateBtn');
     if (installBtn) {
-      installBtn.style.display = 'block';
+      installBtn.style.display = "block";
       installBtn.dataset.updateData = JSON.stringify(data);
     }
-    
-    // Changelog show karo
-    const updateInfo = document.getElementById('updateInfo');
-    const changelog = document.getElementById('changelog');
-    
-    if (updateInfo && changelog) {
-      updateInfo.style.display = 'block';
-      
-      if (data.changelog) {
-        changelog.innerHTML = data.changelog;
-      } else if (data.whatsNew) {
-        changelog.innerHTML = data.whatsNew;
-      } else {
-        changelog.innerHTML = 'Bug fixes and performance improvements';
-      }
+
+    const info = document.getElementById("updateInfo");
+    const log = document.getElementById("changelog");
+
+    if (info && log) {
+      info.style.display = "block";
+      log.innerHTML = data.changelog || data.whatsNew || "Minor improvements";
     }
   }
 
-  installUpdate() {
-    const installBtn = document.getElementById('installUpdateBtn');
-    const updateData = installBtn ? JSON.parse(installBtn.dataset.updateData || '{}') : {};
-    
-    if (confirm(`Install version ${updateData.version || 'new'}? Your data will be safe.`)) {
-      this.performUpdate();
-    }
-  }
+  /* -----------------------------------------
+     INSTALL UPDATE (WEB ONLY)
+     ----------------------------------------- */
+  async installUpdate() {
+    const btn = document.getElementById("installUpdateBtn");
+    const data = JSON.parse(btn.dataset.updateData || "{}");
 
-  async performUpdate() {
-    this.showStatus('🔄 Installing update...', 'loading');
-    
+    if (!confirm(`Install version ${data.version}?`)) return;
+
+    this.showStatus("🔄 Installing update...", "loading");
+
     try {
-      // Step 1: Service Worker clear karo (agar hai toh)
-      await this.clearServiceWorker();
-      
-      // Step 2: App cache clear karo
-      await this.clearAppCache();
-      
-      // Step 3: Page reload karo
+      await this.clearSW();
+      await this.clearCache();
+
       setTimeout(() => {
-        this.showStatus('✅ Update complete! Reloading...', 'success');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      }, 1500);
-      
-    } catch (error) {
-      console.error('Update failed:', error);
-      this.showStatus('❌ Update failed. Please reload manually.', 'error');
+        this.showStatus("✔ Update installed. Reloading...", "success");
+        location.reload();
+      }, 1200);
+
+    } catch (e) {
+      console.error(e);
+      this.showStatus("❌ Installation failed", "error");
     }
   }
 
-  async clearServiceWorker() {
+  /* -----------------------------------------
+     CLEAR SERVICE WORKER
+     ----------------------------------------- */
+  async clearSW() {
     if ('serviceWorker' in navigator) {
-      try {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (let registration of registrations) {
-          await registration.unregister();
-          console.log('Service Worker unregistered');
-        }
-      } catch (error) {
-        console.warn('Service Worker clear failed:', error);
-      }
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (let r of regs) await r.unregister();
     }
   }
 
-  async clearAppCache() {
-    try {
-      // Sirf cache clear karo, user data safe rakho
-      if ('caches' in window) {
-        const cacheNames = await caches.keys();
-        for (let cacheName of cacheNames) {
-          await caches.delete(cacheName);
-          console.log('Cache cleared:', cacheName);
-        }
-      }
-      
-      // Calculator cache clear karo (optional)
-      const cacheKeys = ['gloves-calculator-data', 'calculator_data_v3'];
-      cacheKeys.forEach(key => {
-        try { localStorage.removeItem(key); } catch(e) {}
-      });
-      
-    } catch (error) {
-      console.warn('Cache clear failed:', error);
+  /* -----------------------------------------
+     CLEAR CACHE (BUT DO NOT CLEAR USER DATA)
+     ----------------------------------------- */
+  async clearCache() {
+    if ("caches" in window) {
+      const names = await caches.keys();
+      for (let name of names) await caches.delete(name);
     }
   }
 
-  showStatus(message, type = 'info') {
-    const statusEl = document.getElementById('updateStatus');
-    if (!statusEl) return;
-    
-    statusEl.textContent = message;
-    statusEl.style.display = 'block';
-    
-    // Colors set karo based on type
-    const colors = {
-      error: 'var(--accent2)',
-      success: 'var(--ok)',
-      loading: 'var(--accent3)',
-      info: 'var(--accent)'
-    };
-    
-    statusEl.style.backgroundColor = type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 
-                                   type === 'success' ? 'rgba(16, 185, 129, 0.1)' :
-                                   type === 'loading' ? 'rgba(245, 158, 11, 0.1)' :
-                                   'rgba(59, 130, 246, 0.1)';
-    
-    statusEl.style.borderLeft = `3px solid ${colors[type] || colors.info}`;
-    statusEl.style.color = colors[type] || colors.info;
-    
-    console.log(`Update: ${message}`);
-  }
-}
-
-// Initialize Update System when DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-  // Wait for main app to load
-  setTimeout(() => {
-    window.appUpdater = new AppUpdater();
-    console.log('🔧 Update system ready - GMC08.netlify.app');
-  }, 2000);
-});
-
-// APK mode mein update button ko modify karo
-function setupAPKUpdateButton() {
-  const isAPK = window.location.protocol === 'file:';
-  
-  if (isAPK) {
-    const updateBtn = document.getElementById('checkUpdateBtn');
-    if (updateBtn) {
-      updateBtn.innerHTML = '📱 Check APK Update';
-      updateBtn.onclick = function() {
-        alert('For APK updates, please visit:\nhttps://gmc08.netlify.app\n\nYour data will sync when you reinstall.');
-        window.open('https://gmc08.netlify.app', '_blank');
+  /* -----------------------------------------
+     APK MODE — BUTTON PATCH
+     ----------------------------------------- */
+  patchAPKButton() {
+    const btn = document.getElementById("checkUpdateBtn");
+    if (btn) {
+      btn.innerHTML = "📱 Install New APK";
+      btn.onclick = () => {
+        alert("Go to website to download latest APK:\nhttps://gmc08.netlify.app");
+        window.open("https://gmc08.netlify.app", "_blank");
       };
     }
   }
+
+  /* -----------------------------------------
+     SHOW STATUS
+     ----------------------------------------- */
+  showStatus(msg, type = "info") {
+    const box = document.getElementById("updateStatus");
+    if (!box) return;
+
+    box.textContent = msg;
+    box.style.display = "block";
+
+    const colors = {
+      error: "var(--accent2)",
+      success: "var(--ok)",
+      loading: "var(--accent3)",
+      info: "var(--accent)"
+    };
+
+    box.style.color = colors[type] || colors.info;
+  }
 }
 
-// Isko bhi DOM ready mein call karo
-document.addEventListener('DOMContentLoaded', function() {
-  setupAPKUpdateButton();
+/* -----------------------------------------
+   INITIALIZE UPDATE SYSTEM
+   ----------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    window.appUpdater = new AppUpdater();
+    console.log("🔧 Update System Ready.");
+  }, 1500);
 });
 </script>
 
