@@ -1,26 +1,12 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<link rel="manifest" href="./manifest.json">
-
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-
-<!-- PWA Manifest -->
-<!-- PWA Theme Color -->
-<meta name="theme-color" content="#3b82f6">
-<meta name="msapplication-TileColor" content="#3b82f6">
-
-<!-- iOS PWA Support -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="GMC App">
-<link rel="apple-touch-icon" href="./icon-192.png">
-
-<!-- Enhanced Storage Script -->
-<script src="./storage.js"></script>
 <title>Gloves Manufacture Company</title>
+<link rel="icon" href="./July_2025 Kaaj Button/favicon-104x104.png" type="image/png" sizes="104x104">
 
 <style>
     /* VARIABLES */
@@ -1676,13 +1662,301 @@
       }
 
         </style>
+        <script>
+// Enhanced Storage Script - Full code yahan paste karen
+// storage.js - Enhanced Storage Management for GMC App
+class EnhancedStorage {
+    constructor() {
+        this.DB_NAME = 'GlovesManufactureDB';
+        this.DB_VERSION = 2;
+        this.STORE_NAME = 'appData';
+        this.STORAGE_KEY = 'gloves-manufacture-month-v16';
+        this.SETTINGS_KEY = 'gloves-settings-v2';
+        this.PREFERENCES_KEY = 'gloves-preferences-v1';
+        this.THEME_KEY = 'gloves-theme';
+        this.PROFILE_IMAGE_KEY = 'gloves-profile-image';
+        this.CALCULATOR_DATA_KEY = 'gloves-calculator-data';
+        
+        this.db = null;
+        this.isIndexedDBSupported = this.checkIndexedDBSupport();
+        this.init();
+    }
+
+    checkIndexedDBSupport() {
+        try {
+            return !!window.indexedDB;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    async init() {
+        if (!this.isIndexedDBSupported) {
+            console.log('IndexedDB not supported, using localStorage only');
+            return;
+        }
+
+        try {
+            this.db = await this.openDB();
+        } catch (error) {
+            console.warn('IndexedDB initialization failed, using localStorage only:', error);
+            this.isIndexedDBSupported = false;
+        }
+    }
+
+    openDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+            
+            request.onerror = () => {
+                console.error('IndexedDB open error:', request.error);
+                reject(request.error);
+            };
+            
+            request.onsuccess = () => {
+                resolve(request.result);
+            };
+            
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                
+                if (!db.objectStoreNames.contains(this.STORE_NAME)) {
+                    const store = db.createObjectStore(this.STORE_NAME, { keyPath: 'key' });
+                    store.createIndex('key', 'key', { unique: true });
+                }
+            };
+
+            request.onblocked = () => {
+                console.warn('IndexedDB open blocked');
+                reject(new Error('IndexedDB blocked'));
+            };
+        });
+    }
+
+    // Main save function with fallback
+    async save(key, data) {
+        // Use existing saveData function from index.html
+        try {
+            // YAHAN CHANGE KARNA HOGA - saveData function call karen
+            if (typeof saveData === 'function') {
+                saveData(key, data);
+            } else {
+                // Fallback agar saveData function nahi hai
+                localStorage.setItem(key, JSON.stringify(data));
+            }
+            return { success: true, method: 'localStorage' };
+        } catch (e) {
+            if ((e.name === 'QuotaExceededError' || e.code === 22) && this.isIndexedDBSupported) {
+                // Fallback to IndexedDB
+                try {
+                    await this.saveToIndexedDB(key, data);
+                    return { success: true, method: 'indexedDB' };
+                } catch (idbError) {
+                    console.error('IndexedDB save failed:', idbError);
+                    return { success: false, error: idbError };
+                }
+            }
+            return { success: false, error: e };
+        }
+    }
+
+    // Main load function with fallback
+    async load(key) {
+        // Use existing loadData function from index.html first
+        try {
+            if (typeof loadData === 'function') {
+                const data = loadData(key);
+                if (data !== null) {
+                    return data;
+                }
+            } else {
+                // Fallback agar loadData function nahi hai
+                const data = localStorage.getItem(key);
+                if (data) {
+                    return JSON.parse(data);
+                }
+            }
+        } catch (e) {
+            console.warn('LocalStorage load failed, trying IndexedDB:', e);
+        }
+
+        // Fallback to IndexedDB
+        if (this.isIndexedDBSupported) {
+            try {
+                const data = await this.loadFromIndexedDB(key);
+                if (data) {
+                    return data;
+                }
+            } catch (idbError) {
+                console.error('IndexedDB load failed:', idbError);
+            }
+        }
+        
+        return null;
+    }
+
+    // IndexedDB specific functions
+    async saveToIndexedDB(key, data) {
+        if (!this.db && this.isIndexedDBSupported) {
+            await this.init();
+        }
+        
+        if (!this.db) {
+            throw new Error('IndexedDB not available');
+        }
+        
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(this.STORE_NAME);
+            
+            const request = store.put({
+                key: key,
+                data: data,
+                timestamp: new Date().toISOString()
+            });
+            
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    async loadFromIndexedDB(key) {
+        if (!this.db && this.isIndexedDBSupported) {
+            await this.init();
+        }
+        
+        if (!this.db) {
+            throw new Error('IndexedDB not available');
+        }
+        
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([this.STORE_NAME], 'readonly');
+            const store = transaction.objectStore(this.STORE_NAME);
+            
+            const request = store.get(key);
+            
+            request.onsuccess = () => {
+                if (request.result) {
+                    resolve(request.result.data);
+                } else {
+                    resolve(null);
+                }
+            };
+            
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    // Clear storage
+    async clear(key = null) {
+        try {
+            if (key) {
+                localStorage.removeItem(key);
+                if (this.isIndexedDBSupported && this.db) {
+                    const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(this.STORE_NAME);
+                    store.delete(key);
+                }
+            } else {
+                localStorage.clear();
+                if (this.isIndexedDBSupported && this.db) {
+                    const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(this.STORE_NAME);
+                    store.clear();
+                }
+            }
+            return { success: true };
+        } catch (error) {
+            console.error('Clear storage failed:', error);
+            return { success: false, error: error };
+        }
+    }
+
+    // Get storage info
+    async getStorageInfo() {
+        let localStorageSize = 0;
+        let indexedDBSize = 0;
+        
+        // Calculate localStorage size
+        try {
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    localStorageSize += localStorage[key].length * 2;
+                }
+            }
+        } catch (e) {
+            console.warn('Could not calculate localStorage size:', e);
+        }
+        
+        return {
+            localStorage: {
+                size: localStorageSize,
+                sizeMB: (localStorageSize / (1024 * 1024)).toFixed(2)
+            },
+            indexedDB: {
+                size: indexedDBSize,
+                sizeMB: (indexedDBSize / (1024 * 1024)).toFixed(2)
+            },
+            totalMB: ((localStorageSize + indexedDBSize) / (1024 * 1024)).toFixed(2)
+        };
+    }
+}
+
+// Create global instance with error handling
+let enhancedStorage;
+try {
+    enhancedStorage = new EnhancedStorage();
+} catch (error) {
+    console.error('Failed to initialize EnhancedStorage:', error);
+    // Fallback to simple object using existing functions
+    enhancedStorage = {
+        async save(key, data) {
+            try {
+                if (typeof saveData === 'function') {
+                    saveData(key, data);
+                } else {
+                    localStorage.setItem(key, JSON.stringify(data));
+                }
+                return { success: true, method: 'localStorage' };
+            } catch (e) {
+                return { success: false, error: e };
+            }
+        },
+        async load(key) {
+            try {
+                if (typeof loadData === 'function') {
+                    return loadData(key);
+                } else {
+                    const data = localStorage.getItem(key);
+                    return data ? JSON.parse(data) : null;
+                }
+            } catch (e) {
+                return null;
+            }
+        },
+        async clear(key = null) {
+            try {
+                if (key) {
+                    localStorage.removeItem(key);
+                } else {
+                    localStorage.clear();
+                }
+                return { success: true };
+            } catch (error) {
+                return { success: false, error: error };
+            }
+        }
+    };
+}
+</script>
 </head>
 <body>
 <header>
 <div class="wrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
-<h1>Gloves Manufacture Company (GMC) 01</h1>
+<h1>Gloves Manufacture Company (GMC)</h1>
 <div class="header-buttons-container desktop-only">
 <button class="btn-new header-btn" id="exportBtn">Export JSON</button>
+<button class="btn-new header-btn" id="selectDownloadFolderBtn" title="Select download folder">Select Download Folder</button>
 <div class="import-btn-container">
 <label class="import-btn-label header-btn" title="Import JSON">Import JSON</label>
 <input accept="application/json" class="import-btn-input" id="importFile" type="file"/>
@@ -1697,7 +1971,6 @@
 <!-- User Form Section - Desktop Version -->
 <div class="user-form-container desktop-only">
 <div class="profile-img-container">
-<img alt="Profile Image" class="profile-img" id="profileImageDesktop" src="https://via.placeholder.com/80"/>
 <label class="profile-upload-btn" for="profileUploadDesktop">+</label>
 <input accept="image/*" id="profileUploadDesktop" style="display: none;" type="file"/>
 </div>
@@ -1740,7 +2013,6 @@
 <div class="combined-user-info mobile-only">
 <div class="profile-toggle-container">
 <div class="profile-img-container">
-<img alt="Profile Image" class="profile-img" id="profileImage" src="https://via.placeholder.com/80"/>
 <label class="profile-upload-btn" for="profileUpload">+</label>
 <input accept="image/*" id="profileUpload" style="display: none;" type="file"/>
 </div>
@@ -1979,13 +2251,8 @@
 <input class="mono" id="totalDarzanAmount" readonly="" type="text"/>
 <label>Previous Balance</label>
 <input class="mono" id="prevBalanceDisplay" readonly="" type="text"/>
-    <!-- Grand Total Section - With Increased Font Size -->
-<div class="panel net-final-amount-panel">
-  <div class="card-title"><strong>Account Balance</strong></div>
-  <input class="net-final-amount" id="grandTotal" readonly type="text" 
-         style="font-size: 25px; font-weight: bold; color: var(--ok); text-align: center; background: transparent; border: none; padding: 10px; width: 100%;"/>
-  <div class="net-final-amount-label">Payable amount after all deductions</div>
-</div>
+<label>Combined Grand Total</label>
+<input class="mono" id="grandTotal" readonly="" type="text"/>
 </div>
 <!-- Payment Summary Section -->
 <div class="panel payment-summary-panel">
@@ -2138,29 +2405,10 @@
 <p>✨ Jitna kam tay hua hai, utna zaroor karein.</p>
 </div>
 
-<br>
-
-<!-- Tips Tab ke andar yeh add karo -->
-<div class="how-to-use-section">
-  <h3>🔄 App Updates</h3>
-  <p>Check for new features and improvements. Your data will be safe.</p>
-  
-  <div class="tips-buttons-container">
-    <button class="btn-new success" id="checkUpdateBtn">Check for Updates</button>
-    <button class="btn-new" id="installUpdateBtn" style="display: none;">🔄 Install Update Now</button>
-  </div>
-  
-  <div id="updateStatus" style="margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 13px; display: none;"></div>
-  
-  <div id="updateInfo" style="margin-top: 10px; font-size: 12px; color: var(--muted); display: none;">
-    <strong>What's New:</strong>
-    <div id="changelog" style="margin-top: 5px;"></div>
-  </div>
-</div>
-
 <!-- Buttons moved to Tips tab for mobile -->
 <div class="tips-buttons-container mobile-only">
 <button class="btn-new" id="exportBtnTips">Export JSON</button>
+<button class="btn-new" id="selectDownloadFolderBtnTips" title="Select download folder">Select Download Folder</button>
 <div class="import-btn-container">
 <label class="import-btn-label" title="Import JSON">Import JSON</label>
 <input accept="application/json" class="import-btn-input" id="importFileTips" type="file"/>
@@ -2171,7 +2419,6 @@
 </div>
 </div>
 </main>
-
 <footer class="wrap footer">
 <div class="footer-content">
 <div class="footer-title">Cash Management System v4.10 (Oct 18, 2025)</div>
@@ -2187,10 +2434,6 @@
 </div>
 </div>
 </footer>
-
-<!-- JS PDF Libraries -->
-    <script src="./lib/jspdf.umd.min.js"></script>
-    <script src="./lib/jspdf-autotable.min.js"></script>
 
 <script>
     // --- Constants ---
@@ -2272,47 +2515,13 @@
     // --- Helpers ---
     let decimalPlaces = 2;
     
-   // ✅ CORRECTED fmt FUNCTION
-function fmt(n) {
-  const num = Number(n) || 0;
-  
-  // Decimal places preference check
-  if (preferences.decimalPlaces === 'none') {
-    // No formatting - return as is
-    if (Number.isInteger(num)) {
-      return num.toString();
-    } else {
-      // Remove trailing zeros
-      return parseFloat(num.toString()).toString();
+    function fmt(n) {
+      const num = Number(n) || 0;
+      if (decimalPlaces === '0') return Math.round(num).toString();
+      return num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     }
-  } else {
-    // Two decimals formatting
-    return num.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  }
-}
-
-// ✅ IMPROVED applyPreferences FUNCTION
-function applyPreferences() {
-  // Update decimal places from preferences
-  decimalPlaces = preferences.decimalPlaces;
-  
-  // Update UI elements
-  document.getElementById('decimalPlaces').value = preferences.decimalPlaces;
-  document.getElementById('autoSave').value = preferences.autoSave;
-  document.getElementById('defaultCategory').value = preferences.defaultCategory;
-  document.getElementById('defaultRate').value = preferences.defaultRate;
-  
-  // Recalculate and update ALL displayed values
-  totals();
-  updateDynamicTotals();
-  updateCombinedQuickTotal();
-  updateCalculatorDeduction();
-  
-  console.log('✅ Preferences applied - Decimal Format:', decimalPlaces);
-}
+    
+    const sum = arr => arr.reduce((a,b)=>a+(Number(b)||0),0);
     
     // Format date as DD-MM-YYYY
     function formatDate(dateString) {
@@ -2702,30 +2911,20 @@ function calculateDeductionsByRate(entries) {
       updatePreferencesDefaultRate();
     }
 
-    // ✅ IMPROVED Default Rate Dropdown
-function updatePreferencesDefaultRate() {
-  const defaultRateSelect = document.getElementById('defaultRate');
-  if (!defaultRateSelect) return;
-  
-  defaultRateSelect.innerHTML = '';
-  
-  settings.rateTypes.forEach(rateType => {
-    const option = document.createElement('option');
-    option.value = rateType.value;
-    option.textContent = `${rateType.label} (${rateType.value})`;
-    
-    // Set selected based on saved preference
-    if (rateType.value == preferences.defaultRate) {
-      option.selected = true;
+    function updatePreferencesDefaultRate() {
+      const defaultRateSelect = document.getElementById('defaultRate');
+      defaultRateSelect.innerHTML = '';
+      
+      settings.rateTypes.forEach(rateType => {
+        const option = document.createElement('option');
+        option.value = rateType.value;
+        option.textContent = rateType.label;
+        if (rateType.value == preferences.defaultRate) {
+          option.selected = true;
+        }
+        defaultRateSelect.appendChild(option);
+      });
     }
-    defaultRateSelect.appendChild(option);
-  });
-  
-  // Agar koi selection nahi hai, toh first option select karo
-  if (!defaultRateSelect.value && settings.rateTypes.length > 0) {
-    defaultRateSelect.value = settings.rateTypes[0].value;
-  }
-}
 
     // Get rate label by ID
     function getRateLabel(rateId) {
@@ -2863,31 +3062,24 @@ function updatePreferencesDefaultRate() {
       }
     });
 
-    // ✅ IMPROVED Save All Settings Button
-document.getElementById('saveAllSettingsBtn').addEventListener('click', function() {
-  // Update preferences from UI
-  preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
-  preferences.autoSave = document.getElementById('autoSave').value;
-  preferences.defaultCategory = document.getElementById('defaultCategory').value;
-  preferences.defaultRate = document.getElementById('defaultRate').value;
-  
-  // Save preferences
-  savePreferences();
-  
-  // Apply preferences immediately
-  applyPreferences();
-  
-  // Show confirmation
-  const confirmation = document.getElementById('saveConfirmation');
-  confirmation.style.display = 'block';
-  confirmation.textContent = "All settings saved successfully!";
-  
-  setTimeout(() => {
-    confirmation.style.display = 'none';
-  }, 3000);
-  
-  console.log('💾 Settings saved:', preferences);
-});
+    // Save all settings
+    document.getElementById('saveAllSettingsBtn').addEventListener('click', () => {
+      // Update preferences from UI
+      preferences.decimalPlaces = document.getElementById('decimalPlaces').value;
+      preferences.autoSave = document.getElementById('autoSave').value;
+      preferences.defaultCategory = document.getElementById('defaultCategory').value;
+      preferences.defaultRate = document.getElementById('defaultRate').value;
+      
+      savePreferences();
+      
+      // Show confirmation
+      const confirmation = document.getElementById('saveConfirmation');
+      confirmation.style.display = 'block';
+      setTimeout(() => {
+        confirmation.style.display = 'none';
+      }, 3000);
+    });
+
     // --- Dynamic Totals ---
     function updateDynamicTotals() {
       const boraContainer = document.getElementById('boraTotalsGrid');
@@ -3663,21 +3855,132 @@ function updateCalculatorDeduction() {
     });
 
     // --- Export / Import / Reset ---
-    function exportData() {
+    // --- Download folder helpers (File System Access + IndexedDB persistence) ---
+    async function saveDirectoryHandleToIDB(handle){
+      if (!handle || !window.indexedDB) return;
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open('gmc-fs-handles', 1);
+        req.onupgradeneeded = (e) => {
+          try{ e.target.result.createObjectStore('handles'); }catch(e){}
+        };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          const tx = db.transaction('handles', 'readwrite');
+          const store = tx.objectStore('handles');
+          const put = store.put(handle, 'downloadDir');
+          put.onsuccess = () => { db.close(); resolve(true); };
+          put.onerror = () => { db.close(); resolve(false); };
+        };
+        req.onerror = () => resolve(false);
+      });
+    }
+
+    async function getDirectoryHandleFromIDB(){
+      if (!window.indexedDB) return null;
+      return new Promise((resolve) => {
+        const req = indexedDB.open('gmc-fs-handles', 1);
+        req.onupgradeneeded = (e) => { try{ e.target.result.createObjectStore('handles'); }catch(e){} resolve(null); };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          try{
+            const tx = db.transaction('handles', 'readonly');
+            const store = tx.objectStore('handles');
+            const get = store.get('downloadDir');
+            get.onsuccess = () => { db.close(); resolve(get.result || null); };
+            get.onerror = () => { db.close(); resolve(null); };
+          }catch(err){ db.close(); resolve(null); }
+        };
+        req.onerror = () => resolve(null);
+      });
+    }
+
+    async function verifyPermission(fileHandle, withWrite) {
+      if (!fileHandle) return false;
+      if (typeof fileHandle.queryPermission !== 'function') return false;
+      const options = { mode: withWrite ? 'readwrite' : 'read' };
+      let permission = await fileHandle.queryPermission(options);
+      if (permission === 'granted') return true;
+      permission = await fileHandle.requestPermission(options);
+      return permission === 'granted';
+    }
+
+    // Try to restore saved directory handle on load
+    (async function restoreSavedDownloadDir(){
+      try{
+        const saved = await getDirectoryHandleFromIDB();
+        if (saved) {
+          // saved handle may already be a FileSystemDirectoryHandle
+          window.gmcDownloadDirHandle = saved;
+          // try to ensure we still have permission; if not, request when used
+          // do not prompt on load to avoid unexpected permission prompts
+        }
+      }catch(e){ console.warn('Restore download dir failed', e); }
+    })();
+
+    // Bind "Select Download Folder" buttons
+    async function pickAndSaveDirectory(){
+      if (!window.showDirectoryPicker) {
+        alert('Your browser does not support selecting a folder. The app will fallback to normal downloads.');
+        return;
+      }
+      try{
+        const dir = await window.showDirectoryPicker();
+        const ok = await verifyPermission(dir, true);
+        if (!ok) { alert('Write permission denied for selected folder.'); return; }
+        window.gmcDownloadDirHandle = dir;
+        await saveDirectoryHandleToIDB(dir);
+        alert('Download folder selected and saved. Backups will be saved there.');
+      }catch(e){ console.warn('Folder pick cancelled or failed', e); }
+    }
+
+    document.getElementById('selectDownloadFolderBtn')?.addEventListener('click', pickAndSaveDirectory);
+    document.getElementById('selectDownloadFolderBtnTips')?.addEventListener('click', pickAndSaveDirectory);
+
+    // --- Export (backup) using chosen folder when possible ---
+    async function exportData() {
       // Include profile image in export
       state.meta.profileImage = localStorage.getItem(PROFILE_IMAGE_KEY) || '';
-      
+
       const data = JSON.stringify(state, null, 2);
       const blob = new Blob([data], {type:'application/json'});
+
+      // Use a detailed timestamp (unique) for filename
+      const stamp = new Date().toISOString().replace(/[:.]/g,'-');
+      const filename = `gloves-manufacture-${stamp}.json`;
+
+      // If File System Access API available and a saved directory handle exists, try to write directly
+      try{
+        const dirHandle = window.gmcDownloadDirHandle || await getDirectoryHandleFromIDB();
+        if (dirHandle && window.showDirectoryPicker && typeof dirHandle.getFileHandle === 'function'){
+          // Ensure permission - ask only if necessary
+          const has = await verifyPermission(dirHandle, true);
+          if (!has) {
+            // attempt to request permission interactively
+            try{ const tryReq = await dirHandle.requestPermission({mode:'readwrite'}); if (tryReq !== 'granted') throw new Error('Permission denied'); }catch(e){ throw e; }
+          }
+
+          const fileHandle = await dirHandle.getFileHandle(filename, { create: true });
+          const writable = await fileHandle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          // Persist handle if not already
+          if (!window.gmcDownloadDirHandle) { window.gmcDownloadDirHandle = dirHandle; await saveDirectoryHandleToIDB(dirHandle); }
+          alert('Backup saved to selected folder: ' + filename);
+          return;
+        }
+      }catch(err){
+        console.warn('Write to chosen folder failed, falling back to normal download', err);
+      }
+
+      // Fallback: force normal browser download
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-      a.download = `gloves-manufacture-${stamp}.json`;
+      a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
     }
-    
+
     document.getElementById('exportBtn').addEventListener('click', exportData);
     
     // Import function
@@ -3736,7 +4039,7 @@ function updateCalculatorDeduction() {
     document.getElementById('resetBtn').addEventListener('click', resetData);
 
         // --- PDF Download Function ---
-function downloadPDF() {
+        async function downloadPDF() {
   // PDF library ko load karo
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -3880,7 +4183,39 @@ doc.setTextColor(0, 0, 0);
   // PDF file ko save/download karo
   const date = new Date();
   const fileName = `darzan-deduction-report-${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}.pdf`;
-  doc.save(fileName);
+
+  try {
+    const blob = doc.output('blob');
+
+    // Try to write to chosen folder (File System Access API)
+    try {
+      const dirHandle = window.gmcDownloadDirHandle || await getDirectoryHandleFromIDB();
+      if (dirHandle && window.showDirectoryPicker && typeof dirHandle.getFileHandle === 'function'){
+        const ok = await verifyPermission(dirHandle, true);
+        if (!ok) {
+          // Try to request permission
+          const req = await dirHandle.requestPermission({ mode: 'readwrite' });
+          if (req !== 'granted') throw new Error('Write permission denied for selected folder.');
+        }
+
+        const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        if (!window.gmcDownloadDirHandle) { window.gmcDownloadDirHandle = dirHandle; await saveDirectoryHandleToIDB(dirHandle); }
+        alert('PDF saved to selected folder: ' + fileName);
+        return;
+      }
+    } catch (err) {
+      console.warn('Write PDF to chosen folder failed, falling back to normal download', err);
+    }
+
+    // Fallback: normal browser download
+    doc.save(fileName);
+  } catch (e) {
+    console.error('PDF generation failed', e);
+    alert('PDF generation failed: ' + e.message);
+  }
 }
     
     document.getElementById('downloadPdfBtn').addEventListener('click', downloadPDF);
@@ -3980,9 +4315,6 @@ showVideoPopup();
 <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 15px;">
   <a href="https://www.youtube.com/watch?v=PoTMM6YKhIM" target="_blank" style="text-decoration: none;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; background: #000; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
-            <img src="thumb.jpg" 
-            alt="Gloves Manufacture Company GMC Cash Management"
-            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; opacity: 0.9;">
       <div style="position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.6); padding: 10px;">
         Click img to Watch on YouTube
       </div>
@@ -4021,66 +4353,7 @@ function loadData(key){const d=localStorage.getItem(key);if(!d)return null;try{r
 </script>
 
 <script>
-// PWA Installation Prompt
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  console.log('PWA Installation available');
-  showInstallButton();
-});
-
-function showInstallButton() {
-  const installBtn = document.createElement('button');
-  installBtn.id = 'installPWA';
-  installBtn.innerHTML = '📱 Install App';
-  installBtn.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(145deg, #3b82f6, #2563eb);
-    color: white;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-  `;
-  
-  installBtn.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
-    
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      console.log('User accepted PWA installation');
-      installBtn.remove();
-    }
-    
-    deferredPrompt = null;
-  });
-  
-  installBtn.addEventListener('mouseenter', () => {
-    installBtn.style.transform = 'translateY(-2px)';
-    installBtn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
-  });
-  
-  installBtn.addEventListener('mouseleave', () => {
-    installBtn.style.transform = 'translateY(0)';
-    installBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
-  });
-  
-  document.body.appendChild(installBtn);
-}
-
-// Enhanced Storage Integration
 // Replace your existing save() and load() functions:
-
 async function save() {
   if (preferences.autoSave === 'disable') {
     document.getElementById('statusIndicator').value = "Auto Save Disabled";
@@ -4133,160 +4406,6 @@ async function load() {
   }
 }
 
-/* ============================================
-   GMC APP — Unified APK + WEB Loading System
-   ============================================ */
-
-console.log("📱 GMC App Starting...");
-
-// Detect APK (file://), Local HTML, Android WebView, or packaged PWA
-const isAPK =
-  window.location.protocol === "file:" ||
-  !window.location.hostname ||
-  navigator.userAgent.includes("Android") ||
-  navigator.userAgent.includes("wv");
-
-console.log("Environment:", isAPK ? "APK Mode" : "Web Mode");
-
-// GLOBAL START FUNCTION (called only ONCE)
-function startApp() {
-  if (window.__GMC_APP_STARTED__) return;
-  window.__GMC_APP_STARTED__ = true;
-
-  console.log("🚀 Starting GMC App...");
-
-  // Initialize storage safely
-  if (typeof EnhancedStorage === "function") {
-    try {
-      window.enhancedStorage = new EnhancedStorage();
-      console.log("📦 Enhanced Storage Ready");
-    } catch (e) {
-      console.warn("Storage init failed:", e);
-    }
-  }
-
-  // MAIN APP INITIALIZATION
-  if (typeof appInit === "function") {
-    console.log("⚙ Running appInit()");
-    appInit();
-  } else {
-    console.warn("⚠ appInit() not found!");
-  }
-
-  // OPTIONAL builder functions
-  try { if (typeof build === "function") build(); } catch (e) {}
-  try { if (typeof totals === "function") totals(); } catch (e) {}
-  try { if (typeof load === "function") load(); } catch (e) {}
-
-  // Status indicator
-  const st = document.getElementById("statusIndicator");
-  if (st) st.value = isAPK ? "📱 APK Offline Mode" : "🌐 Web Mode Active";
-}
-
-/* ============================================
-   APK MODE (no service worker possible)
-   ============================================ */
-if (isAPK) {
-  console.log("📱 APK Mode Enabled");
-
-  // Force light theme (APK bug fix)
-  document.documentElement.classList.remove("dark");
-  localStorage.setItem("gloves-theme", "light");
-
-  // Delay to allow UI + storage ready
-  setTimeout(() => {
-    console.log("📦 Loading Data (APK)...");
-    startApp();
-  }, 400);
-
-  // Offline + online indicators
-  window.addEventListener("offline", () => {
-    const st = document.getElementById("statusIndicator");
-    if (st) st.value = "📴 Offline — APK Local Data Mode";
-  });
-  window.addEventListener("online", () => {
-    const st = document.getElementById("statusIndicator");
-    if (st) st.value = "✅ Online — Sync Ready";
-  });
-
-}
-/* ============================================
-   WEB MODE (Service Worker required)
-   ============================================ */
-else {
-
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-      try {
-        const reg = await navigator.serviceWorker.register("./sw.js", {
-          scope: "./",
-        });
-
-        console.log("✔ Service Worker Registered", reg);
-
-        // SW messages
-        navigator.serviceWorker.addEventListener("message", (evt) => {
-          const data = evt.data || {};
-          console.log("📩 Message from SW:", data);
-          if (data.type === "SW_READY" || data.type === "PONG") {
-            startApp();
-          }
-        });
-
-        // SW READY EVENT
-        navigator.serviceWorker.ready.then(() => {
-          console.log("✔ SW Ready Event Triggered");
-
-          if (navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({ type: "PING" });
-          } else {
-            setTimeout(startApp, 200);
-          }
-        });
-
-        // Fallback: 3 second timeout
-        setTimeout(() => {
-          if (!window.__GMC_APP_STARTED__) {
-            console.warn("SW timeout — starting app (fallback)");
-            startApp();
-          }
-        }, 3000);
-
-      } catch (err) {
-        console.warn("❌ SW failed — fallback to APK mode");
-        startApp();
-      }
-    });
-  } else {
-    console.log("⚠ No SW support — starting app immediately");
-    startApp();
-  }
-
-  // PWA Install Prompt (optional)
-  let deferredPrompt;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-
-    const btn = document.createElement("button");
-    btn.innerHTML = "📱 Install App";
-    btn.style.cssText = `
-      position: fixed; bottom: 20px; right: 20px;
-      background: #3b82f6; color: #fff;
-      border: none; padding: 12px 18px;
-      border-radius: 25px; font-size: 14px;
-      font-weight: 600; cursor: pointer;
-      z-index: 999999; box-shadow: 0 3px 10px rgba(0,0,0,.3);
-    `;
-    btn.onclick = async () => {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") btn.remove();
-      deferredPrompt = null;
-    };
-    document.body.appendChild(btn);
-  });
-}
 // Storage Info Display (Optional - for debugging)
 async function showStorageInfo() {
   const info = await enhancedStorage.getStorageInfo();
@@ -4571,16 +4690,13 @@ function ensurePdfLibs(cb) {
   });
 })(); 
 </script>
-<!-- End calculator persistent script -->
 
 <script>
 // Previous Balance Fix Code
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Previous Balance Fix: DOM loaded');
 
     // Wait for state to be loaded
     setTimeout(() => {
-        console.log('Previous Balance Fix: Checking state...', state);
 
         // Sync previous balance inputs
         const desktopBalance = document.getElementById('previousBalance');
@@ -4591,7 +4707,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (state.meta.previousBalance !== undefined) {
                 desktopBalance.value = state.meta.previousBalance;
                 mobileBalance.value = state.meta.previousBalance;
-                console.log('Previous Balance Fix: Set inputs from state', state.meta.previousBalance);
             }
 
             // Add event listeners to update state and save
@@ -4628,245 +4743,18 @@ updateUserInfo = function() {
 };
 </script>
 
-    <!-- APK LOAD CHECK SCRIPT -->
-<script>
-// APK Load Success Check
-setTimeout(function() {
-  console.log('🔍 Checking APK Load Status...');
-  
-  // Check karo kya app properly load hua hai
-  const mainContent = document.getElementById('mainContent');
-  const userNameInput = document.getElementById('userName') || document.getElementById('userNameMobile');
-  
-  if (!mainContent || !userNameInput) {
-    console.error('❌ APK Load Failed - Showing Fallback');
-    showAPKFallback();
-  } else {
-    console.log('✅ APK Load Successful');
-  }
-}, 2000);
+<!-- Google map
+https://maps.app.goo.gl/VRAW4Poyuh58bCPw5
+linkedin
+https://www.linkedin.com/in/alqaaborg
+github
+https://github.com/ALQAAB-Org
+whatsapp
+https://wa.me/923261182021
+facebook
+https://www.facebook.com/alqaab.org
+Youtube
+https://www.youtube.com/@ALQAAB_YT_Studio -->
 
-function showAPKFallback() {
-  document.body.innerHTML = `
-    <div style="padding: 20px; text-align: center; font-family: Arial;">
-      <h1>🛠️ GMC App</h1>
-      <p>App loading... If this persists, please:</p>
-      <button onclick="location.reload()" style="padding: 10px; margin: 5px;">🔄 Reload App</button>
-      <button onclick="clearAndReload()" style="padding: 10px; margin: 5px;">🗑️ Clear Data & Reload</button>
-      <p><small>APK Mode - Data saved locally</small></p>
-    </div>
-  `;
-}
-
-function clearAndReload() {
-  localStorage.clear();
-  location.reload();
-}
-
-// Force APK theme to light mode
-if (window.location.protocol === 'file:') {
-  document.documentElement.classList.remove('dark');
-  localStorage.setItem('gloves-theme', 'light');
-}
-
-/* =======================================================
-   🚀 GMC08 — OFFLINE-SAFE UPDATE SYSTEM (FINAL VERSION)
-   ======================================================= */
-
-class AppUpdater {
-  constructor() {
-    this.currentVersion = '4.10';
-    this.updateUrl = 'https://gmc08.netlify.app/version.json';
-    this.isAPK =
-      window.location.protocol === 'file:' ||
-      !window.location.hostname ||
-      navigator.userAgent.includes("Android") ||
-      navigator.userAgent.includes("wv");
-
-    this.init();
-  }
-
-  init() {
-    const checkBtn = document.getElementById('checkUpdateBtn');
-    const installBtn = document.getElementById('installUpdateBtn');
-
-    if (this.isAPK) {
-      this.patchAPKButton();
-    } else {
-      if (checkBtn) checkBtn.addEventListener('click', () => this.checkForUpdates());
-      if (installBtn) installBtn.addEventListener('click', () => this.installUpdate());
-    }
-  }
-
-  /* -----------------------------------------
-     OFFLINE-SAFE UPDATE CHECK
-     ----------------------------------------- */
-  async checkForUpdates() {
-    if (!navigator.onLine) {
-      this.showStatus("📴 Offline — cannot check updates", "info");
-      return;
-    }
-
-    this.showStatus("🔍 Checking for updates...", "loading");
-
-    try {
-      const response = await fetch(this.updateUrl + "?t=" + Date.now(), {
-        cache: "no-store",
-      });
-
-      const data = await response.json();
-      this.handleUpdateResponse(data);
-
-    } catch (e) {
-      console.warn("Update check failed:", e);
-      this.showStatus("⚠ Could not check updates (network)", "error");
-    }
-  }
-
-  /* -----------------------------------------
-     PROCESS UPDATE
-     ----------------------------------------- */
-  handleUpdateResponse(data) {
-    if (!data.version) {
-      this.showStatus("❌ Invalid update file", "error");
-      return;
-    }
-
-    const latest = data.version;
-    const current = this.currentVersion;
-
-    if (this.isNewer(latest, current)) {
-      this.showNewUpdate(data);
-    } else {
-      this.showStatus(`✔ You are up to date (${current})`, "success");
-    }
-  }
-
-  isNewer(latest, current) {
-    const L = latest.split('.').map(Number);
-    const C = current.split('.').map(Number);
-
-    for (let i = 0; i < Math.max(L.length, C.length); i++) {
-      if ((L[i] || 0) > (C[i] || 0)) return true;
-      if ((L[i] || 0) < (C[i] || 0)) return false;
-    }
-    return false;
-  }
-
-  /* -----------------------------------------
-     SHOW UPDATE AVAILABLE
-     ----------------------------------------- */
-  showNewUpdate(data) {
-    this.showStatus(`🎉 Update ${data.version} available!`, "success");
-
-    const installBtn = document.getElementById('installUpdateBtn');
-    if (installBtn) {
-      installBtn.style.display = "block";
-      installBtn.dataset.updateData = JSON.stringify(data);
-    }
-
-    const info = document.getElementById("updateInfo");
-    const log = document.getElementById("changelog");
-
-    if (info && log) {
-      info.style.display = "block";
-      log.innerHTML = data.changelog || data.whatsNew || "Minor improvements";
-    }
-  }
-
-  /* -----------------------------------------
-     INSTALL UPDATE (WEB ONLY)
-     ----------------------------------------- */
-  async installUpdate() {
-    const btn = document.getElementById("installUpdateBtn");
-    const data = JSON.parse(btn.dataset.updateData || "{}");
-
-    if (!confirm(`Install version ${data.version}?`)) return;
-
-    this.showStatus("🔄 Installing update...", "loading");
-
-    try {
-      await this.clearSW();
-      await this.clearCache();
-
-      setTimeout(() => {
-        this.showStatus("✔ Update installed. Reloading...", "success");
-        location.reload();
-      }, 1200);
-
-    } catch (e) {
-      console.error(e);
-      this.showStatus("❌ Installation failed", "error");
-    }
-  }
-
-  /* -----------------------------------------
-     CLEAR SERVICE WORKER
-     ----------------------------------------- */
-  async clearSW() {
-    if ('serviceWorker' in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      for (let r of regs) await r.unregister();
-    }
-  }
-
-  /* -----------------------------------------
-     CLEAR CACHE (BUT DO NOT CLEAR USER DATA)
-     ----------------------------------------- */
-  async clearCache() {
-    if ("caches" in window) {
-      const names = await caches.keys();
-      for (let name of names) await caches.delete(name);
-    }
-  }
-
-  /* -----------------------------------------
-     APK MODE — BUTTON PATCH
-     ----------------------------------------- */
-  patchAPKButton() {
-    const btn = document.getElementById("checkUpdateBtn");
-    if (btn) {
-      btn.innerHTML = "📱 Install New APK";
-      btn.onclick = () => {
-        alert("Go to website to download latest APK:\nhttps://gmc08.netlify.app");
-        window.open("https://gmc08.netlify.app", "_blank");
-      };
-    }
-  }
-
-  /* -----------------------------------------
-     SHOW STATUS
-     ----------------------------------------- */
-  showStatus(msg, type = "info") {
-    const box = document.getElementById("updateStatus");
-    if (!box) return;
-
-    box.textContent = msg;
-    box.style.display = "block";
-
-    const colors = {
-      error: "var(--accent2)",
-      success: "var(--ok)",
-      loading: "var(--accent3)",
-      info: "var(--accent)"
-    };
-
-    box.style.color = colors[type] || colors.info;
-  }
-}
-
-/* -----------------------------------------
-   INITIALIZE UPDATE SYSTEM
-   ----------------------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    window.appUpdater = new AppUpdater();
-    console.log("🔧 Update System Ready.");
-  }, 1500);
-});
-</script>
-
-
-    
 </body>
 </html>
